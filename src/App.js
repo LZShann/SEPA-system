@@ -13,13 +13,12 @@ const App = () => {
   const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
 
   useEffect(() => {
-    const currentThemeColor = localStorage.getItem('colorMode');
-    const currentThemeMode = localStorage.getItem('themeMode');
-    if (currentThemeColor && currentThemeMode) {
-      setCurrentColor(currentThemeColor);
-      setCurrentMode(currentThemeMode);
-    }
-  }, [currentMode, setCurrentMode]);
+    document.documentElement.style.setProperty('--main-color', setCurrentColor);
+  }, [currentColor]);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', setCurrentMode);
+  }, [currentMode]);
 
   return (
     <div className={currentMode === 'Dark' ? 'dark' : ''}>
