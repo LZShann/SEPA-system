@@ -1,5 +1,5 @@
 # Live Website
-[ https://hrcyber.netlify.app/order](https://hrcyber.netlify.app/)
+[HR App](https://hrcyber.netlify.app/)
  
 # Getting Started 
 | Tutorial Used | https://www.youtube.com/watch?v=jx5hdo50a2M |
