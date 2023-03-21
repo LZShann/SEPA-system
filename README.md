@@ -1,8 +1,7 @@
-# Getting Started 
-
- # Live Website
- https://hrcyber.netlify.app/order
+# Live Website
+[ https://hrcyber.netlify.app/order](https://hrcyber.netlify.app/)
  
+# Getting Started 
 | Tutorial Used | https://www.youtube.com/watch?v=jx5hdo50a2M |
 | -------- | --------------- |
 | Actions Required | 1. Install Node.js & Restart Visual Studio Code |
