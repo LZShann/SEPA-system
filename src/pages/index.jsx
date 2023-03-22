@@ -14,3 +14,10 @@ export { default as Line } from './Charts/Line';
 export { default as Pie } from './Charts/Pie';
 export { default as Pyramid } from './Charts/Pyramid';
 export { default as Stacked } from './Charts/Stacked';
+
+// currently using
+export { default as Account } from './Account';
+export { default as Import_Dataset } from './Import_Dataset';
+export { default as Interview } from './Interview';
+export { default as Statistic } from './Statistic';
+export { default as Task } from './Task';
