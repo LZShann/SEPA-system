@@ -21,3 +21,5 @@ export { default as Import_Dataset } from './Import_Dataset';
 export { default as Interview } from './Interview';
 export { default as Statistic } from './Statistic';
 export { default as Task } from './Task';
+export { default as Login } from './Login';
+export { default as Register } from './Register';
