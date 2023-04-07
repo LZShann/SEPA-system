@@ -15,4 +15,6 @@ export { default as Pie } from './Charts/Pie';
 export { default as ChartsHeader } from './ChartsHeader';
 export { default as Header } from './Header';
 
-export { default as Form } from './Form';
+export { default as TopProduct } from './Forms/TopProduct';
+export { default as SalesByRegion } from './Forms/SalesByRegion';
+export { default as SalesByMonth } from './Forms/SalesByMonth';

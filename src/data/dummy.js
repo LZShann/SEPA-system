@@ -492,7 +492,7 @@ export const links = [
         icon: <BsKanban />,
       },
       {
-        name: 'Import Dataset',
+        name: 'import_dataset',
         icon: <AiOutlineBarChart />,
       },
       // {
