@@ -1,0 +1,53 @@
+.form-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 20px;
+  }
+  
+  .form-label {
+    color: black;
+    font-weight: bold;
+    font-size: 1.0rem;
+    margin-top: 10px;
+    display: block;
+  }
+  
+  .form-input {
+    background-color: rgba(128, 128, 128, 0.2);
+    color: black;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    padding: 0 20px;
+    z-index: 1;
+  }
+  
+  .form-button {
+    background-color: rgb(25, 151, 245);
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  .title-lg {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  
+  .title-md {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  h2:before {
+    content: "";
+    display: block;
+    border-top: 1px solid black;
+    margin-bottom: 10px;
+  }
