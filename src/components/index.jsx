@@ -18,3 +18,4 @@ export { default as Header } from './Header';
 export { default as TopProduct } from './Forms/TopProduct';
 export { default as SalesByRegion } from './Forms/SalesByRegion';
 export { default as SalesByMonth } from './Forms/SalesByMonth';
+export { default as Forms } from './Forms/Forms';
