@@ -32,7 +32,7 @@ const submitButtonStyle = {
 };
 //styling
 
-const Form = () => {
+const TopProduct = () => {
   const [formData, setFormData] = useState({
     productName: '',
     productQuantity: '',
@@ -106,4 +106,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default TopProduct;

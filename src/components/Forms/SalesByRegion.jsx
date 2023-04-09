@@ -32,7 +32,7 @@ const submitButtonStyle = {
 };
 //styling
 
-const Form = () => {
+const SalesByRegion = () => {
   const [formData, setFormData] = useState({
     Region: '',
     productQuantity: '',
@@ -99,6 +99,38 @@ const Form = () => {
           min="0"
         />
       </div>
+      <div className="form-group">
+          <label htmlFor="regionCode" className="form-label">Region Code</label>
+          <input
+              type="number"
+              className="form-input"
+              id="regionCode"
+              name="regionCode"
+              value={formData.regionCode}
+              onChange={handleChange}
+              required
+              placeholder='Enter Revenue Code'
+              min="0"
+              onInput={(event) => {
+                  if (event.target.value.length > 6) {
+                    event.target.value = event.target.value.slice(0, 6);
+                  }
+              }}                />
+      </div>
+      <div className="form-group">
+          <label htmlFor="ABC" className="form-label">ABC</label>
+          <input
+              type="text"
+              className="form-input"
+              id="ABC"
+              name="ABC"
+              value={formData.ABC}
+              onChange={handleChange}
+              required
+              placeholder='Enter ABC number'
+              min="0"
+          />
+      </div>
       <button type="submit" className="btn btn-primary" style={submitButtonStyle}>
         Submit
       </button>
@@ -106,4 +138,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default SalesByRegion;

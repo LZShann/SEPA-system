@@ -32,7 +32,7 @@ const submitButtonStyle = {
 };
 //styling
 
-const Form = () => {
+const SalesByMonth = () => {
   const [formData, setFormData] = useState({
     productName: '',
     productQuantity: '',
@@ -106,4 +106,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default SalesByMonth;
