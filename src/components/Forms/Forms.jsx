@@ -173,11 +173,11 @@ const Forms = () => {
                 />
             </div>
             <div className="form-group">
-                <label htmlFor="productQuantity" className="form-label">Quantity</label>
+                <label htmlFor="monthProductQuantity" className="form-label">Quantity</label>
                 <input
                     type="number"
                     className="form-input"
-                    id="productQuantity"
+                    id="monthProductQuantity"
                     name="monthProductQuantity"
                     value={formData.monthProductQuantity}
                     onChange={handleChange}
@@ -187,11 +187,11 @@ const Forms = () => {
                 />
             </div>
             <div className="form-group">
-                <label htmlFor="productRevenue" className="form-label">Revenue</label>
+                <label htmlFor="monthproductRevenue" className="form-label">Revenue</label>
                 <input
                     type="number"
                     className="form-input"
-                    id="productRevenue"
+                    id="monthproductRevenue"
                     name="monthproductRevenue"
                     value={formData.monthproductRevenue}
                     onChange={handleChange}
