@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { TopProduct, SalesByMonth, SalesByRegion } from '../components';
+import { Forms, TopProduct, SalesByMonth, SalesByRegion } from '../components';
 import { Header } from '../components';
+import { Form } from 'react-router-dom';
 
 const Import_Dataset = () => {
   const [selectedForm, setSelectedForm] = useState('TopProduct');
@@ -37,7 +38,10 @@ const Import_Dataset = () => {
       {selectedForm === 'TopProduct' && <TopProduct />}
       {selectedForm === 'SalesByMonth' && <SalesByMonth />}
       {selectedForm === 'SalesByRegion' && <SalesByRegion />}
+        
+      <br/><Forms />
     </div>
+  
   );
 };
 
