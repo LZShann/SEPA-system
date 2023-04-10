@@ -1,12 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './index.css';
 import App from './App';
+import Login from './Login';
+import Register from './Register';
 import { ContextProvider } from './contexts/ContextProvider';
 
 ReactDOM.render(
     <React.StrictMode>
+      <BrowserRouter>
+          <Routes>
+            <Route path="/Login" element={(<Login />)} />
+            <Route path="/Register" element={(<Register />)} />
+          </Routes>
+        </BrowserRouter>
       <ContextProvider>
         <App />
       </ContextProvider>
