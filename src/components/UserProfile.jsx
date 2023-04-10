@@ -5,6 +5,7 @@ import { Button } from '.';
 import { userProfileData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 import avatar from '../data/avatar.jpg';
+import Login from '../Login';
 
 const UserProfile = () => {
   const { currentColor } = useStateContext();
@@ -52,13 +53,15 @@ const UserProfile = () => {
         ))}
       </div>
       <div className="mt-5">
-        <Button
-          color="white"
-          bgColor={currentColor}
-          text="Logout"
-          borderRadius="10px"
-          width="full"
-        />
+        {/* <a href = "http://localhost:3000/Login"> */}
+          <Button
+            color="white"
+            bgColor={currentColor}
+            text="Logout"
+            borderRadius="10px"
+            width="full"
+          />
+        {/* </a> */}
       </div>
     </div>
 
