@@ -10,12 +10,6 @@ import { ContextProvider } from './contexts/ContextProvider';
 
 ReactDOM.render(
     <React.StrictMode>
-      <BrowserRouter>
-          <Routes>
-            <Route path="/Login" element={(<Login />)} />
-            <Route path="/Register" element={(<Register />)} />
-          </Routes>
-        </BrowserRouter>
       <ContextProvider>
         <App />
       </ContextProvider>
