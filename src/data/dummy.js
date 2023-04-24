@@ -1,11 +1,11 @@
 import React from 'react';
-import { AiOutlineCalendar, AiOutlineShoppingCart, AiOutlineAreaChart, AiOutlineBarChart, AiOutlineStock, AiOutlineForm } from 'react-icons/ai';
+import { AiOutlineCalendar, AiOutlineShoppingCart, AiOutlineAreaChart, AiOutlineBarChart, AiOutlineStock, AiOutlineForm, AiOutlineLineChart } from 'react-icons/ai';
 import { FiShoppingBag, FiEdit, FiPieChart, FiBarChart, FiCreditCard, FiStar, FiShoppingCart } from 'react-icons/fi';
-import { BsKanban, BsBarChart, BsBoxSeam, BsCurrencyDollar, BsShield, BsChatLeft } from 'react-icons/bs';
+import { BsKanban, BsBarChart, BsBoxSeam, BsCurrencyDollar, BsShield, BsChatLeft, BsFillPieChartFill } from 'react-icons/bs';
 import { BiColorFill } from 'react-icons/bi';
 import { IoMdContacts } from 'react-icons/io';
 import { RiContactsLine, RiStockLine } from 'react-icons/ri';
-import { MdOutlineSupervisorAccount } from 'react-icons/md';
+import { MdOutlineSupervisorAccount, MdOutlineBarChart } from 'react-icons/md';
 import { HiOutlineRefresh } from 'react-icons/hi';
 import { TiTick } from 'react-icons/ti';
 import { GiLouvrePyramid } from 'react-icons/gi';
@@ -634,43 +634,34 @@ export const chatData = [
   },
 ];
 
-export const earningData = [
+export const chartData = [
   {
-    icon: <MdOutlineSupervisorAccount />,
-    amount: '39,354',
-    percentage: '-4%',
-    title: 'Customers',
+    icon: <MdOutlineBarChart />,
+    desc: 'Chart',
+    title: 'Bar',
     iconColor: '#03C9D7',
     iconBg: '#E5FAFB',
-    pcColor: 'red-600',
   },
   {
-    icon: <BsBoxSeam />,
-    amount: '4,396',
-    percentage: '+23%',
-    title: 'Products',
+    icon: <AiOutlineLineChart />,
+    desc: 'Chart',
+    title: 'Line',
     iconColor: 'rgb(255, 244, 229)',
     iconBg: 'rgb(254, 201, 15)',
-    pcColor: 'green-600',
   },
   {
-    icon: <FiBarChart />,
-    amount: '423,39',
-    percentage: '+38%',
-    title: 'Sales',
+    icon: <BsFillPieChartFill />,
+    desc: '',
+    title: 'Coming Soon',
     iconColor: 'rgb(228, 106, 118)',
     iconBg: 'rgb(255, 244, 229)',
-
-    pcColor: 'green-600',
   },
   {
     icon: <HiOutlineRefresh />,
-    amount: '39,354',
-    percentage: '-12%',
-    title: 'Refunds',
+    desc: '',
+    title: 'Coming Soon 1',
     iconColor: 'rgb(0, 194, 146)',
     iconBg: 'rgb(235, 250, 242)',
-    pcColor: 'red-600',
   },
 ];
 
@@ -728,27 +719,27 @@ export const recentTransactions = [
 export const weeklyStats = [
   {
     icon: <FiShoppingCart />,
-    amount: '-$560',
-    title: 'Top Sales',
-    desc: 'Johnathan Doe',
+    amount: '49.21%',
+    title: 'Highest',
+    desc: 'September',
     iconBg: '#FB9678',
-    pcColor: 'red-600',
+    //pcColor: 'red-600',
   },
-  {
-    icon: <FiStar />,
-    amount: '-$560',
-    title: 'Best Seller',
-    desc: 'MaterialPro Admin',
-    iconBg: 'rgb(254, 201, 15)',
-    pcColor: 'red-600',
-  },
+  //{
+  //   icon: <FiStar />,
+  //   amount: 'RM 9,900',
+  //   title: 'Red',
+  //   desc: 'Series',
+  //   iconBg: 'rgb(254, 201, 15)',
+  //   //pcColor: 'red-600',
+  // },
   {
     icon: <BsChatLeft />,
-    amount: '+$560',
-    title: 'Most Commented',
-    desc: 'Ample Admin',
+    amount: '3.54%',
+    title: 'Lowest',
+    desc: 'February',
     iconBg: '#00C292',
-    pcColor: 'green-600',
+    //pcColor: 'green-600',
   },
 ];
 
@@ -3104,12 +3095,11 @@ export const dropdownData = [
   },
 ];
 export const SparklineAreaData = [
-  { x: 1, yval: 2 },
-  { x: 2, yval: 6 },
-  { x: 3, yval: 8 },
-  { x: 4, yval: 5 },
-  { x: 5, yval: 10 },
-
+  { x: "Jan", yval: 14.74 },
+  { x: "Feb", yval: 3.54 },
+  { x: "May", yval: 5.15 },
+  { x: "Aug", yval: 27.37 },
+  { x: "Sep", yval: 49.21 },
 ];
 
 export const lineCustomSeries = [
@@ -3177,22 +3167,18 @@ export const ecomPieChartData = [
 
 export const stackedChartData = [
   [
-    { x: 'Jan', y: 111.1 },
-    { x: 'Feb', y: 127.3 },
-    { x: 'Mar', y: 143.4 },
-    { x: 'Apr', y: 159.9 },
-    { x: 'May', y: 159.9 },
-    { x: 'Jun', y: 159.9 },
-    { x: 'July', y: 159.9 },
+    { x: 'Black', y: 10800 },
+    { x: 'Red', y: 9900 },
+    { x: 'Green', y: 6360 },
+    { x: 'Golden', y: 6250 },
+    { x: 'Blue', y: 4000 },
   ],
   [
-    { x: 'Jan', y: 111.1 },
-    { x: 'Feb', y: 127.3 },
-    { x: 'Mar', y: 143.4 },
-    { x: 'Apr', y: 159.9 },
-    { x: 'May', y: 159.9 },
-    { x: 'Jun', y: 159.9 },
-    { x: 'July', y: 159.9 },
+    { x: 'Black', y: 2895 },
+    { x: 'Red', y: 2653 },
+    { x: 'Green', y: 1705 },
+    { x: 'Golden', y: 1675 },
+    { x: 'Blue', y: 1072 },
   ],
 ];
 
@@ -3201,7 +3187,7 @@ export const stackedCustomSeries = [
   { dataSource: stackedChartData[0],
     xName: 'x',
     yName: 'y',
-    name: 'Budget',
+    name: 'Revenue',
     type: 'StackingColumn',
     background: 'blue',
 
@@ -3210,7 +3196,7 @@ export const stackedCustomSeries = [
   { dataSource: stackedChartData[1],
     xName: 'x',
     yName: 'y',
-    name: 'Expense',
+    name: 'Pencentage of Revenue x100',
     type: 'StackingColumn',
     background: 'red',
 
@@ -3231,9 +3217,9 @@ export const stackedPrimaryXAxis = {
 
 export const stackedPrimaryYAxis = {
   lineStyle: { width: 0 },
-  minimum: 100,
-  maximum: 400,
-  interval: 100,
+  minimum: 1000,
+  maximum: 16000,
+  interval: 2000,
   majorTickLines: { width: 0 },
   majorGridLines: { width: 1 },
   minorGridLines: { width: 1 },
