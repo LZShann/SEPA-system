@@ -1,11 +1,11 @@
 export { default as Button } from './Button';
-export { default as ThemeSettings } from '../archieve/components/ThemeSettings';
+// export { default as ThemeSettings } from '../archieve/components/ThemeSettings';
 export { default as Sidebar } from './Sidebar';
 // eslint-disable-next-line import/no-cycle
 export { default as Navbar } from './Navbar';
 export { default as Footer } from './Footer';
-export { default as Cart } from '../archieve/components/Cart';
-export { default as Chat } from '../archieve/components/Chat';
+// export { default as Cart } from '../archieve/components/Cart';
+// export { default as Chat } from '../archieve/components/Chat';
 export { default as Notification } from './Notification';
 export { default as UserProfile } from './UserProfile';
 export { default as SparkLine } from './Charts/SparkLine';
