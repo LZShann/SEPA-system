@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
-import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
-import { Ecommerce, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Kanban, Line, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor,
-Statistic, Import_Dataset, Interview, Task, Account} from './pages';
+import { Navbar, Footer, Sidebar } from './components';
+import { Statistic, Import_Dataset, Interview, Task, Account} from './pages';
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
@@ -16,7 +15,7 @@ const App = () => {
     <div>
       <BrowserRouter>
         
-        <div className="flex relative dark:bg-main-dark-bg">
+        <div className="flex relative">
           <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
             <TooltipComponent
               content="Settings"
