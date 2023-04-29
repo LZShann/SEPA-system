@@ -5,7 +5,6 @@ import { Button } from '.';
 import { userProfileData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 import avatar from '../data/avatar.jpg';
-import Login from '../Login';
 
 const UserProfile = () => {
   const { currentColor } = useStateContext();
