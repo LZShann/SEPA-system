@@ -52,6 +52,9 @@ const Statistic = () => {
                 type="button"
                 style={{ color: item.iconColor, backgroundColor: item.iconBg }}
                 className="text-2xl opacity-0.9 rounded-full  p-4 hover:drop-shadow-xl"
+                // create pop up screen here
+                onClick={() => alert('Create pop up screen here')}
+
               >
                 {item.icon}
               </button>
@@ -68,20 +71,6 @@ const Statistic = () => {
         <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 rounded-2xl md:w-780  ">
           <div className="flex justify-between">
             <p className="font-semibold text-xl">Grand Total % 2021</p>
-            {/* <div className="flex items-center gap-4">
-              <p className="flex items-center gap-2 text-gray-600 hover:drop-shadow-xl">
-                <span>
-                  <GoPrimitiveDot />
-                </span>
-                <span>Expense</span>
-              </p>
-              <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
-                <span>
-                  <GoPrimitiveDot />
-                </span>
-                <span>Budget</span>
-              </p>
-            </div> */}
           </div>
           <div className="mt-10 flex gap-10 flex-wrap justify-center">
             <div className=" border-r-1 border-color m-4 pr-10">
@@ -99,10 +88,6 @@ const Statistic = () => {
 
                 <p className="text-gray-500 mt-1">Lowest</p>
               </div>
-
-              {/* <div className="mt-5">
-                <SparkLine currentColor={currentColor} id="line-sparkLine" type="Line" height="80px" width="250px" data={SparklineAreaData} color={currentColor} />
-              </div> */}
               <div className="mt-10">
                 <Button
                   color="white"
@@ -117,36 +102,6 @@ const Statistic = () => {
             </div>
           </div>
         </div>
-        {/* <div>
-          <div
-            className=" rounded-2xl md:w-400 p-4 m-3"
-            style={{ backgroundColor: currentColor }}
-          >
-            <div className="flex justify-between items-center ">
-              <p className="font-semibold text-white text-2xl">Top 3 Products</p>
-
-              <div>
-                <p className="text-2xl text-white font-semibold mt-8">$63,448.78</p>
-                <p className="text-gray-200">Monthly revenue</p>
-              </div>
-            </div>
-
-            <div className="mt-4">
-              <SparkLine currentColor={currentColor} id="column-sparkLine" height="100px" type="Column" data={SparklineAreaData} width="320" color="rgb(242, 252, 253)" />
-            </div>
-          </div>
-
-          <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl md:w-400 p-8 m-3 flex justify-center items-center gap-10">
-            <div>
-              <p className="text-2xl font-semibold ">$43,246</p>
-              <p className="text-gray-400">Yearly sales</p>
-            </div>
-
-            <div className="w-40">
-              <Pie id="pie-chart" data={ecomPieChartData} legendVisiblity={false} height="160px" />
-            </div>
-          </div>
-        </div> */}
       </div>
 
       <div className="flex flex-wrap justify-center">
