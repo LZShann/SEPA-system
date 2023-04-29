@@ -9,6 +9,8 @@ import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
 
+import { supabase } from './client';
+
 const App = () => {
   const { activeMenu } = useStateContext();
 
