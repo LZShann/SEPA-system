@@ -47,6 +47,7 @@ const App = () => {
             <div>
               <Routes>
                 {/* dashboard  */}
+                <Route path="/" element={(<Statistic />)} />
                 <Route path="/Statistic" element={(<Statistic />)} />
 
                 {/* pages  */}
