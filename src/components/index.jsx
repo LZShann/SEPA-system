@@ -19,3 +19,8 @@ export { default as TopProduct } from './Forms/TopProduct';
 export { default as SalesByRegion } from './Forms/SalesByRegion';
 export { default as SalesByMonth } from './Forms/SalesByMonth';
 export { default as Forms } from './Forms/Forms';
+
+export { default as SalesDataEntry } from './Forms/SalesDataEntry';
+export { default as CustomerDataEntry } from './Forms/CustomerDataEntry';
+export { default as TransporterDataEntry } from './Forms/TransporterDataEntry';
+export { default as UnitPriceDataEntry } from './Forms/UnitPriceDataEntry';

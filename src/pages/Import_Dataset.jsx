@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Forms, TopProduct, SalesByMonth, SalesByRegion } from '../components';
-import { Header } from '../components';
+import {
+  Header, Forms, TopProduct, SalesByMonth, SalesByRegion, SalesDataEntry, CustomerDataEntry, TransporterDataEntry,
+  UnitPriceDataEntry
+} from '../components';
 import { Form } from 'react-router-dom';
 
 const Import_Dataset = () => {
@@ -11,8 +13,8 @@ const Import_Dataset = () => {
   };
 
   const selectStyle = {
-    backgroundColor: 'rgba(25, 151, 245, 0.5)',
-    color: 'black',
+    backgroundColor: 'rgb(3,201,215)',
+    color: 'white',
     marginTop: '10px',
     display: 'block',
     width: '100%',
@@ -20,28 +22,29 @@ const Import_Dataset = () => {
     borderRadius: '5px',
     padding: '0 20px',
     cursor: 'pointer',
-    fontWeight: 'bold',
     fontSize: '0.9rem',
   };
 
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-      <Header category="App" title="Import_Dataset"/>
+      <Header category="App" title="Import_Dataset" />
       <div>
         <label htmlFor="form-select" style={{ fontWeight: 'bold' }}>Select a form:</label>
         <select id="form-select" value={selectedForm} onChange={handleSelectChange} style={selectStyle}>
-          <option value="TopProduct" style={selectStyle}>Top Product</option>
-          <option value="SalesByMonth" style={selectStyle}>Top Sales By Month</option>
-          <option value="SalesByRegion" style={selectStyle}>Top Sales By Region</option>
+          <option value="" style={selectStyle}>Please Select A Form</option>
+          <option value="SalesDataEntry" style={selectStyle}>Insert Invoice</option>
+          <option value="CustomerDataEntry" style={selectStyle}>Create New Customer</option>
+          <option value="TransporterDataEntry" style={selectStyle}>Create New Transporter</option>
+          <option value="UnitPriceDataEntry" style={selectStyle}>Create New Product</option>
         </select>
       </div>
-      {selectedForm === 'TopProduct' && <TopProduct />}
-      {selectedForm === 'SalesByMonth' && <SalesByMonth />}
-      {selectedForm === 'SalesByRegion' && <SalesByRegion />}
-        
-      <br/><Forms />
+      {selectedForm === 'SalesDataEntry' && <SalesDataEntry />}
+      {selectedForm === 'CustomerDataEntry' && <CustomerDataEntry />}
+      {selectedForm === 'TransporterDataEntry' && <TransporterDataEntry />}
+      {selectedForm === 'UnitPriceDataEntry' && <UnitPriceDataEntry />}
+      <br /><Forms />
     </div>
-  
+
   );
 };
 
