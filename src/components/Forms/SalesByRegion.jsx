@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 //styling
-const labelStyle = { 
+const labelStyle = {
   color: 'black',
-  fontWeight: 'bold' ,
+  fontWeight: 'bold',
   fontSize: '1.0rem',
   marginTop: '10px',
   display: 'block'
@@ -100,36 +100,37 @@ const SalesByRegion = () => {
         />
       </div>
       <div className="form-group">
-          <label htmlFor="regionCode" className="form-label">Region Code</label>
-          <input
-              type="number"
-              className="form-input"
-              id="regionCode"
-              name="regionCode"
-              value={formData.regionCode}
-              onChange={handleChange}
-              required
-              placeholder='Enter Revenue Code'
-              min="0"
-              onInput={(event) => {
-                  if (event.target.value.length > 6) {
-                    event.target.value = event.target.value.slice(0, 6);
-                  }
-              }}                />
+        <label htmlFor="regionCode" className="form-label">Region Code</label>
+        <input
+          type="number"
+          className="form-input"
+          id="regionCode"
+          name="regionCode"
+          value={formData.regionCode}
+          onChange={handleChange}
+          required
+          placeholder='Enter Revenue Code'
+          min="0"
+          onInput={(event) => {
+            if (event.target.value.length > 6) {
+              event.target.value = event.target.value.slice(0, 6);
+            }
+          }}
+        />
       </div>
       <div className="form-group">
-          <label htmlFor="ABC" className="form-label">ABC</label>
-          <input
-              type="text"
-              className="form-input"
-              id="ABC"
-              name="ABC"
-              value={formData.ABC}
-              onChange={handleChange}
-              required
-              placeholder='Enter ABC number'
-              min="0"
-          />
+        <label htmlFor="ABC" className="form-label">ABC</label>
+        <input
+          type="text"
+          className="form-input"
+          id="ABC"
+          name="ABC"
+          value={formData.ABC}
+          onChange={handleChange}
+          required
+          placeholder='Enter ABC number'
+          min="0"
+        />
       </div>
       <button type="submit" className="btn btn-primary" style={submitButtonStyle}>
         Submit

@@ -1,0 +1,66 @@
+/* text box header style */
+.labelStyle {
+    color: black;
+    font-weight: bold;
+    font-size: 1.0rem;
+    margin-top: 10px;
+    display: block;
+  }
+  
+  /* each text box style */
+  .inputStyle {
+    background-color: rgba(128, 128, 128, 0.2);
+    color: black;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    padding: 0 20px;
+    z-index: 1;
+  }
+  
+  /* select box style */
+  .selectStyle {
+    background-color: rgba(128, 128, 128, 0.2);
+    color: black;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    padding: 0 20px;
+    z-index: 1;
+  }
+  
+  /* dropdown arrow style */
+  .select-wrapper {
+    position: relative;
+  }
+  
+  .select-wrapper:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 15px; /* adjust the margin-right here */
+    transform: translateY(-50%);
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    pointer-events: none;
+  }
+  
+  /* submit button style */
+  .submitButtonStyle {
+    background-color: rgb(25, 151, 245);
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
