@@ -1,141 +1,187 @@
 import React, { useState } from 'react';
+import './DataEntry.css'
 
-//styling
-const labelStyle = { 
-  color: 'black',
-  fontWeight: 'bold' ,
-  fontSize: '1.0rem',
-  marginTop: '10px',
-  display: 'block'
-};
+//datepicker library
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-const inputStyle = {
-  backgroundColor: 'rgba(128, 128, 128, 0.2)',
-  color: 'black',
-  marginTop: '10px',
-  display: 'block',
-  width: '100%',
-  height: '40px',
-  border: 'none',
-  borderRadius: '5px',
-  padding: '0 20px',
-  zIndex: '1'
-};
-const submitButtonStyle = {
-  backgroundColor: 'rgb(25,151,245)',
-  borderRadius: '5px',
-  padding: '10px 20px',
-  border: 'none',
-  color: 'white',
-  marginTop: '20px',
-  cursor: 'pointer'
-};
-//styling
-
-const SalesByRegion = () => {
-  const [formData, setFormData] = useState({
-    Region: '',
-    productQuantity: '',
-    productRevenue: ''
-  });
-
-  const handleChange = e => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
+const CustomerDataEntry = () => {
+    const [formData, setFormData] = useState({
+        customerID: generateSalesOrderID(),
+        customerAddress: '',
+        customerCity: '',
+        customerState: '',
+        customerZip: '',
+        CustomerType: '',
+        Region: ''
     });
-  };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    // TODO: Submit the form data to the database
-    console.log(formData);
-  };
+    const handleChange = e => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label htmlFor="region" style={labelStyle}>Region Name</label>
-        <input
-          type="text"
-          className="form-control"
-          id="region"
-          name="region"
-          value={formData.region}
-          onChange={handleChange}
-          required
-          placeholder="Enter Region Name"
-          style={inputStyle}
-          min="0"
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="quantity" style={labelStyle}>Quantity</label>
-        <input
-          type="number"
-          className="form-control"
-          id="quantity"
-          name="productQuantity"
-          value={formData.quantity}
-          onChange={handleChange}
-          required
-          placeholder='Enter Quantity'
-          style={inputStyle}
-          min="0"
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="revenue" style={labelStyle}>Revenue</label>
-        <input
-          type="number"
-          className="form-control"
-          id="revenue"
-          name="productRevenue"
-          value={formData.revenue}
-          onChange={handleChange}
-          required
-          placeholder='Enter Revenue'
-          style={inputStyle}
-          min="0"
-        />
-      </div>
-      <div className="form-group">
-          <label htmlFor="regionCode" className="form-label">Region Code</label>
-          <input
-              type="number"
-              className="form-input"
-              id="regionCode"
-              name="regionCode"
-              value={formData.regionCode}
-              onChange={handleChange}
-              required
-              placeholder='Enter Revenue Code'
-              min="0"
-              onInput={(event) => {
-                  if (event.target.value.length > 6) {
-                    event.target.value = event.target.value.slice(0, 6);
-                  }
-              }}                />
-      </div>
-      <div className="form-group">
-          <label htmlFor="ABC" className="form-label">ABC</label>
-          <input
-              type="text"
-              className="form-input"
-              id="ABC"
-              name="ABC"
-              value={formData.ABC}
-              onChange={handleChange}
-              required
-              placeholder='Enter ABC number'
-              min="0"
-          />
-      </div>
-      <button type="submit" className="btn btn-primary" style={submitButtonStyle}>
-        Submit
-      </button>
-    </form>
-  );
+    const handleSubmit = e => {
+        e.preventDefault();
+        alert('Form submitted successfully!');
+        // TODO: Submit the form data to the database
+        console.log(formData);
+    };
+
+    function generateSalesOrderID() {
+        // Generate a random ID using a library or algorithm of your choice
+        return "SO" + Math.floor(Math.random() * 1000);
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <div className="form-group">
+                <label htmlFor="cID" className="labelStyle">Customer ID</label>
+                <input
+                    type="text"
+                    className="form-control inputStyle"
+                    id="cID"
+                    name="customerID"
+                    value={formData.customerID}
+                    placeholder="..."
+                    min="0"
+                    disabled
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="oD" className="labelStyle">Order Date</label>
+                <DatePicker
+                    className="form-control inputStyle"
+                    id="oD"
+                    name="orderDate"
+                    selected={formData.orderDate}
+                    onChange={(date) => setFormData({ ...formData, orderDate: date })}
+                    dateFormat="yyyy-MM-dd"
+                    placeholderText="Select the Order Date"
+                    required
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="cID" className="labelStyle">Customer ID</label>
+                <input
+                    type="number"
+                    className="form-control inputStyle"
+                    id="cID"
+                    name="customerID"
+                    value={formData.customerID}
+                    onChange={handleChange}
+                    required
+                    placeholder='Enter Customer ID'
+                    min="0"
+                    onInput={(event) => {
+                        if (event.target.value.length > 5) {
+                            event.target.value = event.target.value.slice(0, 5);
+                        }
+                    }}
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="products" className="form-label">Products</label>
+                <select
+                    className="form-control inputStyle"
+                    id="products"
+                    name="products"
+                    value={formData.products}
+                    onChange={handleChange}
+                    required
+                >
+                    <option value="" style={{ color: 'gray' }}>Select a Product Type</option>
+                    <option value="Black">Black</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Golden">Golden</option>
+                    <option value="Green">Green</option>
+                    <option value="Red">Red</option>
+                </select>
+            </div>
+            <div className="form-group">
+                <label htmlFor="paymentType" className="labelStyle">Payment Type</label>
+                <select
+                    className="form-control inputStyle"
+                    id="paymentType"
+                    name="paymentType"
+                    value={formData.paymentType}
+                    onChange={handleChange}
+                    required
+                >
+                    <option value="">Select a Payment Type</option>
+                    <option value="bankIn">Bank In</option>
+                    <option value="cash">Cash</option>
+                    <option value="check">Check</option>
+                    <option value="creditCard">Credit Card</option>
+                </select>
+            </div>
+            <div className="form-group">
+                <label htmlFor="quantity" className="form-label">Quantity</label>
+                <input
+                    type="number"
+                    className="form-control inputStyle"
+                    id="quantity"
+                    name="quantity"
+                    value={formData.quantity}
+                    onChange={handleChange}
+                    required
+                    placeholder='Enter Purchased Quantity'
+                    min="0"
+                    onInput={(event) => {
+                        if (event.target.value.length > 5) {
+                            event.target.value = event.target.value.slice(0, 5);
+                        }
+                    }}
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="dD" className="form-label">Delivery Date</label>
+                <DatePicker
+                    className="form-control inputStyle"
+                    id="dD"
+                    name="deliveryDate"
+                    selected={formData.deliveryDate}
+                    onChange={(date) => setFormData({ ...formData, deliveryDate: date })}
+                    dateFormat="yyyy-MM-dd"
+                    placeholderText="Select the Delivery Date"
+                    required
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="dF" className="form-label">Delivery Fee</label>
+                <input
+                    type="number"
+                    className="form-input"
+                    id="dF"
+                    name="deliveryFee"
+                    value={formData.deliveryFee}
+                    onChange={handleChange}
+                    required
+                    placeholder='Enter Delivery Fee'
+                    min="0"
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="transporter" className="form-label">Transporter</label>
+                <input
+                    type="number"
+                    className="form-input"
+                    id="transporter"
+                    name="transporter"
+                    value={formData.transporter}
+                    onChange={handleChange}
+                    required
+                    placeholder='Enter Transporter Number'
+                    min="0"
+                />
+            </div>
+            <button type="submit" className="btn btn-primary submitButtonStyle">
+                Submit
+            </button>
+        </form>
+    );
 };
 
-export default SalesByRegion;
+export default CustomerDataEntry;

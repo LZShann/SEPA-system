@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './SalesDataEntry.css'
+import './DataEntry.css'
 
 //datepicker library
 import DatePicker from 'react-datepicker';
