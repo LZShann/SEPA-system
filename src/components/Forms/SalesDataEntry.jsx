@@ -94,7 +94,7 @@ const SalesDataEntry = () => {
                     onChange={handleChange}
                     required
                 >
-                    <option value="" style={{ color: 'gray' }}>Select a Product Type</option>
+                    <option value="">Select a Product Type</option>
                     <option value="Black">Black</option>
                     <option value="Blue">Blue</option>
                     <option value="Golden">Golden</option>
@@ -161,7 +161,7 @@ const SalesDataEntry = () => {
                     value={formData.deliveryFee}
                     onChange={handleChange}
                     required
-                    placeholder='Enter Delivery Fee'
+                    placeholder='Enter Delivery Fee (RM)'
                     min="0"
                 />
             </div>

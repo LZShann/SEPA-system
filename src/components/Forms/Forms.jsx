@@ -32,7 +32,7 @@ const Forms = () => {
 
   return (
     <div>
-        <h2 className="title-md">Top Product</h2>
+        <h2 className="title-md">Item 1</h2>
         <form onSubmit={handleSubmit} className="form-container">
             <div className="form-group">
                 <label htmlFor="productName" className="form-label">Product Name</label>
@@ -63,7 +63,7 @@ const Forms = () => {
                 />
             </div>
             <div className="form-group">
-                <label htmlFor="productRevenue" className="form-label">Revenue</label>
+                <label htmlFor="productRevenue" className="form-label">Unit Price</label>
                 <input
                     type="number"
                     className="form-input"
@@ -72,13 +72,13 @@ const Forms = () => {
                     value={formData.productRevenue}
                     onChange={handleChange}
                     required
-                    placeholder='Enter Revenue'
+                    placeholder='Enter Unit Price'
                     min="0"
                 />
             </div>
         </form>
 
-        <h2 className="title-md">Sales By Region</h2>
+        <h2 className="title-md">Item 2</h2>
         <form onSubmit={handleSubmit} className="form-container">
             <div className="form-group">
                 <label htmlFor="regionName" className="form-label">Region Name</label>
@@ -156,7 +156,7 @@ const Forms = () => {
             </div>
         </form>
 
-        <h2 className="title-md">Sales By Month</h2>
+        <h2 className="title-md">Item 3</h2>
         <form onSubmit={handleSubmit} className="form-container">
             <div className="form-group">
                 <label htmlFor="monthProductName" className="form-label">Product Name</label>

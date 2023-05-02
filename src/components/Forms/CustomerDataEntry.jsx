@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const CustomerDataEntry = () => {
   const [formData, setFormData] = useState({
-    customerID: generateSalesOrderID(),
+    customerID: generateCustomerID(),
     customerAddress: '',
     customerCity: '',
     customerState: '',
@@ -30,9 +30,9 @@ const CustomerDataEntry = () => {
     console.log(formData);
   };
 
-  function generateSalesOrderID() {
+  function generateCustomerID() {
     // Generate a random ID using a library or algorithm of your choice
-    return "SO" + Math.floor(Math.random() * 1000);
+    return "C" + Math.floor(Math.random() * 100);
   }
 
   return (
@@ -55,9 +55,9 @@ const CustomerDataEntry = () => {
         <input
           type="text"
           className="form-input"
-          id="cA" // htmlFor and id must match
+          id="cA"
           name="customerAddress"
-          value={formData.customerAddress} // variable name must match the name and inside useState
+          value={formData.customerAddress}
           onChange={handleChange}
           required
           placeholder="Enter Customer Address"
@@ -77,11 +77,31 @@ const CustomerDataEntry = () => {
           placeholder='Choose a Customer City'
         >
           <option value="">Select a Customer City</option>
-          <option value="Black">Black</option>
-          <option value="Blue">Blue</option>
-          <option value="Golden">Golden</option>
-          <option value="Green">Green</option>
-          <option value="Red">Red</option>
+          <option value="An">An</option>
+          <option value="BatuPahat">Batu Pahat</option>
+          <option value="Den">Den</option>
+          <option value="Gan">Gan</option>
+          <option value="Heig">Heig</option>
+          <option value="Ily">Ily</option>
+          <option value="Ja">Ja</option>
+          <option value="JohorBahru">Johor Bahru</option>
+          <option value="Kali">Kali</option>
+          <option value="Kil">Kil</option>
+          <option value="Kluang">Kluang</option>
+          <option value="Lan">Lan</option>
+          <option value="Lon">Lon</option>
+          <option value="LosJac">Los Jac</option>
+          <option value="Man">Man</option>
+          <option value="Mon">Mon</option>
+          <option value="Pan">Pan</option>
+          <option value="Pashj">Pashj</option>
+          <option value="Peace">Peace</option>
+          <option value="Quil">Quil</option>
+          <option value="Ung">Ung</option>
+          <option value="Von">Von</option>
+          <option value="Wing">Wing</option>
+          <option value="Ziam">Ziam</option>
+          <option value="Zon">Zon</option>
         </select>
       </div>
       <div className="form-group">
@@ -94,12 +114,11 @@ const CustomerDataEntry = () => {
           onChange={handleChange}
           required
         >
-          <option value="" style={{ color: 'gray' }}>Select a Customer State</option>
-          <option value="Black">Black</option>
-          <option value="Blue">Blue</option>
-          <option value="Golden">Golden</option>
-          <option value="Green">Green</option>
-          <option value="Red">Red</option>
+          <option value="">Select a Customer State</option>
+          <option value="Johor">Johor</option>
+          <option value="Penang">Penang</option>
+          <option value="Selangor">Selangor</option>
+          <option value="Terengganu">Terengganu</option>
         </select>
       </div>
       <div className="form-group">
@@ -111,6 +130,7 @@ const CustomerDataEntry = () => {
           name="customerZip"
           value={formData.customerZip}
           onChange={handleChange}
+          placeholder='Enter Customer Zip/Postal Code'
           required
           onInput={(event) => {
             if (event.target.value.length > 5) {
@@ -118,7 +138,6 @@ const CustomerDataEntry = () => {
             }
           }}
         />
-
       </div>
       <div className="form-group">
         <label htmlFor="cT" className="form-label">Customer Type</label>
@@ -130,12 +149,10 @@ const CustomerDataEntry = () => {
           onChange={handleChange}
           required
         >
-          <option value="" style={{ color: 'gray' }}>Select a Customer State</option>
-          <option value="Black">Black</option>
-          <option value="Blue">Blue</option>
-          <option value="Golden">Golden</option>
-          <option value="Green">Green</option>
-          <option value="Red">Red</option>
+          <option value="">Select a Customer Type</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+
         </select>
       </div>
       <div className="form-group">
@@ -148,12 +165,11 @@ const CustomerDataEntry = () => {
           onChange={handleChange}
           required
         >
-          <option value="" style={{ color: 'gray' }}>Select a Customer State</option>
-          <option value="Black">Black</option>
-          <option value="Blue">Blue</option>
-          <option value="Golden">Golden</option>
-          <option value="Green">Green</option>
-          <option value="Red">Red</option>
+          <option value="">Select a Region</option>
+          <option value="East">East</option>
+          <option value="North">North</option>
+          <option value="South">South</option>
+          <option value="West">West</option>
         </select>
       </div>
       <button type="submit" className="btn btn-primary submitButtonStyle">
