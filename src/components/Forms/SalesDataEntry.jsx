@@ -58,10 +58,10 @@ const SalesDataEntry = () => {
                     className="form-control inputStyle"
                     id="OD"
                     name="orderDate"
-                    value={formData.orderDate}
+                    selected={formData.orderDate}
                     onChange={(date) => setFormData({ ...formData, orderDate: date })}
                     dateFormat="yyyy-MM-dd"
-                    placeholder="Select a date"
+                    placeholderText="Select the Order Date"
                     required
                 />
             </div>
@@ -94,7 +94,7 @@ const SalesDataEntry = () => {
                     onChange={handleChange}
                     required
                 >
-                    <option value="">Select a Product Type</option>
+                    <option value="" style={{ color: 'gray' }}>Select a Product Type</option>
                     <option value="Black">Black</option>
                     <option value="Blue">Blue</option>
                     <option value="Golden">Golden</option>
@@ -120,62 +120,66 @@ const SalesDataEntry = () => {
                 </select>
             </div>
             <div className="form-group">
-                <label htmlFor="ABC" className="form-label">Quantity</label>
+                <label htmlFor="quantity" className="form-label">Quantity</label>
                 <input
-                    type="text"
-                    className="form-input"
-                    id="ABC"
-                    name="ABC"
-                    value={formData.ABC}
+                    type="number"
+                    className="form-control inputStyle"
+                    id="quantity"
+                    name="quantity"
+                    value={formData.quantity}
                     onChange={handleChange}
                     required
-                    placeholder='Enter ABC number'
+                    placeholder='Enter Purchased Quantity'
+                    min="0"
+                    onInput={(event) => {
+                        if (event.target.value.length > 5) {
+                            event.target.value = event.target.value.slice(0, 5);
+                        }
+                    }}
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="DD" className="form-label">Delivery Date</label>
+                <DatePicker
+                    className="form-control inputStyle"
+                    id="DD"
+                    name="deliveryDate"
+                    selected={formData.deliveryDate}
+                    onChange={(date) => setFormData({ ...formData, deliveryDate: date })}
+                    dateFormat="yyyy-MM-dd"
+                    placeholderText="Select the Delivery Date"
+                    required
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="DF" className="form-label">Delivery Fee</label>
+                <input
+                    type="number"
+                    className="form-input"
+                    id="DF"
+                    name="deliveryFee"
+                    value={formData.deliveryFee}
+                    onChange={handleChange}
+                    required
+                    placeholder='Enter Delivery Fee'
                     min="0"
                 />
             </div>
             <div className="form-group">
-                <label htmlFor="ABC" className="form-label">Delivery Date</label>
+                <label htmlFor="transporter" className="form-label">Transporter</label>
                 <input
-                    type="text"
+                    type="number"
                     className="form-input"
-                    id="ABC"
-                    name="ABC"
-                    value={formData.ABC}
+                    id="transporter"
+                    name="transporter"
+                    value={formData.transporter}
                     onChange={handleChange}
                     required
-                    placeholder='Enter ABC number'
+                    placeholder='Enter Transporter Number'
                     min="0"
                 />
             </div>
-            <div className="form-group">
-                <label htmlFor="ABC" className="form-label">Delivery Fee</label>
-                <input
-                    type="text"
-                    className="form-input"
-                    id="ABC"
-                    name="ABC"
-                    value={formData.ABC}
-                    onChange={handleChange}
-                    required
-                    placeholder='Enter ABC number'
-                    min="0"
-                />
-            </div>
-            <div className="form-group">
-                <label htmlFor="ABC" className="form-label">Transporter</label>
-                <input
-                    type="text"
-                    className="form-input"
-                    id="ABC"
-                    name="ABC"
-                    value={formData.ABC}
-                    onChange={handleChange}
-                    required
-                    placeholder='Enter ABC number'
-                    min="0"
-                />
-            </div>
-            <button type="submit" className="btn btn-primary submit-button-style">
+            <button type="submit" className="btn btn-primary submitButtonStyle">
                 Submit
             </button>
         </form>

@@ -22,7 +22,7 @@ const Import_Dataset = () => {
     borderRadius: '5px',
     padding: '0 20px',
     cursor: 'pointer',
-    fontSize: '0.9rem',
+    fontSize: '1rem',
   };
 
   return (

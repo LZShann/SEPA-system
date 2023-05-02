@@ -55,12 +55,13 @@
   
   /* submit button style */
   .submitButtonStyle {
-    background-color: rgb(25, 151, 245);
+    background-color: rgb(3,201,215);
     border-radius: 5px;
     padding: 10px 20px;
     border: none;
     color: white;
     margin-top: 20px;
     cursor: pointer;
+    width: 100%;
   }
   
