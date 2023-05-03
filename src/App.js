@@ -24,7 +24,7 @@ const App = () => {
               position="Top"
             >
             </TooltipComponent>
-          </div> */
+          </div>
           {activeMenu ? (
             <div className="w-72 fixed sidebar bg-white ">
               <Sidebar />
