@@ -8,7 +8,7 @@ import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
 
-import { supabase } from './client';
+
 
 const App = () => {
   const { activeMenu } = useStateContext();
@@ -24,7 +24,7 @@ const App = () => {
               position="Top"
             >
             </TooltipComponent>
-          </div> 
+          </div> */
           {activeMenu ? (
             <div className="w-72 fixed sidebar bg-white ">
               <Sidebar />

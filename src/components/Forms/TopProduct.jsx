@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
+import { createClient } from '@supabase/supabase-js';
 
-//styling
+
+const supabaseUrl = 'https://aehwgrirrnhmatqmqcsa.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFlaHdncmlycm5obWF0cW1xY3NhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY4MDg2NTg4MywiZXhwIjoxOTk2NDQxODgzfQ.DeXxoWY65kzpbvdxME16mAHj2KGMwDRg_jEGgUIxKc0';
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+
 const labelStyle = { 
   color: 'black',
   fontWeight: 'bold' ,
@@ -46,11 +52,25 @@ const TopProduct = () => {
     });
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    // TODO: Submit the form data to the database
-    console.log(formData);
-  };
+
+    const handleSubmit = async e => {
+      e.preventDefault();
+      // Submit the form data to the database
+      const { data, error } = await supabase
+        .from('topproduct')
+        .insert([
+          {
+            product_name: formData.productName,
+            product_quantity: formData.productQuantity,
+            product_revenue: formData.productRevenue
+          }
+        ]);
+      if (error) {
+        console.log('Error inserting data:', error.message);
+      } else {
+        console.log('Data inserted successfully');
+      }
+    };
 
   return (
     <form onSubmit={handleSubmit}>

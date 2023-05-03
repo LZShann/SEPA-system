@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import { createClient } from '@supabase/supabase-js';
 
-//styling
+const supabaseUrl = 'https://aehwgrirrnhmatqmqcsa.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFlaHdncmlycm5obWF0cW1xY3NhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY4MDg2NTg4MywiZXhwIjoxOTk2NDQxODgzfQ.DeXxoWY65kzpbvdxME16mAHj2KGMwDRg_jEGgUIxKc0';
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// styling
 const labelStyle = { 
   color: 'red',
   fontWeight: 'bold' ,
@@ -30,7 +35,7 @@ const submitButtonStyle = {
   marginTop: '20px',
   cursor: 'pointer'
 };
-//styling
+// styling
 
 const SalesByMonth = () => {
   const [formData, setFormData] = useState({
@@ -46,10 +51,23 @@ const SalesByMonth = () => {
     });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    // TODO: Submit the form data to the database
-    console.log(formData);
+    // Submit the form data to the database
+    const { data, error } = await supabase
+      .from('sales_by_month')
+      .insert([
+        {
+          product_name: formData.productName,
+          product_quantity: formData.productQuantity,
+          product_revenue: formData.productRevenue
+        }
+      ]);
+    if (error) {
+      console.log('Error inserting data:', error.message);
+    } else if (data){
+      console.log('Data inserted successfully');
+    }
   };
 
   return (
@@ -86,24 +104,24 @@ const SalesByMonth = () => {
       </div>
       <div className="form-group">
         <label htmlFor="revenue" style={labelStyle}>Revenue</label>
-        <input
-          type="number"
-          className="form-control"
-          id="revenue"
-          name="productRevenue"
-          value={formData.revenue}
-          onChange={handleChange}
-          required
-          placeholder='Enter Revenue'
-          style={inputStyle}
-          min="0"
-        />
-      </div>
-      <button type="submit" className="btn btn-primary" style={submitButtonStyle}>
-        Submit
-      </button>
-    </form>
-  );
+<input
+       type="number"
+       className="form-control"
+       id="revenue"
+       name="productRevenue"
+       value={formData.revenue}
+       onChange={handleChange}
+       required
+       placeholder='Enter Revenue'
+       style={inputStyle}
+       min="0"
+     />
+</div>
+<button type="submit" style={submitButtonStyle}>
+Submit
+</button>
+</form>
+);
 };
 
 export default SalesByMonth;

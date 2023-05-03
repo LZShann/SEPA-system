@@ -5,6 +5,7 @@ import { IoIosMore } from 'react-icons/io';
 import { Stacked, Pie, Button, LineChart, SparkLine } from '../components';
 import { chartData, weeklyStats, SparklineAreaData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
+import BarChartKPI from '../components/Charts/BarChartKPI';
 
 const Statistic = () => {
   const { currentColor } = useStateContext();
@@ -88,7 +89,7 @@ const Statistic = () => {
               </div>
             </div>
             <div>
-              <Stacked width="320px" height="360px" />
+              < BarChartKPI width="320px" height="360px" />
             </div>
           </div>
         </div>

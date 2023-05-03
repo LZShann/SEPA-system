@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = 'https://aehwgrirrnhmatqmqcsa.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFlaHdncmlycm5obWF0cW1xY3NhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY4MDg2NTg4MywiZXhwIjoxOTk2NDQxODgzfQ.DeXxoWY65kzpbvdxME16mAHj2KGMwDRg_jEGgUIxKc0';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 //styling
-const labelStyle = {
+const labelStyle = { 
   color: 'black',
-  fontWeight: 'bold',
+  fontWeight: 'bold' ,
   fontSize: '1.0rem',
   marginTop: '10px',
   display: 'block'
@@ -34,9 +39,11 @@ const submitButtonStyle = {
 
 const SalesByRegion = () => {
   const [formData, setFormData] = useState({
-    Region: '',
+    region: '',
+    regionCode:'',
     productQuantity: '',
-    productRevenue: ''
+    productRevenue: '',
+    ABC: ''
   });
 
   const handleChange = e => {
@@ -46,10 +53,27 @@ const SalesByRegion = () => {
     });
   };
 
-  const handleSubmit = e => {
+
+
+  const handleSubmit = async e => {
     e.preventDefault();
-    // TODO: Submit the form data to the database
-    console.log(formData);
+    // Submit the form data to the database
+    const { data, error } = await supabase
+      .from('sales_by_region')
+      .insert([
+        {
+          region_code: formData.regionCode,
+          region: formData.region,
+          product_quantity: formData.productQuantity,
+          product_revenue: formData.productRevenue,
+          abc : formData.ABC
+        }
+      ]);
+    if (error) {
+      console.log('Error inserting data:', error.message);
+    } else if (data){
+      console.log('Data inserted successfully');
+    }
   };
 
   return (
@@ -100,37 +124,36 @@ const SalesByRegion = () => {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="regionCode" className="form-label">Region Code</label>
-        <input
-          type="number"
-          className="form-input"
-          id="regionCode"
-          name="regionCode"
-          value={formData.regionCode}
-          onChange={handleChange}
-          required
-          placeholder='Enter Revenue Code'
-          min="0"
-          onInput={(event) => {
-            if (event.target.value.length > 6) {
-              event.target.value = event.target.value.slice(0, 6);
-            }
-          }}
-        />
+          <label htmlFor="regionCode" className="form-label">Region Code</label>
+          <input
+              type="number"
+              className="form-input"
+              id="regionCode"
+              name="regionCode"
+              value={formData.regionCode}
+              onChange={handleChange}
+              required
+              placeholder='Enter Revenue Code'
+              min="0"
+              onInput={(event) => {
+                  if (event.target.value.length > 6) {
+                    event.target.value = event.target.value.slice(0, 6);
+                  }
+              }}                />
       </div>
       <div className="form-group">
-        <label htmlFor="ABC" className="form-label">ABC</label>
-        <input
-          type="text"
-          className="form-input"
-          id="ABC"
-          name="ABC"
-          value={formData.ABC}
-          onChange={handleChange}
-          required
-          placeholder='Enter ABC number'
-          min="0"
-        />
+          <label htmlFor="ABC" className="form-label">ABC</label>
+          <input
+              type="text"
+              className="form-input"
+              id="ABC"
+              name="ABC"
+              value={formData.ABC}
+              onChange={handleChange}
+              required
+              placeholder='Enter ABC number'
+              min="0"
+          />
       </div>
       <button type="submit" className="btn btn-primary" style={submitButtonStyle}>
         Submit

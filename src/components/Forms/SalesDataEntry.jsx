@@ -4,6 +4,11 @@ import './DataEntry.css'
 //datepicker library
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = 'https://aehwgrirrnhmatqmqcsa.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFlaHdncmlycm5obWF0cW1xY3NhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY4MDg2NTg4MywiZXhwIjoxOTk2NDQxODgzfQ.DeXxoWY65kzpbvdxME16mAHj2KGMwDRg_jEGgUIxKc0';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const SalesDataEntry = () => {
     const [formData, setFormData] = useState({
@@ -25,12 +30,33 @@ const SalesDataEntry = () => {
         });
     };
 
-    const handleSubmit = e => {
+
+    const handleSubmit = async e => {
         e.preventDefault();
-        alert('Form submitted successfully!');
-        // TODO: Submit the form data to the database
-        console.log(formData);
-    };
+        // Submit the form data to the database
+        const { data, error } = await supabase
+          .from('sales_data_entry')
+          .insert([
+            {
+                sales_order_id: formData.salesOrderID,
+                order_date: formData.orderDate,
+                customer_id: formData.customerID,
+                products:  formData.products,
+                payment_type: formData.paymentType,
+                quantity: formData.quantity,
+                delivery_date: formData.deliveryDate,
+                transporter: formData.transporter,
+                delivery_fee: formData.deliveryFee
+                
+            }
+          ]);
+        if (error) {
+          console.log('Error inserting data:', error.message);
+        } else if (data){
+          console.log('Data inserted successfully');
+        }
+      };
+  
 
     function generateSalesOrderID() {
         // Generate a random ID using a library or algorithm of your choice

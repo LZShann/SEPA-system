@@ -36,12 +36,14 @@ const Import_Dataset = () => {
           <option value="CustomerDataEntry" style={selectStyle}>Create New Customer</option>
           <option value="TransporterDataEntry" style={selectStyle}>Create New Transporter</option>
           <option value="UnitPriceDataEntry" style={selectStyle}>Create New Product</option>
+          <option value="TopProduct" style={selectStyle}>Test</option>
         </select>
       </div>
       {selectedForm === 'SalesDataEntry' && <SalesDataEntry />}
       {selectedForm === 'CustomerDataEntry' && <CustomerDataEntry />}
       {selectedForm === 'TransporterDataEntry' && <TransporterDataEntry />}
       {selectedForm === 'UnitPriceDataEntry' && <UnitPriceDataEntry />}
+      {selectedForm === 'TopProduct' && <TopProduct/>}
       <br /><Forms />
     </div>
 
