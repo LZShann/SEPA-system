@@ -1,37 +1,76 @@
-import React from 'react';
-import { MdAddChart } from 'react-icons/md';
+import { React, useState } from 'react';
+//icons
 import { IoIosMore } from 'react-icons/io';
+import { MdOutlineBarChart, MdAddChart } from 'react-icons/md';
+import { AiOutlineLineChart } from 'react-icons/ai';
+import { BsFillPieChartFill } from 'react-icons/bs';
+import { HiOutlineRefresh } from 'react-icons/hi';
 
-import { Stacked, Pie, Button, LineChart, SparkLine } from '../components';
-import { chartData, weeklyStats, SparklineAreaData } from '../data/dummy';
+//components
+import { Stacked, Pie, Button, LineChart, SparkLine, Modal } from '../components';
+import { weeklyStats, SparklineAreaData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 import BarChartKPI from '../components/Charts/BarChartKPI';
 
 const Statistic = () => {
   const { currentColor } = useStateContext();
 
+  const [modalOpen, setModalOpen] = useState(false);
+  function IconBlock({ icon, desc, title, iconColor, iconBg, onClick }) {
+    return (
+      <div className="bg-white h-44 md:w-56  p-4 pt-9 rounded-2xl">
+        <button
+          type="button"
+          style={{ color: iconColor, backgroundColor: iconBg }}
+          className="text-2xl opacity-0.9 rounded-full  p-4 hover:drop-shadow-xl"
+          onClick={onClick}
+        >
+          {icon}
+        </button>
+        <p className="mt-3">
+          <span className="text-lg font-semibold">{title}</span>
+        </p>
+        <p className="text-sm text-gray-400  mt-1">{desc}</p>
+      </div>
+    );
+  }
   return (
     <div className="mt-24">
-      <div className="flex flex-wrap lg:flex-nowrap justify-center ">
+      <div className="flex flex-wrap lg:flex-nowrap justify-center">
         <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
-          {chartData.map((item) => (
-            <div key={item.title} className="bg-white h-44 md:w-56  p-4 pt-9 rounded-2xl ">
-              <button
-                type="button"
-                style={{ color: item.iconColor, backgroundColor: item.iconBg }}
-                className="text-2xl opacity-0.9 rounded-full  p-4 hover:drop-shadow-xl"
-                // create pop up screen here
-                onClick={() => alert('Create pop up screen here')}
-
-              >
-                {item.icon}
-              </button>
-              <p className="mt-3">
-                <span className="text-lg font-semibold">{item.title}</span>
-              </p>
-              <p className="text-sm text-gray-400  mt-1">{item.desc}</p>
-            </div>
-          ))}
+          <IconBlock
+            icon={<MdOutlineBarChart />}
+            desc="Chart"
+            title="Bar"
+            iconColor="#03C9D7"
+            iconBg="#E5FAFB"
+            onClick={() => {setModalOpen(true);}}
+          />      
+          {modalOpen && <Modal setOpenModal={setModalOpen} />}
+          <IconBlock
+            icon={<AiOutlineLineChart />}
+            desc="Chart"
+            title="Line"
+            iconColor="rgb(255, 244, 229)"
+            iconBg="rgb(254, 201, 15)"
+            onClick={() => alert('Display line chart pop-up window2')}
+          />
+          <IconBlock
+            icon={<BsFillPieChartFill />}
+            desc=""
+            title="Coming Soon"
+            iconColor="rgb(228, 106, 118)"
+            iconBg="rgb(255, 244, 229)"
+            onClick={() => alert('Coming soon')}
+          />
+          <IconBlock
+            icon={<HiOutlineRefresh />}
+            desc=""
+            title="Coming Soon 1"
+            iconColor="rgb(0, 194, 146)"
+            iconBg="rgb(235, 250, 242)"
+            onClick={() => alert('Coming soon3')}
+          />
         </div>
       </div>
 

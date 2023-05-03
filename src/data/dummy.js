@@ -237,37 +237,6 @@ export const chatData = [
   },
 ];
 
-export const chartData = [
-  {
-    icon: <MdOutlineBarChart />,
-    desc: 'Chart',
-    title: 'Bar',
-    iconColor: '#03C9D7',
-    iconBg: '#E5FAFB',
-  },
-  {
-    icon: <AiOutlineLineChart />,
-    desc: 'Chart',
-    title: 'Line',
-    iconColor: 'rgb(255, 244, 229)',
-    iconBg: 'rgb(254, 201, 15)',
-  },
-  {
-    icon: <BsFillPieChartFill />,
-    desc: '',
-    title: 'Coming Soon',
-    iconColor: 'rgb(228, 106, 118)',
-    iconBg: 'rgb(255, 244, 229)',
-  },
-  {
-    icon: <HiOutlineRefresh />,
-    desc: '',
-    title: 'Coming Soon 1',
-    iconColor: 'rgb(0, 194, 146)',
-    iconBg: 'rgb(235, 250, 242)',
-  },
-];
-
 export const weeklyStats = [
   {
     icon: <FiShoppingCart />,
@@ -480,11 +449,11 @@ export const stackedChartData = [
     { x: 'Blue', y: 4000 },
   ],
   [
-    { x: 'Black', y: 28.95 },
-    { x: 'Red', y: 26.53 },
-    { x: 'Green', y: 17.05 },
-    { x: 'Golden', y: 16.75 },
-    { x: 'Blue', y: 10.72 },
+    { x: 'Black', y: 2895 },
+    { x: 'Red', y: 2653 },
+    { x: 'Green', y: 1705 },
+    { x: 'Golden', y: 1675 },
+    { x: 'Blue', y: 1072 },
   ],
 ];
 
@@ -502,7 +471,7 @@ export const stackedCustomSeries = [
   { dataSource: stackedChartData[1],
     xName: 'x',
     yName: 'y',
-    name: 'Pencentage of Revenue x100',
+    name: 'Pencentage of Revenue ÷100',
     type: 'StackingColumn',
     background: 'red',
 
