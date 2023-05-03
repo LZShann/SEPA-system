@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import './DataEntry.css'
 
 //datepicker library
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = 'https://aehwgrirrnhmatqmqcsa.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFlaHdncmlycm5obWF0cW1xY3NhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY4MDg2NTg4MywiZXhwIjoxOTk2NDQxODgzfQ.DeXxoWY65kzpbvdxME16mAHj2KGMwDRg_jEGgUIxKc0';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const CustomerDataEntry = () => {
   const [formData, setFormData] = useState({
@@ -23,11 +26,27 @@ const CustomerDataEntry = () => {
     });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    alert('Form submitted successfully!');
-    // TODO: Submit the form data to the database
-    console.log(formData);
+    // Submit the form data to the database
+    const { data, error } = await supabase
+      .from('customer_data_entry')
+      .insert([
+        {
+          customer_id: formData.customerID,
+          customer_address: formData.customerAddress,
+          customer_city: formData.customerCity,
+          customer_state: formData.customerState,
+          customer_zip: formData.customerZip,
+          customer_type: formData.customerType,
+          region: formData.region
+        }
+      ]);
+    if (error) {
+      console.log('Error inserting data:', error.message);
+    } else if (data) {
+      console.log('Data inserted successfully');
+    }
   };
 
   function generateCustomerID() {
@@ -156,12 +175,12 @@ const CustomerDataEntry = () => {
         </select>
       </div>
       <div className="form-group">
-        <label htmlFor="dD" className="form-label">Region</label>
+        <label htmlFor="region" className="form-label">Region</label>
         <select
           className="form-control inputStyle"
-          id="cS"
-          name="customerState"
-          value={formData.customerState}
+          id="region"
+          name="region"
+          value={formData.region}
           onChange={handleChange}
           required
         >
