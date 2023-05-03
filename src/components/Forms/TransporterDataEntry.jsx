@@ -1,42 +1,12 @@
 import React, { useState } from 'react';
+import './DataEntry.css'
 
-//styling
-const labelStyle = { 
-  color: 'black',
-  fontWeight: 'bold' ,
-  fontSize: '1.0rem',
-  marginTop: '10px',
-  display: 'block'
-};
-
-const inputStyle = {
-  backgroundColor: 'rgba(128, 128, 128, 0.2)',
-  color: 'black',
-  marginTop: '10px',
-  display: 'block',
-  width: '100%',
-  height: '40px',
-  border: 'none',
-  borderRadius: '5px',
-  padding: '0 20px',
-  zIndex: '1'
-};
-const submitButtonStyle = {
-  backgroundColor: 'rgb(25,151,245)',
-  borderRadius: '5px',
-  padding: '10px 20px',
-  border: 'none',
-  color: 'white',
-  marginTop: '20px',
-  cursor: 'pointer'
-};
-//styling
-
-const SalesByRegion = () => {
+const SalesDataEntry = () => {
   const [formData, setFormData] = useState({
-    Region: '',
-    productQuantity: '',
-    productRevenue: ''
+    transporterID: generateTransporterID(),
+    transporterType: '',
+    customerID: '',
+    transporterTypeLabel: '',
   });
 
   const handleChange = e => {
@@ -48,94 +18,85 @@ const SalesByRegion = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    alert('Form submitted successfully!');
     // TODO: Submit the form data to the database
     console.log(formData);
   };
 
+  function generateTransporterID() {
+    // Generate a random ID using a library or algorithm of your choice
+    return "T" + Math.floor(Math.random() * 50);
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
-        <label htmlFor="region" style={labelStyle}>Region Name</label>
+        <label htmlFor="tID" className="labelStyle">Transporter ID</label>
         <input
           type="text"
-          className="form-control"
-          id="region"
-          name="region"
-          value={formData.region}
-          onChange={handleChange}
-          required
-          placeholder="Enter Region Name"
-          style={inputStyle}
+          className="form-control inputStyle"
+          id="tID"
+          name="transporterID"
+          value={formData.transporterID}
+          placeholder="..."
           min="0"
+          disabled
         />
       </div>
       <div className="form-group">
-        <label htmlFor="quantity" style={labelStyle}>Quantity</label>
+        <label htmlFor="tFT" className="form-label">Transporter/Forwarder Type</label>
+        <select
+          className="form-control inputStyle"
+          id="tFT"
+          name="transporterType"
+          value={formData.transporterType}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select a Type</option>
+          <option value="Forwarder">Forwarder</option>
+          <option value="Transporter">Transporter</option>
+        </select>
+      </div>
+      <div className="form-group">
+        <label htmlFor="tFTL" className="form-label">Transporter/Forwarder Type Label</label>
+        <select
+          className="form-control inputStyle"
+          id="tFTL"
+          name="transporterTypeLabel"
+          value={formData.transporterTypeLabel}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select a Label</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+          <option value="E">E</option>
+          <option value="F">F</option>
+          <option value="G">G</option>
+          <option value="H">H</option>
+        </select>
+      </div>
+      <div className="form-group">
+        <label htmlFor="tFN" className="labelStyle">Transporter/Forwarder Name</label>
         <input
-          type="number"
-          className="form-control"
-          id="quantity"
-          name="productQuantity"
-          value={formData.quantity}
+          type="text"
+          className="form-input"
+          id="tFN"
+          name="transporterName"
+          value={formData.transporterName}
           onChange={handleChange}
           required
-          placeholder='Enter Quantity'
-          style={inputStyle}
-          min="0"
+          placeholder="Enter Transporter Name"
         />
       </div>
-      <div className="form-group">
-        <label htmlFor="revenue" style={labelStyle}>Revenue</label>
-        <input
-          type="number"
-          className="form-control"
-          id="revenue"
-          name="productRevenue"
-          value={formData.revenue}
-          onChange={handleChange}
-          required
-          placeholder='Enter Revenue'
-          style={inputStyle}
-          min="0"
-        />
-      </div>
-      <div className="form-group">
-          <label htmlFor="regionCode" className="form-label">Region Code</label>
-          <input
-              type="number"
-              className="form-input"
-              id="regionCode"
-              name="regionCode"
-              value={formData.regionCode}
-              onChange={handleChange}
-              required
-              placeholder='Enter Revenue Code'
-              min="0"
-              onInput={(event) => {
-                  if (event.target.value.length > 6) {
-                    event.target.value = event.target.value.slice(0, 6);
-                  }
-              }}                />
-      </div>
-      <div className="form-group">
-          <label htmlFor="ABC" className="form-label">ABC</label>
-          <input
-              type="text"
-              className="form-input"
-              id="ABC"
-              name="ABC"
-              value={formData.ABC}
-              onChange={handleChange}
-              required
-              placeholder='Enter ABC number'
-              min="0"
-          />
-      </div>
-      <button type="submit" className="btn btn-primary" style={submitButtonStyle}>
+      <button type="submit" className="btn btn-primary submitButtonStyle">
         Submit
       </button>
     </form>
   );
 };
 
-export default SalesByRegion;
+export default SalesDataEntry;
