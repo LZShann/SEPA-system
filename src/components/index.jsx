@@ -16,10 +16,10 @@ export { default as ChartsHeader } from './ChartsHeader';
 export { default as Header } from './Header';
 export { default as Modal } from './Modal';
 
-export { default as TopProduct } from './Forms/TopProduct';
-export { default as SalesByRegion } from './Forms/SalesByRegion';
-export { default as SalesByMonth } from './Forms/SalesByMonth';
-export { default as Forms } from './Forms/Forms';
+export { default as TopProduct } from '../archieve/components/Forms/TopProduct';
+export { default as SalesByRegion } from '../archieve/components/Forms/SalesByRegion';
+export { default as SalesByMonth } from '../archieve/components/Forms/SalesByMonth';
+export { default as Forms } from '../archieve/components/Forms/Forms';
 
 export { default as SalesDataEntry } from './Forms/SalesDataEntry';
 export { default as CustomerDataEntry } from './Forms/CustomerDataEntry';
