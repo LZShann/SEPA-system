@@ -9,8 +9,6 @@
 |                  | 3. Run npm install supabase --save-dev (Database) |
 |                  | 4. Run npm install mdb-react-ui-kit (Modal) |
 |                  | 5. Run npm install react-date-picker (DatePicker) |
-
-
 | Extension Used | 1. EJ7+ React |
 | Library Used | 1. Syncfusion |
 |  | 2. React |
