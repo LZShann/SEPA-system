@@ -28,15 +28,15 @@ const UnitPriceDataEntry = () => {
       .from('products_data_entry')
       .insert([
         {
-            product_id: formData.productID,
-            product_name: formData.productName,
-            unit_price: formData.unitPrice,
-            quantity:  formData.quantity
+          product_id: formData.productID,
+          product_name: formData.productName,
+          unit_price: formData.unitPrice,
+          quantity: formData.quantity
         }
       ]);
     if (error) {
       console.log('Error inserting data:', error.message);
-    } else if (data){
+    } else if (data) {
       console.log('Data inserted successfully');
     }
   };
@@ -103,7 +103,11 @@ const UnitPriceDataEntry = () => {
           min="0"
         />
       </div>
-      <button type="submit" className="btn btn-primary submitButtonStyle">
+      <button
+        type="submit"
+        className="btn btn-primary submitButtonStyle"
+        onClick={() => alert('Data submitted successfully!')}
+      >
         Submit
       </button>
     </form>

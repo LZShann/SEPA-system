@@ -191,7 +191,11 @@ const CustomerDataEntry = () => {
           <option value="West">West</option>
         </select>
       </div>
-      <button type="submit" className="btn btn-primary submitButtonStyle">
+      <button
+        type="submit"
+        className="btn btn-primary submitButtonStyle"
+        onClick={() => alert('Data submitted successfully!')}
+      >
         Submit
       </button>
     </form>

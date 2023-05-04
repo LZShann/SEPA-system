@@ -111,7 +111,11 @@ const TransporterDataEntry = () => {
           placeholder="Enter Transporter Name"
         />
       </div>
-      <button type="submit" className="btn btn-primary submitButtonStyle">
+      <button
+        type="submit"
+        className="btn btn-primary submitButtonStyle"
+        onClick={() => alert('Data submitted successfully!')}
+      >
         Submit
       </button>
     </form>
