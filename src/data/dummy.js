@@ -184,7 +184,7 @@ export const links = [
     title: 'Dashboard',
     links: [
       {
-        name: 'statistic',
+        name: 'Statistic',
         icon: <FiShoppingBag />,
       },
     ],
@@ -195,15 +195,15 @@ export const links = [
     links: [
 
       {
-        name: 'task',
+        name: 'Task',
         icon: <BsKanban />,
       },
       {
-        name: 'import_dataset',
+        name: 'Import_dataset',
         icon: <AiOutlineBarChart />,
       },
       {
-        name: 'interview',
+        name: 'Interview',
         icon: <AiOutlineForm />,
       },
     ],
@@ -212,7 +212,7 @@ export const links = [
     title: 'Admin',
     links: [
       {
-        name: 'account',
+        name: 'Account',
         icon: <IoMdContacts />,
       }
     ],
