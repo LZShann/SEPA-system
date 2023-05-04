@@ -6,6 +6,8 @@
 | -------- | --------------- |
 | Actions Required | 1. Install Node.js & Restart Visual Studio Code |
 |                  | 2. Run npm install --legacy-peer-deps |
+|                  | 3. Run npm npm i supabase --save-dev |
+
 | Extension Used | 1. EJ7+ React |
 | Library Used | 1. Syncfusion |
 |  | 2. React |
