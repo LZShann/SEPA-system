@@ -14,7 +14,7 @@ export { default as Stacked } from './Charts/Stacked';
 export { default as Pie } from './Charts/Pie';
 export { default as ChartsHeader } from './ChartsHeader';
 export { default as Header } from './Header';
-export { default as Modal } from './Modal';
+export { default as ModalBarChart } from './Modal/ModalBarChart';
 
 export { default as TopProduct } from '../archieve/components/Forms/TopProduct';
 export { default as SalesByRegion } from '../archieve/components/Forms/SalesByRegion';

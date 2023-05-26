@@ -7,7 +7,7 @@ import { BsFillPieChartFill } from 'react-icons/bs';
 import { HiOutlineRefresh } from 'react-icons/hi';
 
 //components
-import { Stacked, Pie, Button, LineChart, SparkLine, Modal } from '../components';
+import { Stacked, Pie, Button, LineChart, SparkLine, ModalBarChart } from '../components';
 import { weeklyStats, SparklineAreaData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 import BarChartKPI from '../components/Charts/BarChartKPI';
@@ -46,7 +46,7 @@ const Statistic = () => {
             iconBg="#E5FAFB"
             onClick={() => {setModalOpen(true);}}
           />      
-          {modalOpen && <Modal setOpenModal={setModalOpen} />}
+          {modalOpen && <ModalBarChart setOpenModal={setModalOpen} />}
           <IconBlock
             icon={<AiOutlineLineChart />}
             desc="Chart"
