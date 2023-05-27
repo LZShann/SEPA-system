@@ -8,7 +8,8 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 const UnitPriceDataEntry = () => {
   const [formData, setFormData] = useState({
-    productID: generateProductID(),
+    // productID: generateProductID(),
+    productID: '',
     productName: '',
     unitPrice: '',
     quantity: '',
@@ -41,24 +42,26 @@ const UnitPriceDataEntry = () => {
     }
   };
 
-  function generateProductID() {
-    // Generate a random ID using a library or algorithm of your choice
-    return "P" + Math.floor(Math.random() * 20);
-  }
+  // function generateProductID() {
+  //   // Generate a random ID using a library or algorithm of your choice
+  //   return "P" + Math.floor(Math.random() * 20);
+  // }
 
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
         <label htmlFor="pID" className="labelStyle">Product ID</label>
         <input
-          type="text"
+          type="number"
           className="form-control inputStyle"
           id="pID"
           name="productID"
           value={formData.productID}
-          placeholder="..."
+          onChange={handleChange}
+          required
+          placeholder="Enter Product ID"
           min="0"
-          disabled
+        // disabled
         />
       </div>
       <div className="form-group">

@@ -10,7 +10,8 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 const CustomerDataEntry = () => {
   const [formData, setFormData] = useState({
-    customerID: generateCustomerID(),
+    // customerID: generateCustomerID(),
+    customerID: '',
     customerAddress: '',
     customerCity: '',
     customerState: '',
@@ -49,31 +50,33 @@ const CustomerDataEntry = () => {
     }
   };
 
-  function generateCustomerID() {
-    // Generate a random ID using a library or algorithm of your choice
-    return "C" + Math.floor(Math.random() * 100);
-  }
+  // function generateCustomerID() {
+  //   // Generate a random ID using a library or algorithm of your choice
+  //   return "C" + Math.floor(Math.random() * 100);
+  // }
 
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
         <label htmlFor="cID" className="labelStyle">Customer ID</label>
         <input
-          type="text"
+          type="number"
           className="form-control inputStyle"
           id="cID"
           name="customerID"
           value={formData.customerID}
-          placeholder="..."
+          onChange={handleChange}
+          required
+          placeholder="Enter Customer ID"
           min="0"
-          disabled
+          // disabled
         />
       </div>
       <div className="form-group">
         <label htmlFor="cA" className="labelStyle">Customer Address</label>
         <input
           type="text"
-          className="form-input"
+          className="form-input inputStyle"
           id="cA"
           name="customerAddress"
           value={formData.customerAddress}

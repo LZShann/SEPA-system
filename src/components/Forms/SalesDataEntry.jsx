@@ -12,7 +12,9 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 const SalesDataEntry = () => {
     const [formData, setFormData] = useState({
-        salesOrderID: generateSalesOrderID(),
+        // salesOrderID: generateSalesOrderID(),
+        salesOrderID: '',
+        salesManName: '',
         orderDate: '',
         customerID: '',
         products: '',
@@ -20,7 +22,8 @@ const SalesDataEntry = () => {
         quantity: '',
         deliveryDate: '',
         deliveryFee: '',
-        transporter: ''
+        transporterName: '',
+        serviceRating: ''
     });
 
     const handleChange = e => {
@@ -39,15 +42,16 @@ const SalesDataEntry = () => {
             .insert([
                 {
                     sales_order_id: formData.salesOrderID,
+                    sales_man_name: formData.salesManName,
                     order_date: formData.orderDate,
                     customer_id: formData.customerID,
                     products: formData.products,
                     payment_type: formData.paymentType,
                     quantity: formData.quantity,
                     delivery_date: formData.deliveryDate,
-                    transporter: formData.transporter,
-                    delivery_fee: formData.deliveryFee
-
+                    delivery_fee: formData.deliveryFee,
+                    transporter_name: formData.transporterName,
+                    service_rating: formData.serviceRating
                 }
             ]);
         if (error) {
@@ -58,24 +62,40 @@ const SalesDataEntry = () => {
     };
 
 
-    function generateSalesOrderID() {
-        // Generate a random ID using a library or algorithm of your choice
-        return "SO" + Math.floor(Math.random() * 1000);
-    }
+    // function generateSalesOrderID() {
+    //     // Generate a random ID using a library or algorithm of your choice
+    //     return "SO" + Math.floor(Math.random() * 1000);
+    // }
 
     return (
         <form onSubmit={handleSubmit}>
             <div className="form-group">
                 <label htmlFor="soID" className="labelStyle">Sales Order ID</label>
                 <input
-                    type="text"
+                    type="number"
                     className="form-control inputStyle"
                     id="soID"
                     name="salesOrderID"
                     value={formData.salesOrderID}
-                    placeholder="..."
+                    onChange={handleChange}
+                    required
+                    placeholder="Enter Sales Order ID"
                     min="0"
-                    disabled
+                // disabled
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="salesManName" className="labelStyle">Sales Man</label>
+                <input
+                    type="text"
+                    className="form-control inputStyle"
+                    id="salesManName"
+                    name="salesManName"
+                    value={formData.salesManName}
+                    onChange={handleChange}
+                    required
+                    // disabled
+                    placeholder="Enter Sales Man Name"
                 />
             </div>
             <div className="form-group">
@@ -192,18 +212,34 @@ const SalesDataEntry = () => {
                 />
             </div>
             <div className="form-group">
-                <label htmlFor="transporter" className="form-label">Transporter</label>
+                <label htmlFor="transporterName" className="form-label">Transporter Name</label>
                 <input
-                    type="number"
+                    type="text"
                     className="form-input"
-                    id="transporter"
-                    name="transporter"
-                    value={formData.transporter}
+                    id="transporterName"
+                    name="transporterName"
+                    value={formData.transporterName}
                     onChange={handleChange}
                     required
-                    placeholder='Enter Transporter Number'
-                    min="0"
+                    placeholder='Enter Transporter Name'
                 />
+            </div>
+            <div className="form-group">
+                <label htmlFor="serviceRating" className="labelStyle">Service Rating</label>
+                <select
+                    className="form-control inputStyle"
+                    id="serviceRating"
+                    name="serviceRating"
+                    value={formData.serviceRating}
+                    onChange={handleChange}
+                    required
+                >
+                    <option value="">Select a Rating</option>
+                    <option value="Worse">Worse</option>
+                    <option value="Average">Average</option>
+                    <option value="Good">Good</option>
+                    <option value="Excellence">Excellence</option>
+                </select>
             </div>
             <button
                 type="submit"

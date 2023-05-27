@@ -9,7 +9,8 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 const TransporterDataEntry = () => {
   const [formData, setFormData] = useState({
-    transporterID: generateTransporterID(),
+    // transporterID: generateTransporterID(),
+    transporterID: '',
     transporterType: '',
     customerID: '',
     transporterTypeLabel: '',
@@ -42,24 +43,26 @@ const TransporterDataEntry = () => {
     }
   };
 
-  function generateTransporterID() {
-    // Generate a random ID using a library or algorithm of your choice
-    return "T" + Math.floor(Math.random() * 50);
-  }
+  // function generateTransporterID() {
+  //   // Generate a random ID using a library or algorithm of your choice
+  //   return "T" + Math.floor(Math.random() * 50);
+  // }
 
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
         <label htmlFor="tID" className="labelStyle">Transporter ID</label>
         <input
-          type="text"
+          type="number"
           className="form-control inputStyle"
           id="tID"
           name="transporterID"
           value={formData.transporterID}
-          placeholder="..."
+          onChange={handleChange}
+          required
+          placeholder="Enter Transporter ID"
           min="0"
-          disabled
+        // disabled
         />
       </div>
       <div className="form-group">

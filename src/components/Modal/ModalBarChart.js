@@ -67,7 +67,7 @@ function ModalBarChart({ setOpenModal }) {
                                 <option value="Option 3">Top Sales By Region (ADMIN)</option> */}
                                 <option value="topSalesByRegionByMonth">Top Sales By Region & Month</option>
                                 {/* <option value="Option 3">Top Sales By Region & Month (ADMIN)</option> */}
-                                <option value="salesByRegion3">Revenue Performance (Sales By Region 3)</option>
+                                {/* <option value="salesByRegion3">Revenue Performance (Sales By Region 3)</option> */}
                             </select>
                         </div>
                         {formData.selectTitle === "totalSales" && (
@@ -98,7 +98,16 @@ function ModalBarChart({ setOpenModal }) {
                         )}
                         {formData.selectTitle === "topCustomer" && (
                             <div className="selectRow">
-                                <label className="selectTitle">Select Option:</label>
+                                <label className="selectTitle">Sales Man:</label>
+                                <input
+                                    type="text"
+                                    className="selectStyle"
+                                    id="salesManName"
+                                    name="salesManName"
+                                    value={"TYS"}
+                                    disabled
+                                />
+                                <label className="selectTitle">Type:</label>
                                 <select
                                     className="selectStyle"
                                     name="topCustomer"
@@ -106,41 +115,60 @@ function ModalBarChart({ setOpenModal }) {
                                     onChange={handleChange}
                                 >
                                     <option value="">Select an Option</option>
-                                    <option value="Option1">Option 1</option>
-                                    <option value="Option2">Option 2</option>
-                                    <option value="Option3">Option 3</option>
+                                    <option value="top3">Top 3</option>
+                                    <option value="top5">Top 5</option>
+                                    <option value="top10">Top 10</option>
                                 </select>
                             </div>
                         )}
                         {formData.selectTitle === "topSalesProducts" && (
                             <div className="selectRow">
-                                <label className="selectTitle">Select Option:</label>
+                                <label className="selectTitle">Sales Man:</label>
+                                <input
+                                    type="text"
+                                    className="selectStyle"
+                                    id="salesManName"
+                                    name="salesManName"
+                                    value={"TYS"}
+                                    disabled
+                                />
+                                <label className="selectTitle">Type:</label>
                                 <select
                                     className="selectStyle"
-                                    name="topSalesProducts"
-                                    value={formData.topSalesProducts}
+                                    name="topCustomer"
+                                    value={formData.topCustomer}
                                     onChange={handleChange}
                                 >
                                     <option value="">Select an Option</option>
-                                    <option value="Option1">Option 1</option>
-                                    <option value="Option2">Option 2</option>
-                                    <option value="Option3">Option 3</option>
+                                    <option value="top3">Top 3</option>
+                                    <option value="top5">Top 5</option>
                                 </select>
                             </div>
                         )}
                         {formData.selectTitle === "topSalesByRegionByMonth" && (
                             <div className="selectRow">
-                                <label className="selectTitle">Select Option:</label>
+                                <label className="selectTitle">Sales Man:</label>
+                                <input
+                                    type="text"
+                                    className="selectStyle"
+                                    id="salesManName"
+                                    name="salesManName"
+                                    value={"TYS"}
+                                    disabled
+                                />
+                                <label className="selectTitle">Type:</label>
                                 <select
                                     className="selectStyle"
-                                    name="topSalesByRegionByMonth"
-                                    value={formData.topSalesByRegionByMonth}
+                                    name="topCustomer"
+                                    value={formData.topCustomer}
                                     onChange={handleChange}
                                 >
                                     <option value="">Select an Option</option>
-                                    <option value="Option1">Option 1</option>
-                                    <option value="Option2">Option 2</option>
-                                    <option value="Option3">Option 3</option>
+                                    <option value="quater1">Q1</option>
+                                    <option value="quater2">Q2</option>
+                                    <option value="quater3">Q3</option>
+                                    <option value="quater4">Q4</option>
+                                    <option value="quater4">Yearly</option>
                                 </select>
                             </div>
                         )}
