@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { Navbar, Footer, Sidebar } from './components';
-import { Statistic, Import_Dataset, Interview, Task, Account} from './pages';
+import { Statistic, Import_Dataset, Interview, Task, Account } from './pages';
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
@@ -16,15 +16,7 @@ const App = () => {
   return (
     <div>
       <BrowserRouter>
-        
         <div className="flex relative">
-          <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
-            <TooltipComponent
-              content="Settings"
-              position="Top"
-            >
-            </TooltipComponent>
-          </div> 
           {activeMenu ? (
             <div className="w-72 fixed sidebar bg-white ">
               <Sidebar />
@@ -59,7 +51,7 @@ const App = () => {
                 <Route path="/Account" element={(<Account />)} />
               </Routes>
             </div>
-            <Footer/>
+            <Footer />
           </div>
         </div>
       </BrowserRouter>

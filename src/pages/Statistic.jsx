@@ -16,9 +16,10 @@ const Statistic = () => {
   const { currentColor } = useStateContext();
 
   const [modalOpen, setModalOpen] = useState(false);
+
   function IconBlock({ icon, desc, title, iconColor, iconBg, onClick }) {
     return (
-      <div className="bg-white h-44 md:w-56  p-4 pt-9 rounded-2xl">
+      <div className="bg-white h-44 md:w-56 p-4 pt-9 rounded-2xl">
         <button
           type="button"
           style={{ color: iconColor, backgroundColor: iconBg }}
@@ -34,8 +35,10 @@ const Statistic = () => {
       </div>
     );
   }
+
   return (
-    <div className="mt-24">
+    //here can edit background color
+    <div className="mt-20"> 
       <div className="flex flex-wrap lg:flex-nowrap justify-center">
         <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
           <IconBlock
@@ -44,8 +47,8 @@ const Statistic = () => {
             title="Bar"
             iconColor="#03C9D7"
             iconBg="#E5FAFB"
-            onClick={() => {setModalOpen(true);}}
-          />      
+            onClick={() => { setModalOpen(true); }}
+          />
           {modalOpen && <ModalBarChart setOpenModal={setModalOpen} />}
           <IconBlock
             icon={<AiOutlineLineChart />}
