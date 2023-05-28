@@ -12,7 +12,8 @@
 | Extension Used | 1. EJ7+ React |
 | Library Used | 1. Syncfusion |
 |  | 2. React |
-| Material Might Useful | 1. https://www.youtube.com/watch?v=nL9X--HNFrg |
+|  | 3. Datepicker |
+| Material/Template Used | 1. https://www.youtube.com/watch?v=nL9X--HNFrg |
 
 ## Available Scripts
 In the project directory, you can run:
