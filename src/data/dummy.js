@@ -440,68 +440,6 @@ export const lineCustomSeries = [
 
 ];
 
-export const stackedChartData = [
-  [
-    { x: 'Black', y: 10800 },
-    { x: 'Red', y: 9900 },
-    { x: 'Green', y: 6360 },
-    { x: 'Golden', y: 6250 },
-    { x: 'Blue', y: 4000 },
-  ],
-  [
-    { x: 'Black', y: 2895 },
-    { x: 'Red', y: 2653 },
-    { x: 'Green', y: 1705 },
-    { x: 'Golden', y: 1675 },
-    { x: 'Blue', y: 1072 },
-  ],
-];
-
-export const stackedCustomSeries = [
-
-  { dataSource: stackedChartData[0],
-    xName: 'x',
-    yName: 'y',
-    name: 'Revenue',
-    type: 'StackingColumn',
-    background: 'blue',
-
-  },
-
-  { dataSource: stackedChartData[1],
-    xName: 'x',
-    yName: 'y',
-    name: 'Pencentage of Revenue ÷100',
-    type: 'StackingColumn',
-    background: 'red',
-
-  },
-
-];
-
-export const stackedPrimaryXAxis = {
-  majorGridLines: { width: 0 },
-  minorGridLines: { width: 0 },
-  majorTickLines: { width: 0 },
-  minorTickLines: { width: 0 },
-  interval: 1,
-  lineStyle: { width: 0 },
-  labelIntersectAction: 'Rotate45',
-  valueType: 'Category',
-};
-
-export const stackedPrimaryYAxis = {
-  lineStyle: { width: 0 },
-  minimum: 1000,
-  maximum: 16000,
-  interval: 2000,
-  majorTickLines: { width: 0 },
-  majorGridLines: { width: 1 },
-  minorGridLines: { width: 1 },
-  minorTickLines: { width: 0 },
-  labelFormat: '{value}',
-};
-
 export const kanbanData = [
   {
     Id: 'Task 1',
