@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, Legend, Category, StackingColumnSeries, Tooltip } from '@syncfusion/ej2-react-charts';
 import { createClient } from "@supabase/supabase-js";
-import { useStateContext } from '../../contexts/ContextProvider';
+import { useStateContext } from '../../../contexts/ContextProvider';
 
 const supabaseUrl = 'https://aehwgrirrnhmatqmqcsa.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFlaHdncmlycm5obWF0cW1xY3NhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY4MDg2NTg4MywiZXhwIjoxOTk2NDQxODgzfQ.DeXxoWY65kzpbvdxME16mAHj2KGMwDRg_jEGgUIxKc0';
@@ -53,7 +53,7 @@ var Stacked = ({ width, height }) => {
   const { currentMode } = useStateContext();
   const [stackedBarData, setStackedBarData] = useState(null);
   const [fetchError, setFetchError] = useState(null);
-  const [chartKey, setChartKey] = useState(0);
+  const [chartLoaded, setChartLoaded] = useState(false);
 
   useEffect(() => {
     const fetchStackedBarData = async () => {
@@ -118,17 +118,19 @@ var Stacked = ({ width, height }) => {
 
         console.log(stackedCustomSeries[0]['dataSource']);
         console.log(stackedCustomSeries[1]['dataSource']);
-
-        setChartKey(prevKey => prevKey + 1);
       }
     };
 
     fetchStackedBarData();
-  }, [stackedBarData]);
+  }, []);
+
+  const handleChartLoad = () => {
+    setChartLoaded(true);
+  };
 
   return (
     <ChartComponent
-      key={chartKey}
+      id="charts"
       primaryXAxis={stackedPrimaryXAxis}
       primaryYAxis={stackedPrimaryYAxis}
       width={width}
@@ -137,10 +139,13 @@ var Stacked = ({ width, height }) => {
       tooltip={{ enable: true }}
       background={currentMode === 'Dark' ? '#33373E' : '#fff'}
       legendSettings={{ background: 'white' }}
+      loaded={handleChartLoad}
     >
       <Inject services={[StackingColumnSeries, Category, Legend, Tooltip]} />
       <SeriesCollectionDirective>
-        {stackedCustomSeries.map((item, index) => <SeriesDirective key={index} {...item} />)}
+        {chartLoaded &&
+          stackedCustomSeries.map((item, index) => <SeriesDirective key={index} {...item} />)
+        }
       </SeriesCollectionDirective>
     </ChartComponent>
   );
