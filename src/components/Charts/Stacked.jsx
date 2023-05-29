@@ -1,10 +1,63 @@
-import React from 'react';
+import React, { useState, setState } from 'react';
 import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, Legend, Category, StackingColumnSeries, Tooltip } from '@syncfusion/ej2-react-charts';
-
-// import { stackedCustomSeries, stackedPrimaryXAxis, stackedPrimaryYAxis } from '../../data/StackedBarData.js';
+import { createClient } from "@supabase/supabase-js";
 import { useStateContext } from '../../contexts/ContextProvider';
 
-const stackedChartData = [
+const supabaseUrl = 'https://aehwgrirrnhmatqmqcsa.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFlaHdncmlycm5obWF0cW1xY3NhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY4MDg2NTg4MywiZXhwIjoxOTk2NDQxODgzfQ.DeXxoWY65kzpbvdxME16mAHj2KGMwDRg_jEGgUIxKc0';
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// import { stackedCustomSeries, stackedPrimaryXAxis, stackedPrimaryYAxis } from '../../data/StackedBarData.js';
+
+var fetchErrorFunction = null;
+var stackedBarDataFunction = null;
+
+const fetchStackedBarData = async () => {
+    let { data: stackedBarData, error } = await supabase
+        .from('sales_data_entry')
+        .select('*, product:products_data_entry(*)')
+        .eq('sales_man_name', 'TYS')
+    if (error){
+        fetchErrorFunction('Could not fetch data from sales_data_entry')
+        stackedBarDataFunction(null)
+        console.log('error', error)
+    } 
+    if (stackedBarData){
+        fetchErrorFunction(null)
+        stackedBarDataFunction(stackedBarData)
+
+        var newStackedChartData = []
+
+        stackedBarData.forEach((item) => {
+          const revenue = item['quantity'] * item['product']['unit_price']
+          const product_name = item['product']['product_name']
+          
+          // Check if product exists in the data
+          const productIndex = newStackedChartData.findIndex((item) => item['x'] === product_name)
+          if (productIndex === -1){
+            // If product does not exist in the data, create a new entry
+            newStackedChartData.push({
+              x: product_name,
+              y: revenue,
+            })
+          }
+          else{
+            // If product exists in the data, add revenue to existing entry
+            newStackedChartData[productIndex]['y'] += revenue
+          }
+        })
+
+        // Update the chart
+        stackedCustomSeries[0]['dataSource'] = newStackedChartData
+        //this.chartInstance.refresh()
+        
+        console.log(stackedCustomSeries[0]['dataSource'])
+    }
+}
+
+fetchStackedBarData();
+
+var stackedChartData = [
   [
       { x: 'Black', y: 10800 },
       { x: 'Red', y: 9900 },
@@ -68,19 +121,31 @@ const stackedPrimaryYAxis = {
   labelFormat: '{value}',
 };
 
+// onChartLoad = (args) => {
+//   let chart = document.getElementById("charts");
+// }
+
 const Stacked = ({ width, height }) => {
   const { currentMode } = useStateContext();
+  const [stackedBarData, setStackedBarData] = useState(null);
+  const [fetchError, setFetchError] = useState(null);
+
+  fetchErrorFunction = setFetchError;
+  stackedBarDataFunction = setStackedBarData;
 
   return (
     <ChartComponent
       id="charts"
+      //ref={chart => (chartInstance = chart)}
       primaryXAxis={stackedPrimaryXAxis}
       primaryYAxis={stackedPrimaryYAxis}
       width={width}
       height={height}
       chartArea={{ border: { width: 0 } }}
       tooltip={{ enable: true }}
+      background={currentMode === 'Dark' ? '#33373E' : '#fff'}
       legendSettings={{ background: 'white' }}
+      //loaded={onChartLoad.bind(this)}
     >
       <Inject services={[StackingColumnSeries, Category, Legend, Tooltip]} />
       <SeriesCollectionDirective>
@@ -88,7 +153,7 @@ const Stacked = ({ width, height }) => {
         {stackedCustomSeries.map((item, index) => <SeriesDirective key={index} {...item} />)}
       </SeriesCollectionDirective>
     </ChartComponent>
-  );
+  )
 };
 
 export default Stacked;
