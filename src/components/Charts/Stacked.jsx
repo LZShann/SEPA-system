@@ -39,8 +39,8 @@ var stackedPrimaryXAxis = {
 
 var stackedPrimaryYAxis = {
   lineStyle: { width: 0 },
-  minimum: 1000,
-  maximum: 20000,
+  minimum: 0,
+  maximum: 24000,
   interval: 2000,
   majorTickLines: { width: 0 },
   majorGridLines: { width: 1 },
@@ -60,7 +60,7 @@ var Stacked = ({ width, height }) => {
       let { data: stackedBarData, error } = await supabase
         .from('sales_data_entry')
         .select('*, product:products_data_entry(*)')
-        .eq('sales_man_name', 'TYS');
+        .eq('sales_man_name', 'TKZ');
 
       if (error) {
         setFetchError('Could not fetch data from sales_data_entry');
@@ -124,7 +124,7 @@ var Stacked = ({ width, height }) => {
     };
 
     fetchStackedBarData();
-  }, [stackedBarData]);
+  }, []);
 
   return (
     <ChartComponent
