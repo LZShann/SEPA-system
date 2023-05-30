@@ -7,7 +7,7 @@ import { BsFillPieChartFill } from 'react-icons/bs';
 import { HiOutlineRefresh } from 'react-icons/hi';
 
 //components
-import { Stacked, Pie, Button, LineChart, SparkLine, ModalBarChart } from '../components';
+import { StackedTopSalesProduct, StackedTotalSales, Button, LineChart, SparkLine, ModalBarChart } from '../components';
 import { weeklyStats, SparklineAreaData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 import BarChartKPI from '../components/Charts/BarChartKPI';
@@ -80,21 +80,21 @@ const Statistic = () => {
       <div className="flex gap-10 flex-wrap justify-center">
         <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
           <div className="flex justify-between">
-            <p className="font-semibold text-xl" id = "title">Grand Total % 2021</p>
+            <p className="font-semibold text-xl" id = "topSalesProductTitle">Title</p>
           </div>
           <div className="mt-10 flex gap-10 flex-wrap justify-center">
             <div className=" border-r-1 border-color m-4 pr-10">
               <div>
                 <p>
-                  <span className="text-3xl font-semibold" id="highestRevenue">RM 10,800</span>
+                  <span className="text-3xl font-semibold" id="highestRevenue">RM 0</span>
                   <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-green-400 ml-3 text-xs" id="highestRevenuePercentage">
-                    28.95%
+                    00.00%
                   </span>
                 </p>
                 <p className="text-gray-500 mt-1">Highest</p>
               </div>
               <div className="mt-8">
-                <p className="text-3xl font-semibold" id="lowestRevenue">RM 4,000</p>
+                <p className="text-3xl font-semibold" id="lowestRevenue">RM 0</p>
 
                 <p className="text-gray-500 mt-1">Lowest</p>
               </div>
@@ -108,12 +108,40 @@ const Statistic = () => {
               </div>
             </div>
             <div>
-              {/* < BarChartKPI width="320px" height="360px" /> */}
-              <Stacked width="320px" height="360px" />
+              <StackedTopSalesProduct width="320px" height="360px" />
             </div>
           </div>
         </div>
       </div>
+
+      {/* <div className="flex gap-10 flex-wrap justify-center">
+        <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
+          <div className="flex justify-between">
+            <p className="font-semibold text-xl" id = "totalSalesTitle">Title</p>
+          </div>
+          <div className="mt-10 flex gap-10 flex-wrap justify-center">
+            <div className=" border-r-1 border-color m-4 pr-10">
+              <div>
+                <p>
+                  <span className="text-3xl font-semibold" id="totalSales">RM 0</span>
+                </p>
+                <p className="text-gray-500 mt-1">Highest</p>
+              </div>
+              <div className="mt-10">
+                <Button
+                  color="white"
+                  bgColor={currentColor}
+                  text="Download Report"
+                  borderRadius="10px"
+                />
+              </div>
+            </div>
+            <div>
+              <StackedTotalSales width="320px" height="360px" />
+            </div>
+          </div>
+        </div>
+      </div> */}
 
       <div className="flex flex-wrap justify-center">
         <div className="md:w-400 bg-white rounded-2xl p-6 m-3">
