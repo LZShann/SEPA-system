@@ -60,7 +60,7 @@ var Stacked = ({ width, height }) => {
       let { data: stackedBarData, error } = await supabase
         .from('sales_data_entry')
         .select('*, product:products_data_entry(*)')
-        .eq('sales_man_name', 'TKZ');
+        .eq('sales_man_name', 'LWH');
 
       if (error) {
         setFetchError('Could not fetch data from sales_data_entry');
@@ -93,21 +93,15 @@ var Stacked = ({ width, height }) => {
           }
         });
 
-        stackedBarData.forEach((item) => {
-          const revenue = item['quantity'] * item['product']['unit_price'];
-          const product_name = item['product']['product_name'];
+        newStackedChartData.forEach((item) => {
+          const revenue = item['y'];
           const percentage = (revenue / totalRevenue) * 10000;
           const percentageRounded = Number(percentage.toFixed(2));
 
-          const percentageIndex = newStackedChartData2.findIndex((item) => item['x'] === product_name);
-          if (percentageIndex === -1) {
-            newStackedChartData2.push({
-              x: product_name,
-              y: percentageRounded,
-            });
-          } else {
-            newStackedChartData2[percentageIndex]['y'] += percentageRounded;
-          }
+          newStackedChartData2.push({
+            x: item['x'],
+            y: percentageRounded,
+          });
         });
 
         newStackedChartData.sort((a, b) => b['y'] - a['y']);
@@ -120,6 +114,41 @@ var Stacked = ({ width, height }) => {
         console.log(stackedCustomSeries[1]['dataSource']);
 
         setChartKey(prevKey => prevKey + 1);
+
+        var titleElement = document.getElementById('title');
+        titleElement.innerHTML = 'Top Sales Product (Grand Total %)';
+        // Highest and lowest revenue
+        var highestRevenue = newStackedChartData[0]['y'];
+        var lowestRevenue = newStackedChartData[0]['y'];
+
+        newStackedChartData.forEach((item) => {
+          if (item['y'] > highestRevenue) {
+            highestRevenue = item['y'];
+          }
+
+          if (item['y'] < lowestRevenue) {
+            lowestRevenue = item['y'];
+          }
+        });
+
+        var highestRevenueElement = document.getElementById('highestRevenue');
+        highestRevenueElement.innerHTML = 'RM ' + highestRevenue.toString();
+
+        var lowestRevenueElement = document.getElementById('lowestRevenue');
+        lowestRevenueElement.innerHTML = 'RM ' + lowestRevenue.toString();
+
+        // Percentage
+        var highestPercentage = newStackedChartData2[0]['y'];
+        newStackedChartData2.forEach((item) => {
+          if (item['y'] > highestPercentage) {
+            highestPercentage = item['y'];
+          }
+        });
+
+        // round the percentage to 2 decimal places
+        var highestPercentageRounded = highestPercentage * 0.01;
+        var highestPercentageElement = document.getElementById('highestRevenuePercentage');
+        highestPercentageElement.innerHTML = highestPercentageRounded.toFixed(2).toString() + ' %';
       }
     };
 

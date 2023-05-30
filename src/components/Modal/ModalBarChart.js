@@ -107,7 +107,7 @@ function ModalBarChart({ setOpenModal }) {
                                     value={"TYS"}
                                     disabled
                                 />
-                                <label className="selectTitle">Type:</label>
+                                {/* <label className="selectTitle">Type:</label>
                                 <select
                                     className="selectStyle"
                                     name="topCustomer"
@@ -118,7 +118,7 @@ function ModalBarChart({ setOpenModal }) {
                                     <option value="top3">Top 3</option>
                                     <option value="top5">Top 5</option>
                                     <option value="top10">Top 10</option>
-                                </select>
+                                </select> */}
                             </div>
                         )}
                         {formData.selectTitle === "topSalesProducts" && (
@@ -132,7 +132,7 @@ function ModalBarChart({ setOpenModal }) {
                                     value={"TYS"}
                                     disabled
                                 />
-                                <label className="selectTitle">Type:</label>
+                                {/* <label className="selectTitle">Type:</label>
                                 <select
                                     className="selectStyle"
                                     name="topCustomer"
@@ -142,7 +142,7 @@ function ModalBarChart({ setOpenModal }) {
                                     <option value="">Select an Option</option>
                                     <option value="top3">Top 3</option>
                                     <option value="top5">Top 5</option>
-                                </select>
+                                </select> */}
                             </div>
                         )}
                         {formData.selectTitle === "topSalesByRegionByMonth" && (
