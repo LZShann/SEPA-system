@@ -104,7 +104,7 @@ var stackedCustomSeries = [
     background: 'blue',
   },
   {
-    dataSource: [],
+    dataSource: stackedChartData[1],
     xName: 'x',
     yName: 'y',
     name: 'Pencentage of Revenue ÷100',
