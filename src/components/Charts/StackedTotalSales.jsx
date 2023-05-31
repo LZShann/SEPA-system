@@ -10,7 +10,7 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Stacked Bar Chart Data Source passing and X,Y Axis Name
-var stackedCustomSeries2 = [
+var stackedCustomSeries = [
   {
     dataSource: [0],
     xName: 'x',
@@ -28,7 +28,7 @@ var stackedCustomSeries2 = [
 ];
 
 // Stacked Bar Chart Pattern/Style
-var stackedPrimaryXAxis2 = {
+var stackedPrimaryXAxis = {
   majorGridLines: { width: 0 },
   minorGridLines: { width: 0 },
   majorTickLines: { width: 0 },
@@ -38,7 +38,7 @@ var stackedPrimaryXAxis2 = {
   labelIntersectAction: 'Rotate45',
   valueType: 'Category',
 };
-var stackedPrimaryYAxis2 = {
+var stackedPrimaryYAxis = {
   lineStyle: { width: 0 },
   minimum: 0,
   maximum: 50000,
@@ -54,16 +54,16 @@ var stackedPrimaryYAxis2 = {
 var StackedTotalSales = ({ width, height }) => {
   const { currentMode } = useStateContext();
   // Data Setter
-  const [stackedBarData2, setStackedBarData2] = useState(null);
+  const [stackedBarData, setStackedBarData2] = useState(null);
   // Error Setter *Used when error occur
-  const [fetchError2, setFetchError2] = useState(null);
+  const [fetchError, setFetchError2] = useState(null);
   // Key Prop
-  const [chartKey2, setChartKey] = useState(0);
+  const [chartKey, setChartKey] = useState(0);
 
   useEffect(() => {
     // Function to fetch data from database
     const fetchStackedBarData2 = async () => {
-      let { data: stackedBarData2, error } = await supabase
+      let { data: stackedBarData, error } = await supabase
         .from('sales_data_entry') // Table name
         .select('*, product:products_data_entry(*)') // Select all data from sales_data_entry and foreign key - product from products_data_entry & select all
         .eq('sales_man_name', 'TYS'); // equal to sales man name LWH *Can change the LWH to other sales man name
@@ -74,15 +74,15 @@ var StackedTotalSales = ({ width, height }) => {
         console.log('error', error);
       }
 
-      if (stackedBarData2) {
+      if (stackedBarData) {
         setFetchError2(null);
-        setStackedBarData2(stackedBarData2); // if data found when be here. Use stackedBarData to do the data manipulation
+        setStackedBarData2(stackedBarData); // if data found when be here. Use stackedBarData to do the data manipulation
 
         var newStackedChartData = []; // used to find revenue
         var newStackedChartData2 = []; // used to find revenue percentage
         var totalRevenue = 0; // used to find total revenue
 
-        stackedBarData2.forEach((item) => {
+        stackedBarData.forEach((item) => {
           const revenue = item['quantity'] * item['product']['unit_price']; // revenue formula
           const product_name = item['product']['product_name']; // product name
 
@@ -120,12 +120,12 @@ var StackedTotalSales = ({ width, height }) => {
         newStackedChartData2.sort((a, b) => b['y'] - a['y']);
 
         // set the newStackedChartData and newStackedChartData2 to the dataSource
-        stackedCustomSeries2[0]['dataSource'] = newStackedChartData;
-        stackedCustomSeries2[1]['dataSource'] = newStackedChartData2;
+        stackedCustomSeries[0]['dataSource'] = newStackedChartData;
+        stackedCustomSeries[1]['dataSource'] = newStackedChartData2;
 
         // check the output for revenue and percentage of revenue, it same as 'console.log(newStackedChartData);'
-        console.log(stackedCustomSeries2[0]['dataSource']);
-        console.log(stackedCustomSeries2[1]['dataSource']);
+        console.log(stackedCustomSeries[0]['dataSource']);
+        console.log(stackedCustomSeries[1]['dataSource']);
 
         // set the chartKey to re-render the chart
         setChartKey(prevKey => prevKey + 1);
@@ -154,9 +154,10 @@ var StackedTotalSales = ({ width, height }) => {
 
   return (
     <ChartComponent
-      key={chartKey2}
-      primaryXAxis={stackedPrimaryXAxis2}
-      primaryYAxis={stackedPrimaryYAxis2}
+      id="stackedTotalSales"
+      key={chartKey}
+      primaryXAxis={stackedPrimaryXAxis}
+      primaryYAxis={stackedPrimaryYAxis}
       width={width}
       height={height}
       chartArea={{ border: { width: 0 } }}
@@ -166,7 +167,7 @@ var StackedTotalSales = ({ width, height }) => {
     >
       <Inject services={[StackingColumnSeries, Category, Legend, Tooltip]} />
       <SeriesCollectionDirective>
-        {stackedCustomSeries2.map((item, index) => <SeriesDirective key={index} {...item} />)}
+        {stackedCustomSeries.map((item, index) => <SeriesDirective key={index} {...item} />)}
       </SeriesCollectionDirective>
     </ChartComponent>
   );

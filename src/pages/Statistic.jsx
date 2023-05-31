@@ -77,7 +77,7 @@ const Statistic = () => {
         </div>
       </div>
 
-      {/* <div className="flex gap-10 flex-wrap justify-center">
+      <div className="flex gap-10 flex-wrap justify-center">
         <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
           <div className="flex justify-between">
             <p className="font-semibold text-xl" id = "topSalesProductTitle">Title</p>
@@ -112,7 +112,7 @@ const Statistic = () => {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
 
       <div className="flex gap-10 flex-wrap justify-center">
         <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
