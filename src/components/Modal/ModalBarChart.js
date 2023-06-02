@@ -7,13 +7,9 @@ const supabaseUrl = 'https://aehwgrirrnhmatqmqcsa.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFlaHdncmlycm5obWF0cW1xY3NhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY4MDg2NTg4MywiZXhwIjoxOTk2NDQxODgzfQ.DeXxoWY65kzpbvdxME16mAHj2KGMwDRg_jEGgUIxKc0';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-function ModalBarChart({ setOpenModal }) {
-    const handleGenerateClick = () => {
-        // Placeholder function for generating the bar chart
-        console.log("Generating bar chart...");
-    };
-    const [formData, setFormData] = useState({});
+function ModalBarChart({ setOpenModal, onGenerateChart }) {
 
+    const [formData, setFormData] = useState({});
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -23,12 +19,8 @@ function ModalBarChart({ setOpenModal }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // const selectedFormData = formData[selectedForm];
-        // console.log("Selected Form Data:", selectedFormData);
 
-        // Implement your form submission logic here
-        // You can access the form data from the 'formData' state
-        // Close the modal after successful submission
+        onGenerateChart();
         setFormData({});
         setOpenModal(false);
     };

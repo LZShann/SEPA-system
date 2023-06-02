@@ -1,21 +1,24 @@
 import { React, useState } from 'react';
 //icons
 import { IoIosMore } from 'react-icons/io';
-import { MdOutlineBarChart, MdAddChart } from 'react-icons/md';
+import { MdOutlineBarChart, MdAddChart, MdOutlineCancel } from 'react-icons/md';
 import { AiOutlineLineChart } from 'react-icons/ai';
 import { BsFillPieChartFill } from 'react-icons/bs';
 import { HiOutlineRefresh } from 'react-icons/hi';
 
 //components
-import { StackedTopSalesProduct, StackedTotalSales, Button, LineChart, SparkLine, ModalBarChart } from '../components';
+import { StackedTopSalesProduct, StackedTotalSales, Button, SparkLine, ModalBarChart } from '../components';
 import { weeklyStats, SparklineAreaData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
-import BarChartKPI from '../components/Charts/BarChartKPI';
+// import BarChartKPI from '../components/Charts/BarChartKPI';
+
+import './Statistic.css';
 
 const Statistic = () => {
   const { currentColor } = useStateContext();
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [isChartVisible, setChartVisible] = useState(false);
 
   function IconBlock({ icon, desc, title, iconColor, iconBg, onClick }) {
     return (
@@ -36,9 +39,21 @@ const Statistic = () => {
     );
   }
 
+  const handleGenerateChart = () => {
+    setChartVisible(true);
+  };
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleChartToggle = () => {
+    setChartVisible(false);
+  };
+
   return (
     //here can edit background color
-    <div className="mt-20"> 
+    <div className="mt-20">
       <div className="flex flex-wrap lg:flex-nowrap justify-center">
         <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
           <IconBlock
@@ -47,9 +62,10 @@ const Statistic = () => {
             title="Bar"
             iconColor="#03C9D7"
             iconBg="#E5FAFB"
-            onClick={() => { setModalOpen(true); }}
+            onClick={handleOpenModal}
           />
-          {modalOpen && <ModalBarChart setOpenModal={setModalOpen} />}
+
+          {modalOpen && <ModalBarChart setOpenModal={setModalOpen} onGenerateChart={handleGenerateChart} />}
           <IconBlock
             icon={<AiOutlineLineChart />}
             desc="Chart"
@@ -77,47 +93,55 @@ const Statistic = () => {
         </div>
       </div>
 
-      <div className="flex gap-10 flex-wrap justify-center">
-        <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
-          <div className="flex justify-between">
-            <p className="font-semibold text-xl" id = "topSalesProductTitle">Title</p>
-          </div>
-          <div className="mt-10 flex gap-10 flex-wrap justify-center">
-            <div className=" border-r-1 border-color m-4 pr-10">
-              <div>
-                <p>
-                  <span className="text-3xl font-semibold" id="highestRevenue">RM 0</span>
-                  <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-green-400 ml-3 text-xs" id="highestRevenuePercentage">
-                    00.00%
-                  </span>
-                </p>
-                <p className="text-gray-500 mt-1">Highest</p>
-              </div>
-              <div className="mt-8">
-                <p className="text-3xl font-semibold" id="lowestRevenue">RM 0</p>
-
-                <p className="text-gray-500 mt-1">Lowest</p>
-              </div>
-              <div className="mt-10">
-                <Button
-                  color="white"
-                  bgColor={currentColor}
-                  text="Download Report"
-                  borderRadius="10px"
-                />
-              </div>
+      {isChartVisible && (
+        <div className="flex gap-10 flex-wrap justify-center chart">
+          <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
+            <div className="flex justify-between">
+              <p className="font-semibold text-xl" id="topSalesProductTitle">Title</p>
+              <span className="ml-auto text-2xl cursor-pointer closeChart" onClick={handleChartToggle}>
+                <MdOutlineCancel />
+              </span>
             </div>
-            <div>
-              <StackedTopSalesProduct width="320px" height="360px" />
+            <div className="mt-10 flex gap-10 flex-wrap justify-center">
+              <div className=" border-r-1 border-color m-4 pr-10">
+                <div>
+                  <p>
+                    <span className="text-3xl font-semibold" id="highestRevenue">RM 0</span>
+                    <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-green-400 ml-3 text-xs" id="highestRevenuePercentage">
+                      00.00%
+                    </span>
+                  </p>
+                  <p className="text-gray-500 mt-1">Highest</p>
+                </div>
+                <div className="mt-8">
+                  <p className="text-3xl font-semibold" id="lowestRevenue">RM 0</p>
+
+                  <p className="text-gray-500 mt-1">Lowest</p>
+                </div>
+                <div className="mt-10">
+                  <Button
+                    color="white"
+                    bgColor={currentColor}
+                    text="Download Report"
+                    borderRadius="10px"
+                  />
+                </div>
+              </div>
+              <div>
+                <StackedTopSalesProduct width="320px" height="360px" />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="flex gap-10 flex-wrap justify-center">
         <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
           <div className="flex justify-between">
-            <p className="font-semibold text-xl" id = "totalSalesTitle">Title</p>
+            <p className="font-semibold text-xl" id="totalSalesTitle">Title</p>
+            <span className="ml-auto text-2xl cursor-pointer closeChart" onClick={handleChartToggle}>
+              <MdOutlineCancel />
+            </span>
           </div>
           <div className="mt-10 flex gap-10 flex-wrap justify-center">
             <div className=" border-r-1 border-color m-4 pr-10">
