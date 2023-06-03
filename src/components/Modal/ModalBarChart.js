@@ -7,13 +7,9 @@ const supabaseUrl = 'https://aehwgrirrnhmatqmqcsa.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFlaHdncmlycm5obWF0cW1xY3NhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY4MDg2NTg4MywiZXhwIjoxOTk2NDQxODgzfQ.DeXxoWY65kzpbvdxME16mAHj2KGMwDRg_jEGgUIxKc0';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-function ModalBarChart({ setOpenModal }) {
-    const handleGenerateClick = () => {
-        // Placeholder function for generating the bar chart
-        console.log("Generating bar chart...");
-    };
-    const [formData, setFormData] = useState({});
+function ModalBarChart({ setOpenModal, onGenerateChart }) {
 
+    const [formData, setFormData] = useState({});
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -23,14 +19,9 @@ function ModalBarChart({ setOpenModal }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // const selectedFormData = formData[selectedForm];
-        // console.log("Selected Form Data:", selectedFormData);
-
-        // Implement your form submission logic here
-        // You can access the form data from the 'formData' state
-        // Close the modal after successful submission
-        setFormData({});
         setOpenModal(false);
+        // get selected form title and send to Statistic.jsx
+        onGenerateChart(formData.selectTitle);
     };
 
     return (
@@ -52,20 +43,20 @@ function ModalBarChart({ setOpenModal }) {
                         <div className="selectTitleRow">
                             <span className="selectTitle">Select Title:</span>
                             <select
-                                className="selectStyle"
+                                className="selectModalStyle"
                                 name="selectTitle"
                                 value={formData.selectOption}
                                 onChange={handleChange}
                             >
-                                <option value="">Select an Option</option>
-                                <option value="totalSales">Total Sales</option>
+                                <option value="" className="selectModalStyle">Select an Option</option>
+                                <option value="totalSales" className="selectModalStyle">Total Sales</option>
                                 {/* <option value="Option 1">Total Sales (ADMIN)</option>
                                 <option value="Option 2">Top 3 Products (ADMIN)</option> */}
-                                <option value="topCustomer">Top Customer</option>
-                                <option value="topSalesProducts">Top Sales Products</option>
+                                <option value="topCustomer" className="selectModalStyle">Top Customer</option>
+                                <option value="topSalesProducts" className="selectModalStyle">Top Sales Products</option>
                                 {/* <option value="Option 3">Top Sales Products (ADMIN)</option>
                                 <option value="Option 3">Top Sales By Region (ADMIN)</option> */}
-                                <option value="topSalesByRegionByMonth">Top Sales By Region & Month</option>
+                                <option value="topSalesByRegionByMonth" className="selectModalStyle">Top Sales By Region & Month</option>
                                 {/* <option value="Option 3">Top Sales By Region & Month (ADMIN)</option> */}
                                 {/* <option value="salesByRegion3">Revenue Performance (Sales By Region 3)</option> */}
                             </select>
@@ -75,15 +66,15 @@ function ModalBarChart({ setOpenModal }) {
                                 <label className="selectTitle">Sales Man:</label>
                                 <input
                                     type="text"
-                                    className="selectStyle"
+                                    className="selectModalDropdownStyle"
                                     id="salesManName"
                                     name="salesManName"
                                     value={"TYS"}
                                     disabled
                                 />
-                                <label className="selectTitle">Select Region:</label>
+                                {/* <label className="selectTitle">Select Region:</label>
                                 <select
-                                    className="selectStyle"
+                                    className="selectModalDropdownStyle"
                                     name="totalSales"
                                     value={formData.totalSales}
                                     onChange={handleChange}
@@ -93,7 +84,7 @@ function ModalBarChart({ setOpenModal }) {
                                     <option value="north">NORTH</option>
                                     <option value="south">SOUTH</option>
                                     <option value="west">WEST</option>
-                                </select>
+                                </select> */}
                             </div>
                         )}
                         {formData.selectTitle === "topCustomer" && (
@@ -101,7 +92,7 @@ function ModalBarChart({ setOpenModal }) {
                                 <label className="selectTitle">Sales Man:</label>
                                 <input
                                     type="text"
-                                    className="selectStyle"
+                                    className="selectModalDropdownStyle"
                                     id="salesManName"
                                     name="salesManName"
                                     value={"TYS"}
@@ -109,7 +100,7 @@ function ModalBarChart({ setOpenModal }) {
                                 />
                                 {/* <label className="selectTitle">Type:</label>
                                 <select
-                                    className="selectStyle"
+                                    className="selectModalDropdownStyle"
                                     name="topCustomer"
                                     value={formData.topCustomer}
                                     onChange={handleChange}
@@ -126,7 +117,7 @@ function ModalBarChart({ setOpenModal }) {
                                 <label className="selectTitle">Sales Man:</label>
                                 <input
                                     type="text"
-                                    className="selectStyle"
+                                    className="selectModalDropdownStyle"
                                     id="salesManName"
                                     name="salesManName"
                                     value={"TYS"}
@@ -134,7 +125,7 @@ function ModalBarChart({ setOpenModal }) {
                                 />
                                 {/* <label className="selectTitle">Type:</label>
                                 <select
-                                    className="selectStyle"
+                                    className="selectModalDropdownStyle"
                                     name="topCustomer"
                                     value={formData.topCustomer}
                                     onChange={handleChange}
@@ -150,15 +141,15 @@ function ModalBarChart({ setOpenModal }) {
                                 <label className="selectTitle">Sales Man:</label>
                                 <input
                                     type="text"
-                                    className="selectStyle"
+                                    className="selectModalDropdownStyle"
                                     id="salesManName"
                                     name="salesManName"
                                     value={"TYS"}
                                     disabled
                                 />
-                                <label className="selectTitle">Type:</label>
+                                {/* <label className="selectTitle">Type:</label>
                                 <select
-                                    className="selectStyle"
+                                    className="selectModalDropdownStyle"
                                     name="topCustomer"
                                     value={formData.topCustomer}
                                     onChange={handleChange}
@@ -169,14 +160,14 @@ function ModalBarChart({ setOpenModal }) {
                                     <option value="quater3">Q3</option>
                                     <option value="quater4">Q4</option>
                                     <option value="quater4">Yearly</option>
-                                </select>
+                                </select> */}
                             </div>
                         )}
-                        {formData.selectTitle === "salesByRegion3" && (
+                        {/* {formData.selectTitle === "salesByRegion3" && (
                             <div className="selectRow">
                                 <label className="selectTitle">Select Option:</label>
                                 <select
-                                    className="selectStyle"
+                                    className="selectModalDropdownStyle"
                                     name="salesByRegion3"
                                     value={formData.salesByRegion3}
                                     onChange={handleChange}
@@ -187,7 +178,7 @@ function ModalBarChart({ setOpenModal }) {
                                     <option value="Option3">Option 3</option>
                                 </select>
                             </div>
-                        )}
+                        )} */}
                         <div className="footer">
                             <button
                                 type="button"

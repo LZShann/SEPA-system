@@ -68,7 +68,20 @@
   font-weight: bold;
 }
 
-.selectStyle {
+.selectModalStyle {
+  background-color: rgb(3, 201, 215);
+  color: white;
+  margin-top: 10px;
+  display: block;
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  padding: 0 20px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.selectModalDropdownStyle {
   background-color: rgba(128, 128, 128, 0.2);
   color: black;
   margin-top: 10px;
