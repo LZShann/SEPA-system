@@ -19,10 +19,9 @@ function ModalBarChart({ setOpenModal, onGenerateChart }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        onGenerateChart();
-        setFormData({});
         setOpenModal(false);
+        // get selected form title and send to Statistic.jsx
+        onGenerateChart(formData.selectTitle);
     };
 
     return (
@@ -73,7 +72,7 @@ function ModalBarChart({ setOpenModal, onGenerateChart }) {
                                     value={"TYS"}
                                     disabled
                                 />
-                                <label className="selectTitle">Select Region:</label>
+                                {/* <label className="selectTitle">Select Region:</label>
                                 <select
                                     className="selectStyle"
                                     name="totalSales"
@@ -85,7 +84,7 @@ function ModalBarChart({ setOpenModal, onGenerateChart }) {
                                     <option value="north">NORTH</option>
                                     <option value="south">SOUTH</option>
                                     <option value="west">WEST</option>
-                                </select>
+                                </select> */}
                             </div>
                         )}
                         {formData.selectTitle === "topCustomer" && (
@@ -148,7 +147,7 @@ function ModalBarChart({ setOpenModal, onGenerateChart }) {
                                     value={"TYS"}
                                     disabled
                                 />
-                                <label className="selectTitle">Type:</label>
+                                {/* <label className="selectTitle">Type:</label>
                                 <select
                                     className="selectStyle"
                                     name="topCustomer"
@@ -161,10 +160,10 @@ function ModalBarChart({ setOpenModal, onGenerateChart }) {
                                     <option value="quater3">Q3</option>
                                     <option value="quater4">Q4</option>
                                     <option value="quater4">Yearly</option>
-                                </select>
+                                </select> */}
                             </div>
                         )}
-                        {formData.selectTitle === "salesByRegion3" && (
+                        {/* {formData.selectTitle === "salesByRegion3" && (
                             <div className="selectRow">
                                 <label className="selectTitle">Select Option:</label>
                                 <select
@@ -179,7 +178,7 @@ function ModalBarChart({ setOpenModal, onGenerateChart }) {
                                     <option value="Option3">Option 3</option>
                                 </select>
                             </div>
-                        )}
+                        )} */}
                         <div className="footer">
                             <button
                                 type="button"

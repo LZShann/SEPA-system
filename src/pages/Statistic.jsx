@@ -18,8 +18,12 @@ const Statistic = () => {
   const { currentColor } = useStateContext();
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [isChartVisible, setChartVisible] = useState(false);
+  const [chart1Visible, setChart1Visible] = useState(false);
+  const [chart2Visible, setChart2Visible] = useState(false);
+  const [chart3Visible, setChart3Visible] = useState(false);
+  const [chart4Visible, setChart4Visible] = useState(false);
 
+  // Icon Block Component
   function IconBlock({ icon, desc, title, iconColor, iconBg, onClick }) {
     return (
       <div className="bg-white h-44 md:w-56 p-4 pt-9 rounded-2xl">
@@ -39,16 +43,31 @@ const Statistic = () => {
     );
   }
 
-  const handleGenerateChart = () => {
-    setChartVisible(true);
+  // generate specific chart
+  const handleGenerateChart = (chartTitle) => {
+    if (chartTitle === 'totalSales') {
+      setChart1Visible(true);
+    } else if (chartTitle === 'topCustomer') {
+      setChart2Visible(true);
+    } else if (chartTitle === 'topSalesProducts') {
+      setChart3Visible(true);
+    }
   };
 
+  // toggle modal visibility
   const handleOpenModal = () => {
     setModalOpen(true);
   };
 
-  const handleChartToggle = () => {
-    setChartVisible(false);
+  // toggle chart visibility
+  const toggleChartVisibility = (chartId) => {
+    if (chartId === 'chart1') {
+      setChart1Visible(!chart1Visible);
+    } else if (chartId === 'chart2') {
+      setChart2Visible(!chart2Visible);
+    } else if (chartId === 'chart3') {
+      setChart3Visible(!chart3Visible);
+    }
   };
 
   return (
@@ -93,12 +112,46 @@ const Statistic = () => {
         </div>
       </div>
 
-      {isChartVisible && (
-        <div className="flex gap-10 flex-wrap justify-center chart">
+      {chart1Visible && (
+        <div className="flex gap-10 flex-wrap justify-center">
+          <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
+            <div className="flex justify-between">
+              <p className="font-semibold text-xl" id="totalSalesTitle">Title</p>
+              <span className="ml-auto text-2xl cursor-pointer closeChart" onClick={() => toggleChartVisibility('chart1')}>
+                <MdOutlineCancel />
+              </span>
+            </div>
+            <div className="mt-10 flex gap-10 flex-wrap justify-center">
+              <div className=" border-r-1 border-color m-4 pr-10">
+                <div>
+                  <p>
+                    <span className="text-3xl font-semibold" id="totalSales">RM 0</span>
+                  </p>
+                  <p className="text-gray-500 mt-1">Highest</p>
+                </div>
+                <div className="mt-10">
+                  <Button
+                    color="white"
+                    bgColor={currentColor}
+                    text="Download Report"
+                    borderRadius="10px"
+                  />
+                </div>
+              </div>
+              <div>
+                <StackedTotalSales width="320px" height="360px" />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {chart3Visible && (
+        <div className="flex gap-10 flex-wrap justify-center">
           <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
             <div className="flex justify-between">
               <p className="font-semibold text-xl" id="topSalesProductTitle">Title</p>
-              <span className="ml-auto text-2xl cursor-pointer closeChart" onClick={handleChartToggle}>
+              <span className="ml-auto text-2xl cursor-pointer closeChart" onClick={() => toggleChartVisibility('chart3')}>
                 <MdOutlineCancel />
               </span>
             </div>
@@ -135,38 +188,6 @@ const Statistic = () => {
         </div>
       )}
 
-      <div className="flex gap-10 flex-wrap justify-center">
-        <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
-          <div className="flex justify-between">
-            <p className="font-semibold text-xl" id="totalSalesTitle">Title</p>
-            <span className="ml-auto text-2xl cursor-pointer closeChart" onClick={handleChartToggle}>
-              <MdOutlineCancel />
-            </span>
-          </div>
-          <div className="mt-10 flex gap-10 flex-wrap justify-center">
-            <div className=" border-r-1 border-color m-4 pr-10">
-              <div>
-                <p>
-                  <span className="text-3xl font-semibold" id="totalSales">RM 0</span>
-                </p>
-                <p className="text-gray-500 mt-1">Highest</p>
-              </div>
-              <div className="mt-10">
-                <Button
-                  color="white"
-                  bgColor={currentColor}
-                  text="Download Report"
-                  borderRadius="10px"
-                />
-              </div>
-            </div>
-            <div>
-              <StackedTotalSales width="320px" height="360px" />
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div className="flex flex-wrap justify-center">
         <div className="md:w-400 bg-white rounded-2xl p-6 m-3">
           <div className="flex justify-between">
@@ -175,7 +196,6 @@ const Statistic = () => {
               <IoIosMore />
             </button>
           </div>
-
           <div className="mt-10 ">
             {weeklyStats.map((item) => (
               <div key={item.title} className="flex justify-between mt-4 w-full">
