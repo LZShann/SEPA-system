@@ -66,7 +66,7 @@ var StackedTopSalesProduct = ({ width, height }) => {
       let { data: stackedBarData, error } = await supabase
         .from('sales_data_entry') // Table name
         .select('*, product:products_data_entry(*)') // Select all data from sales_data_entry and foreign key - product from products_data_entry & select all
-        .eq('sales_man_name', 'TKZ'); // equal to sales man name LWH *Can change the LWH to other sales man name
+        .eq('sales_man_name', 'TYS'); // equal to sales man name LWH *Can change the LWH to other sales man name
 
       if (error) { // for error checking only 
         setFetchError('Could not fetch data from sales_data_entry');

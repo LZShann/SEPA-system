@@ -10,7 +10,7 @@ export { default as Notification } from './Notification';
 export { default as UserProfile } from './UserProfile';
 export { default as SparkLine } from './Charts/SparkLine';
 export { default as LineChart } from './Charts/LineChart';
-export { default as StackedTotalSales } from './Charts/StackedTotalSales';
+export { default as BarTotalSales } from './Charts/BarTotalSales';
 export { default as StackedTopSalesProduct } from './Charts/StackedTopSalesProduct';
 export { default as BarTop10Customers } from './Charts/BarTop10Customers';
 export { default as BarSalesByRegion2 } from './Charts/BarSalesByRegion2';

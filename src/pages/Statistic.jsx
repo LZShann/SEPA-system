@@ -7,7 +7,7 @@ import { BsFillPieChartFill } from 'react-icons/bs';
 import { HiOutlineRefresh } from 'react-icons/hi';
 
 //components
-import { StackedTopSalesProduct, StackedTotalSales, Button, SparkLine, ModalBarChart } from '../components';
+import { StackedTopSalesProduct, BarTotalSales, BarTop10Customers, BarSalesByRegion2, Button, LineChart, SparkLine, ModalBarChart} from '../components';
 import { weeklyStats, SparklineAreaData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 // import BarChartKPI from '../components/Charts/BarChartKPI';
@@ -113,37 +113,37 @@ const Statistic = () => {
       </div>
 
       {chart1Visible && (
-        <div className="flex gap-10 flex-wrap justify-center">
-          <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
-            <div className="flex justify-between">
-              <p className="font-semibold text-xl" id="totalSalesTitle">Title</p>
-              <span className="ml-auto text-2xl cursor-pointer closeChart" onClick={() => toggleChartVisibility('chart1')}>
+      <div className="flex gap-10 flex-wrap justify-center">
+        <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
+          <div className="flex justify-between">
+            <p className="font-semibold text-xl" id = "totalSalesTitle">Title</p>
+            <span className="ml-auto text-2xl cursor-pointer closeChart" onClick={() => toggleChartVisibility('chart1')}>
                 <MdOutlineCancel />
               </span>
-            </div>
-            <div className="mt-10 flex gap-10 flex-wrap justify-center">
-              <div className=" border-r-1 border-color m-4 pr-10">
-                <div>
-                  <p>
-                    <span className="text-3xl font-semibold" id="totalSales">RM 0</span>
-                  </p>
-                  <p className="text-gray-500 mt-1">Highest</p>
-                </div>
-                <div className="mt-10">
-                  <Button
-                    color="white"
-                    bgColor={currentColor}
-                    text="Download Report"
-                    borderRadius="10px"
-                  />
-                </div>
-              </div>
+          </div>
+          <div className="mt-10 flex gap-10 flex-wrap justify-center">
+            <div className=" border-r-1 border-color m-4 pr-10">
               <div>
-                <StackedTotalSales width="320px" height="360px" />
+                <p>
+                  <span className="text-3xl font-semibold" id="totalSales">RM 0</span>
+                </p>
+                <p className="text-gray-500 mt-1">Total</p>
               </div>
+              <div className="mt-10">
+                <Button
+                  color="white"
+                  bgColor={currentColor}
+                  text="Download Report"
+                  borderRadius="10px"
+                />
+              </div>
+            </div>
+            <div>
+              <BarTotalSales width="320px" height="360px" />
             </div>
           </div>
         </div>
+      </div>
       )}
 
       {chart3Visible && (
@@ -169,24 +169,96 @@ const Statistic = () => {
                 <div className="mt-8">
                   <p className="text-3xl font-semibold" id="lowestRevenue">RM 0</p>
 
-                  <p className="text-gray-500 mt-1">Lowest</p>
-                </div>
-                <div className="mt-10">
-                  <Button
-                    color="white"
-                    bgColor={currentColor}
-                    text="Download Report"
-                    borderRadius="10px"
-                  />
-                </div>
+                <p className="text-gray-500 mt-1">Lowest</p>
               </div>
-              <div>
-                <StackedTopSalesProduct width="320px" height="360px" />
+              <div className="mt-10">
+                <Button
+                  color="white"
+                  bgColor={currentColor}
+                  text="Download Report"
+                  borderRadius="10px"
+                />
               </div>
+            </div>
+            <div>
+              <StackedTopSalesProduct width="320px" height="360px" />
             </div>
           </div>
         </div>
+      </div>
+
       )}
+
+
+
+      <div className="flex gap-10 flex-wrap justify-center">
+        <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
+          <div className="flex justify-between">
+            <p className="font-semibold text-xl" id = "top10CustomersTitle">Title</p>
+          </div>
+          <div className="mt-10 flex gap-10 flex-wrap justify-center">
+            <div className=" border-r-1 border-color m-4 pr-10">
+              <div>
+                <p>
+                  <span className="text-3xl font-semibold" id="topCustomerSales">RM 0</span>
+                </p>
+                <p className="text-gray-500 mt-1">Highest</p>
+              </div>
+              <div className="mt-8">
+                <p className="text-3xl font-semibold" id="lowestCustomerSales">RM 0</p>
+
+                <p className="text-gray-500 mt-1">Lowest</p>
+              </div>
+              <div className="mt-10">
+                <Button
+                  color="white"
+                  bgColor={currentColor}
+                  text="Download Report"
+                  borderRadius="10px"
+                />
+              </div>
+            </div>
+            <div>
+              <BarTop10Customers width="320px" height="360px" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex gap-10 flex-wrap justify-center">
+        <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
+          <div className="flex justify-between">
+            <p className="font-semibold text-xl" id = "SalesByRegion2Title">Title</p>
+          </div>
+          <div className="mt-10 flex gap-10 flex-wrap justify-center">
+            <div className=" border-r-1 border-color m-4 pr-10">
+              <div>
+                <p>
+                  <span className="text-3xl font-semibold" id="topSalesByRegion2">0%</span>
+                </p>
+                <p className="text-gray-500 mt-1">Highest</p>
+              </div>
+              <div className="mt-8">
+                <p className="text-3xl font-semibold" id="lowestSalesByRegion2">0%</p>
+
+                <p className="text-gray-500 mt-1">Lowest</p>
+              </div>
+              <div className="mt-10">
+                <Button
+                  color="white"
+                  bgColor={currentColor}
+                  text="Download Report"
+                  borderRadius="10px"
+                />
+              </div>
+            </div>
+            <div>
+              <BarSalesByRegion2 width="320px" height="360px" />
+            </div>
+          </div>
+        </div>
+      </div>
+      
 
       <div className="flex flex-wrap justify-center">
         <div className="md:w-400 bg-white rounded-2xl p-6 m-3">

@@ -31,8 +31,8 @@ var barPrimaryXAxis = {
 var barPrimaryYAxis = {
   lineStyle: { width: 0 },
   minimum: 0,
-  maximum: 50000,
-  interval: 10000,
+  maximum: 20000,
+  interval: 5000,
   majorTickLines: { width: 0 },
   majorGridLines: { width: 1 },
   minorGridLines: { width: 1 },
@@ -40,7 +40,7 @@ var barPrimaryYAxis = {
   labelFormat: '{value}',
 };
 
-var BarTotalSales = ({ width, height }) => {
+var BarTop10Customers = ({ width, height }) => {
   const { currentMode } = useStateContext();
   const [barData, setBarData] = useState(null);
   const [fetchError, setFetchError] = useState(null);
@@ -68,19 +68,19 @@ var BarTotalSales = ({ width, height }) => {
 
         barData.forEach((item) => {
           const revenue = item['quantity'] * item['product']['unit_price'];
-          const product_name = item['product']['product_name'];
+          const customerId = item['customer_id'];
 
           totalRevenue += revenue;
 
-          const productIndex = newBarChartData.findIndex((item) => item['x'] === product_name);
+          const customerIndex = newBarChartData.findIndex((item) => item['x'] === customerId);
 
-          if (productIndex === -1) {
+          if (customerIndex === -1) {
             newBarChartData.push({
-              x: product_name,
+              x: customerId,
               y: revenue,
             });
           } else {
-            newBarChartData[productIndex]['y'] += revenue;
+            newBarChartData[customerIndex]['y'] += revenue;
           }
         });
 
@@ -88,28 +88,34 @@ var BarTotalSales = ({ width, height }) => {
 
         barCustomSeries[0]['dataSource'] = newBarChartData;
 
-        console.log(barCustomSeries[0]['dataSource']);
-
-        barCustomSeries[0]['dataSource'] = [{ x: 'Total Sales', y: totalRevenue }];
-
-        barPrimaryYAxis.maximum = totalRevenue;
-        barPrimaryYAxis.interval = totalRevenue / 5;
+        //barPrimaryYAxis.maximum = totalRevenue;
+        //barPrimaryYAxis.interval = totalRevenue / 5;
 
         setChartKey(prevKey => prevKey + 1);
 
-        var titleElement = document.getElementById('totalSalesTitle');
-        titleElement.innerHTML = 'Total Sales 2021 (Sales by Salesmen)';
+        var titleElement = document.getElementById('top10CustomersTitle');
+        titleElement.innerHTML = 'Top 10 Customers Sales';
 
         var highestRevenue = newBarChartData[0]['y'];
+        var lowestRevenue = newBarChartData[0]['y'];
+        
 
         newBarChartData.forEach((item) => {
           if (item['y'] > highestRevenue) {
             highestRevenue = item['y'];
           }
+
+          if (item['y'] < lowestRevenue) {
+            lowestRevenue = item['y'];
+          }
         });
 
-        var highestRevenueElement = document.getElementById('totalSales');
+        var highestRevenueElement = document.getElementById('topCustomerSales');
         highestRevenueElement.innerHTML = 'RM ' + highestRevenue.toString();
+
+        var lowestRevenueElement = document.getElementById('lowestCustomerSales');
+        lowestRevenueElement.innerHTML = 'RM ' + lowestRevenue.toString();
+
       }
     };
 
@@ -118,7 +124,7 @@ var BarTotalSales = ({ width, height }) => {
 
   return (
     <ChartComponent
-      id="barTotalSales"
+      id="barTop10Customers"
       key={chartKey}
       primaryXAxis={barPrimaryXAxis}
       primaryYAxis={barPrimaryYAxis}
@@ -137,4 +143,4 @@ var BarTotalSales = ({ width, height }) => {
   );
 };
 
-export default BarTotalSales;
+export default BarTop10Customers;
