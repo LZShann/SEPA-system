@@ -70,7 +70,7 @@ const Statistic = () => {
     } else if (chartId === 'chart3') {
       setChart3Visible(!chart3Visible);
     } else if (chartId === 'chart4') {
-      setChart4Visible(!chart3Visible);
+      setChart4Visible(!chart4Visible);
     }
   };
 
@@ -155,7 +155,7 @@ const Statistic = () => {
           <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
             <div className="flex justify-between">
               <p className="font-semibold text-xl" id="top10CustomersTitle">Title</p>
-              <span className="ml-auto text-2xl cursor-pointer closeChart" onClick={() => toggleChartVisibility('chart1')}>
+              <span className="ml-auto text-2xl cursor-pointer closeChart" onClick={() => toggleChartVisibility('chart2')}>
                 <MdOutlineCancel />
               </span>
             </div>
@@ -237,7 +237,7 @@ const Statistic = () => {
           <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
             <div className="flex justify-between">
               <p className="font-semibold text-xl" id="SalesByRegion2Title">Title</p>
-              <span className="ml-auto text-2xl cursor-pointer closeChart" onClick={() => toggleChartVisibility('chart3')}>
+              <span className="ml-auto text-2xl cursor-pointer closeChart" onClick={() => toggleChartVisibility('chart4')}>
                 <MdOutlineCancel />
               </span>
             </div>
