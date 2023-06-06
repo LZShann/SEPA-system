@@ -1,5 +1,6 @@
 import React from 'react';
 import { MdOutlineCancel } from 'react-icons/md';
+import { useNavigate } from "react-router-dom";
 
 import { Button } from '.';
 import { userProfileData } from '../data/dummy';
@@ -8,6 +9,13 @@ import avatar from '../data/avatar.jpg';
 
 const UserProfile = () => {
   const { currentColor } = useStateContext();
+
+  const navigate = useNavigate();
+
+  function handleLogout(){
+    sessionStorage.removeItem('token')
+    navigate('/')
+  };
 
   return (
     <div className="nav-item absolute right-1 top-16 bg-white p-8 rounded-lg w-96">
@@ -33,26 +41,7 @@ const UserProfile = () => {
           <p className="text-gray-500 text-sm font-semibold"> info@shop.com </p>
         </div>
       </div>
-      <div>
-        {userProfileData.map((item, index) => (
-          <div key={index} className="flex gap-5 border-b-1 border-color p-4 hover:bg-light-gray cursor-pointer">
-            <button
-              type="button"
-              style={{ color: item.iconColor, backgroundColor: item.iconBg }}
-              className=" text-xl rounded-lg p-3 hover:bg-light-gray"
-            >
-              {item.icon}
-            </button>
-
-            <div>
-              <p className="font-semibold">{item.title}</p>
-              <p className="text-gray-500 text-sm"> {item.desc} </p>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="mt-5">
-        {/* <a href = "http://localhost:3000/Login"> */}
+      <div className="mt-5" onClick={handleLogout}>
           <Button
             color="white"
             bgColor={currentColor}
@@ -60,7 +49,6 @@ const UserProfile = () => {
             borderRadius="10px"
             width="full"
           />
-        {/* </a> */}
       </div>
     </div>
 
