@@ -6,8 +6,8 @@
   min-height: 100vh;
   align-items: center;
   justify-content: center;
-  color: white;
-  background-image: linear-gradient(79deg, #db3939, #000000 48%, #2a23f7);
+  background-color: #ECF6FF;
+  color: #5B7288;
 }
 
 .auth-form-container, .login-form, .register-form {
@@ -43,4 +43,134 @@
 }
 ::-webkit-scrollbar-track {
   background-color: transparent;
+}
+
+.App-header {
+  background-color: #ECF6FF;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #5B7288;
+  padding: 2em;
+}
+
+.container {
+  background-color: #ECF6FF;
+  padding: 1em;
+  max-width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-box {
+  background-color: #ECF6FF;
+  max-width: 100%;
+  width: 700px;
+  text-align: center;
+  padding: 0.2em;
+}
+
+.container-bg {
+  background-color: #5B7288;
+  padding: 1em;
+  max-width: 100%;
+}
+
+.container h2 {
+  margin-top: 0;
+  color: black;
+}
+
+.container-box .p-blue {
+  color:#5B7288;
+  text-align: left;
+  padding-left: 1.5em;
+  padding-bottom: 0.5em;
+  font-size: 20px;
+  font-style: bold;
+  font-weight: bolder;
+}
+
+.container-box .p-red {
+  color:#AD5359;
+  text-align: left;
+  padding-left: 1.5em;
+  padding-bottom: 0.5em;
+  font-size: 20px;
+  font-style: bold;
+  font-weight: bolder;
+}
+
+.container-box input[type="blue"]{
+  width: 90%;
+  padding: 0.4em;
+  margin-bottom: 1em;
+  border: 4px solid #5B7288;
+  border-radius: 3px;
+  color: #5B7288;
+  font-family: 'Segoe UI';
+}
+
+.container-box input[type="red"] {
+  width: 90%;
+  padding: 0.4em;
+  margin-bottom: 1em;
+  border: 4px solid #AD5359;
+  border-radius: 3px;
+  color: #AD5359;
+  font-family: 'Segoe UI';
+}
+
+.container-box input[type="password"] {
+  width: 90%;
+  padding: 0.4em;
+  margin-bottom: 1em;
+  border: 4px solid #AD5359;
+  border-radius: 3px;
+  color: #AD5359;
+  font-family: 'Segoe UI';
+}
+
+input[type="submit"] {
+  width: 50%;
+  padding: 0.5em;
+  margin-top: 0.2em;
+  margin-bottom: 0.8em;
+  background-color: #58a85b;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 35px;
+  font-family: 'Segoe UI';
+  font-style: bold;
+  font-weight: bolder;
+}
+
+.container-box input[type="blue"]:hover {
+  background-color: #e8ecf1;
+}
+
+.container-box input[type="red"]:hover {
+  background-color: #f3ebec;
+}
+
+.container-box input[type="password"]:hover {
+  background-color: #f3ebec;
+}
+
+.input[type="submit"]:hover {
+  background-color: #269529;
+}
+
+.logo {
+  width: 150px;
+  height: auto;
+  align-self: center;
 }
