@@ -1,22 +1,48 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { TooltipComponent } from '@syncfusion/ej2-react-popups';
-
+import { BrowserRouter, Routes, Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
+import { useRoutes, Outlet } from "react-router-dom";
 import { Navbar, Footer, Sidebar } from './components';
-import { Statistic, Import_Dataset, Interview, Task, Account } from './pages';
+import { Statistic, Import_Dataset, Interview, Task, Account, Login, SignUp, Homepage } from './pages';
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
 
-import { supabase } from './client';
 
 const App = () => {
   const { activeMenu } = useStateContext();
 
+  // const routes = useRoutes([
+  //   {
+  //     path:'/',
+  //     element: <Login />
+  //   },
+  //   {
+  //     path:'/SignUp',
+  //     element: <SignUp />
+  //   }
+  // ]);
+
   return (
     <div>
       <BrowserRouter>
-        <div className="flex relative">
+          <div>
+            <Routes>
+              {/* login  */}
+              <Route path="/" element={(<Login />)} />
+              <Route path="/SignUp" element={(<SignUp />)} />
+                <Route path="/Homepage" element={(<Homepage />)} />
+                    <Route path="/Statistic" element={(<Statistic />)} />
+
+                    <Route path="/Task" element={(<Task />)} />
+                    <Route path="/Import_Dataset" element={(<Import_Dataset />)} />
+                    <Route path="/Interview" element={(<Interview />)} />
+
+                    <Route path="/Account" element={(<Account />)} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+        {/* <BrowserRouter> */}
+        {/* <div className="flex relative">
           {activeMenu ? (
             <div className="w-72 fixed sidebar bg-white ">
               <Sidebar />
@@ -38,23 +64,19 @@ const App = () => {
             </div>
             <div>
               <Routes>
-                {/* dashboard  */}
-                <Route path="/" element={(<Statistic />)} />
-                <Route path="/Statistic" element={(<Statistic />)} />
+                  <Route path="/Statistic" element={(<Statistic />)} />
 
-                {/* pages  */}
-                <Route path="/Task" element={(<Task />)} />
-                <Route path="/Import_Dataset" element={(<Import_Dataset />)} />
-                <Route path="/Interview" element={(<Interview />)} />
+                  <Route path="/Task" element={(<Task />)} />
+                  <Route path="/Import_Dataset" element={(<Import_Dataset />)} />
+                  <Route path="/Interview" element={(<Interview />)} />
 
-                {/* Admin */}
-                <Route path="/Account" element={(<Account />)} />
-              </Routes>
+                  <Route path="/Account" element={(<Account />)} />
+                </Routes>
             </div>
             <Footer />
           </div>
-        </div>
-      </BrowserRouter>
+        </div> */}
+      {/* </BrowserRouter> */}
     </div>
   );
 };
