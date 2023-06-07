@@ -45,7 +45,6 @@ const Homepage = () => {
                     <Route path="/form-review-page/:id" element={<FormReviewPage />} />
                     <Route path="/form-review-position/:id" element={<FormReviewPosition />} />
               </Routes>
-              <Link to="Statistic"><Statistic /></Link>
             </div>
             <Footer />
           </div>
