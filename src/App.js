@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { useRoutes, Outlet } from "react-router-dom";
 import { Navbar, Footer, Sidebar } from './components';
-import { Statistic, Import_Dataset, Interview, Task, Account, Login, SignUp, Homepage } from './pages';
+import { Statistic, Import_Dataset, Interview, Task, Account, Login, SignUp, Homepage, FormReviewPage, FormReviewPosition, History } from './pages';
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
@@ -38,6 +38,10 @@ const App = () => {
                     <Route path="/Interview" element={(<Interview />)} />
 
                     <Route path="/Account" element={(<Account />)} />
+                    <Route path="/Interview" element={ <div> <Interview /> <History/> </div> } />
+                {/* Interview pop up pdf */}
+            <Route path="/form-review-page/:id" element={<FormReviewPage />} />
+            <Route path="/form-review-position/:id" element={<FormReviewPosition />} />
             </Routes>
           </div>
         </BrowserRouter>
