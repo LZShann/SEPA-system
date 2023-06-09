@@ -1,8 +1,6 @@
 import { React, useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { Navbar, Footer, Sidebar } from '../components';
-import { Import_Dataset, Interview, Task, Account } from '.';
+import { Navbar, Footer, Sidebar, Header } from '../components';
 import '../App.css';
 
 //icons
@@ -83,9 +81,28 @@ const Statistic = () => {
 
   return (
     //here can edit background color
-    <div>
-      
-      <div className="mt-20">
+    <div className='flex relative'>
+      {activeMenu ? (
+            <div className="w-72 fixed sidebar bg-white ">
+              <Sidebar />
+            </div>
+          ) : (
+            <div className="w-0">
+              <Sidebar />
+            </div>
+          )}
+          <div
+            className={
+              activeMenu
+                ? 'bg-main-bg min-h-screen md:ml-72 w-full  '
+                : 'bg-main-bg w-full min-h-screen flex-2 '
+            }
+          >
+      <div className="fixed md:static bg-main-bg navbar w-full ">
+              <Navbar />
+      </div>
+        <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+        <Header category="App" title="Statistic" />
         <div className="flex flex-wrap lg:flex-nowrap justify-center">
           <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
             <IconBlock
@@ -282,6 +299,7 @@ const Statistic = () => {
 
 
         <div className="flex flex-wrap justify-center">
+          
           <div className="md:w-400 bg-white rounded-2xl p-6 m-3">
             <div className="flex justify-between">
               <p className="text-xl font-semibold">Revenue By Month 2021</p>
@@ -315,6 +333,8 @@ const Statistic = () => {
             </div>
           </div>
         </div>
+        </div>
+        <Footer />
       </div>
     </div>
   );
