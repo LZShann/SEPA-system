@@ -38,7 +38,7 @@ const Login = () => {
           
           if (error) throw error
           console.log(data)
-          navigate('/Homepage')
+          navigate('/Statistic')
   
       } catch (error) {
          alert(error)
