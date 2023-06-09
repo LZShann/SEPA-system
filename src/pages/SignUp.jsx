@@ -32,14 +32,13 @@ const SignUp = () => {
         }
       })
 
-
-      alert('Check your email for verification link')
+      alert('Please back to the Login Page to Sign In')
     } catch (error) {
        alert(error)
     }
 
     const { data, error } = await supabase
-      .from('user_data')
+      .from('user_table')
       .insert([
         { name: formData.name, 
           phone: formData.phone, 
@@ -65,6 +64,11 @@ const SignUp = () => {
 
                     <p className='p-blue'>Your Email</p>
                     <input type="blue" name='email' placeholder="Email" required onChange={handleChange}/>
+
+                    <p className='p-blue'>Your Email</p>
+                    <select>
+                      
+                    </select>
 
                     <p className='p-red'>Your Password</p>
                     <input type="password" name='password' placeholder="Password" required onChange={handleChange}/>
