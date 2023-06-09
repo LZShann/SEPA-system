@@ -23,7 +23,6 @@ export { default as Statistic } from './Statistic';
 export { default as Task } from './Task';
 export { default as Login } from './Login';
 export { default as SignUp } from './SignUp';
-export { default as Homepage } from './Homepage';
 export { default as History } from './History';
 export { default as FormReviewPage } from './FormReviewPage';
 export { default as FormReviewPosition } from './FormReviewPosition';
