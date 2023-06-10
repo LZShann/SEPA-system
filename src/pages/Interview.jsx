@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
-import FormReviewPosition from './FormReviewPosition';
-import FormReviewPage from './FormReviewPage';
 import History from './History';
+import { Navbar, Footer, Sidebar, Header } from '../components';
+import { supabase } from '../client'
+import { useStateContext } from '../contexts/ContextProvider';
 
-const supabaseUrl = 'https://aehwgrirrnhmatqmqcsa.supabase.co';
-const supabaseKey =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFlaHdncmlycm5obWF0cW1xY3NhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY4MDg2NTg4MywiZXhwIjoxOTk2NDQxODgzfQ.DeXxoWY65kzpbvdxME16mAHj2KGMwDRg_jEGgUIxKc0';
-
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 const Interview = () => {
+  const { activeMenu } = useStateContext();
+
   const [selectedFormId, setSelectedFormId] = useState(null);
   const [selectedPositionFormId, setSelectedPositionFormId] = useState(null);
   const [selectedStatusFormId, setSelectedStatusFormId] = useState(null);
@@ -89,71 +86,81 @@ const Interview = () => {
   const filteredFormData = formData.filter((form) => form.status === 'PROGRESS');
 
   return (
-    <div>
-      <h1>Form Review</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Row</th>
-            <th>Tracking Number</th>
-            <th>Submission Folder</th>
-            <th>Submission Date</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredFormData.map((form, index) => (
-            <tr key={form.id}>
-              <td>{index + 1}</td>
-              <td>{form.trackingNumber}</td>
-              <td>
-              <button
-  onClick={() => openFormPopup(form.id)}
-  style={{
-    color: 'blue',
-    fontWeight: 'bold',
-    textDecoration: 'underline',
-  }}
->
-  PersonalDetails
-</button>
-              </td>
-              <td>
-              <button
-  onClick={() => openFormPositionPopup(form.id)}
-  style={{
-    color: 'blue',
-    fontWeight: 'bold',
-    textDecoration: 'underline',
-  }}
->
-  InterviewForm
-</button>
-              </td>   <td>{form.submissionDate}</td>
-              <td>
-                
-                <button
-                  style={{ backgroundColor: 'green' }}
-                  onClick={() => updateAPPROVEStatus(form.id)}
-                >
-                  APPROVE
-                </button>
-                <button
-                  style={{ backgroundColor: 'red' }}
-                  onClick={() => updateDENYStatus(form.id)}
-                >
-                  DENY
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {/* {selectedFormId && <FormReviewPage id={selectedFormId} />}
-      {selectedPositionFormId && <FormReviewPosition id={selectedPositionFormId} />} */}
-      <br>
-      </br>
-      <div><History /></div>
+    <div className='flex relative'>
+      {activeMenu ? (
+            <div className="w-72 fixed sidebar bg-white ">
+              <Sidebar />
+            </div>
+          ) : (
+            <div className="w-0">
+              <Sidebar />
+            </div>
+          )}
+          <div
+            className={
+              activeMenu
+                ? 'bg-main-bg min-h-screen md:ml-72 w-full  '
+                : 'bg-main-bg w-full min-h-screen flex-2 '
+            }
+          >
+      <div className="fixed md:static bg-main-bg navbar w-full ">
+              <Navbar />
+      </div>
+        <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+          <Header category="Page" title="Interview" />
+          <h1>Form Review</h1>
+          <table>
+            <thead>
+              <tr>
+                <th>Row</th>
+                <th>Tracking Number</th>
+                <th>Submission Folder</th>
+                <th>Submission Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredFormData.map((form, index) => (
+                <tr key={form.id}>
+                  <td>{index + 1}</td>
+                  <td>{form.trackingNumber}</td>
+                  <td>
+                  <button onClick={() => openFormPopup(form.id)} 
+                    style={{ color: 'blue', fontWeight: 'bold', textDecoration: 'underline', }} >
+                    PersonalDetails
+                  </button>
+                  </td>
+                  <td>
+                  <button onClick={() => openFormPositionPopup(form.id)}
+                    style={{ color: 'blue', fontWeight: 'bold',  textDecoration: 'underline', }} >
+                    InterviewForm
+                  </button>
+                  </td>   <td>{form.submissionDate}</td>
+                  <td>
+                    
+                    <button
+                      style={{ backgroundColor: 'green' }}
+                      onClick={() => updateAPPROVEStatus(form.id)}
+                    >
+                      APPROVE
+                    </button>
+                    <button
+                      style={{ backgroundColor: 'red' }}
+                      onClick={() => updateDENYStatus(form.id)}
+                    >
+                      DENY
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <br>
+          </br>
+          <div><History /></div>
+        </div>
+        <Footer />
+      </div>
     </div>
   );
 };
