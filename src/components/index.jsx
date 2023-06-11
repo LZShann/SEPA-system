@@ -9,14 +9,14 @@ export { default as Footer } from './Footer';
 export { default as Notification } from './Notification';
 export { default as UserProfile } from './UserProfile';
 export { default as SparkLine } from './Charts/SparkLine';
-export { default as LineChart } from './Charts/LineChart';
+export { default as LineChart } from '../archieve/components/Chart/LineChart';
 export { default as BarTotalSales } from './Charts/BarTotalSales';
 export { default as StackedTopSalesProduct } from './Charts/StackedTopSalesProduct';
 export { default as BarTop10Customers } from './Charts/BarTop10Customers';
 export { default as BarSalesByRegion2 } from './Charts/BarSalesByRegion2';
 
 
-export { default as Pie } from './Charts/Pie';
+export { default as Pie } from '../archieve/components/Chart/Pie';
 export { default as ChartsHeader } from './ChartsHeader';
 export { default as Header } from './Header';
 export { default as ModalBarChart } from './Modal/ModalBarChart';
