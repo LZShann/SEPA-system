@@ -179,7 +179,7 @@ export const employeesGrid = [
     textAlign: 'Center' },
 ];
 
-export const links = [
+export const managerLinks = [
   {
     title: 'Dashboard',
     links: [
@@ -215,6 +215,33 @@ export const links = [
         name: 'Account',
         icon: <IoMdContacts />,
       }
+    ],
+  },
+];
+
+export const staffLinks = [
+  {
+    title: 'Dashboard',
+    links: [
+      {
+        name: 'Statistic',
+        icon: <FiShoppingBag />,
+      },
+    ],
+  },
+
+  {
+    title: 'Pages',
+    links: [
+
+      {
+        name: 'Task',
+        icon: <BsKanban />,
+      },
+      {
+        name: 'Import_dataset',
+        icon: <AiOutlineBarChart />,
+      },
     ],
   },
 ];
