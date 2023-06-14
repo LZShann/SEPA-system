@@ -361,6 +361,7 @@ const FormReviewPage = (props) => {
           <View style={styles.fieldGroup}>
             <Text style={styles.label}>Full Name: </Text>
             <View style={styles.inputContainer}>
+              
               <Text style={styles.input}>{firstName} {middleName} {lastName}</Text>
             </View>
             <View style={styles.columnContainer}>
