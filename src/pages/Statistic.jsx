@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 
 import { Navbar, Footer, Sidebar, Header } from '../components';
 import '../App.css';
@@ -17,6 +17,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 // import BarChartKPI from '../components/Charts/BarChartKPI';
 
 import './Statistic.css';
+import { supabase } from "../client";
 
 const Statistic = () => {
   const { activeMenu } = useStateContext();
@@ -27,6 +28,18 @@ const Statistic = () => {
   const [chart2Visible, setChart2Visible] = useState(false);
   const [chart3Visible, setChart3Visible] = useState(false);
   const [chart4Visible, setChart4Visible] = useState(false);
+
+  // // Redirect to the appropriate page based on the user role
+  // if (userRole === 'admin') {
+  //   // Redirect to the admin page
+  // } else if (userRole === 'user') {
+  //   // Redirect to the user page
+  // }
+  // console.log(userRole)
+
+  // useEffect(() => {
+  //   // getUserData();
+  // }, []);
 
   // Icon Block Component
   function IconBlock({ icon, desc, title, iconColor, iconBg, onClick }) {
@@ -46,7 +59,7 @@ const Statistic = () => {
         <p className="text-sm text-gray-400  mt-1">{desc}</p>
       </div>
     );
-  }
+  };
 
   // generate specific chart
   const handleGenerateChart = (chartTitle) => {
