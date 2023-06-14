@@ -1,21 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { MdOutlineCancel } from 'react-icons/md';
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../client";
 
 import { Button } from '.';
-import { userProfileData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
-import avatar from '../data/avatar.jpg';
+import avatar from '../data/profileicon.jpg';
 
 const UserProfile = () => {
   const { currentColor } = useStateContext();
+  const [ formData, setFormData ] = useState([]);
 
   const navigate = useNavigate();
 
-  function handleLogout(){
-    sessionStorage.removeItem('token')
+  const userID = sessionStorage.getItem('userID');
+  console.log('I\'m User Profile: ', userID);
+
+  async function handleLogout(){
+    const { error } = await supabase.auth.signOut()
+    sessionStorage.clear();
     navigate('/')
   };
+
+  async function handleRetrieve(){
+    const { data, error } = await supabase
+    .from('users_data')
+    .select('*')
+    .eq('id', userID)
+
+    if (error) {
+      console.error('Error retrieving data:', error);
+    } else {
+      console.log('Retrieved data:', data);
+      setFormData(data);
+    }
+  };
+
+  useEffect(() => {
+    handleRetrieve();
+  }, []);
+  
 
   return (
     <div className="nav-item absolute right-1 top-16 bg-white p-8 rounded-lg w-96">
@@ -36,15 +60,20 @@ const UserProfile = () => {
           alt="user-profile"
         />
         <div>
-          <p className="font-semibold text-xl"> Michael Roberts </p>
-          <p className="text-gray-500 text-sm">  Administrator   </p>
-          <p className="text-gray-500 text-sm font-semibold"> info@shop.com </p>
+          {formData.map((item) => (
+            <div key={item.id}>
+              <p className="font-semibold text-xl">{item.name}</p>
+              <p className="text-gray-500 text-sm">{item.role}</p>
+              <p className="text-gray-500 text-sm font-semibold">{item.email}</p>
+            </div >
+          ))}
         </div>
+        
       </div>
       <div className="mt-5" onClick={handleLogout}>
           <Button
             color="white"
-            bgColor={currentColor}
+            bgColor={currentColor} 
             text="Logout"
             borderRadius="10px"
             width="full"
