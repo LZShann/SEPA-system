@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
-import { RiNotification3Line } from 'react-icons/ri';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
-import avatar from '../data/avatar.jpg';
+
+import avatar from '../data/profileicon.jpg';
+
 import { Notification, UserProfile } from '.';
 import { useStateContext } from '../contexts/ContextProvider';
+import { supabase } from "../client";
 
 const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
   <TooltipComponent content={title} position="BottomCenter">
@@ -26,6 +28,25 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
 
 const Navbar = () => {
   const { currentColor, activeMenu, setActiveMenu, handleClick, isClicked, setScreenSize, screenSize } = useStateContext();
+  //
+  const [ formData, setFormData ] = useState([]);
+
+  const userID = sessionStorage.getItem('userID');
+  console.log('I\'m Navbar: ', userID);
+
+  async function retrieveName() {
+    const { data, error } = await supabase
+    .from('users_data')
+    .select('*')
+    .eq('id', userID)
+
+    if (error) {
+      console.error('Error retrieving data:', error);
+    } else {
+      console.log('Retrieved data:', data);
+      setFormData(data);
+    }
+  }
 
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);
@@ -45,6 +66,10 @@ const Navbar = () => {
     }
   }, [screenSize]);
 
+  useEffect(() => {
+    retrieveName();
+  }, []);
+
   const handleActiveMenu = () => setActiveMenu(!activeMenu);
 
   return (
@@ -52,7 +77,6 @@ const Navbar = () => {
 
       <NavButton title="Menu" customFunc={handleActiveMenu} color={currentColor} icon={<AiOutlineMenu />} />
       <div className="flex">
-        <NavButton title="Notification" dotColor="rgb(254, 201, 15)" customFunc={() => handleClick('notification')} color={currentColor} icon={<RiNotification3Line />} />
         <TooltipComponent content="Profile" position="BottomCenter">
           <div
             className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
@@ -65,9 +89,11 @@ const Navbar = () => {
             />
             <p>
               <span className="text-gray-400 text-14">Hi,</span>{' '}
-              <span className="text-gray-400 font-bold ml-1 text-14">
-                Shan
-              </span>
+                {formData.map((item) => (
+                  <span key={item.id} className="text-gray-400 font-bold ml-1 text-14">
+                    {item.name}
+                  </span>
+                ))}
             </p>
             <MdKeyboardArrowDown className="text-gray-400 text-14" />
           </div>
