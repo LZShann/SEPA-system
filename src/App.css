@@ -6,8 +6,9 @@
   min-height: 100vh;
   align-items: center;
   justify-content: center;
-  background-color: #ECF6FF;
+  background-color: #f2f8ff;
   color: #5B7288;
+  padding: 2em;
 }
 
 .auth-form-container, .login-form, .register-form {
@@ -97,16 +98,6 @@
   font-weight: bolder;
 }
 
-.container-box .p-red {
-  color:#AD5359;
-  text-align: left;
-  padding-left: 1.5em;
-  padding-bottom: 0.5em;
-  font-size: 20px;
-  font-style: bold;
-  font-weight: bolder;
-}
-
 .container-box input[type="blue"]{
   width: 90%;
   padding: 0.4em;
@@ -117,28 +108,18 @@
   font-family: 'Segoe UI';
 }
 
-.container-box input[type="red"] {
-  width: 90%;
-  padding: 0.4em;
-  margin-bottom: 1em;
-  border: 4px solid #AD5359;
-  border-radius: 3px;
-  color: #AD5359;
-  font-family: 'Segoe UI';
-}
-
 .container-box input[type="password"] {
   width: 90%;
   padding: 0.4em;
   margin-bottom: 1em;
-  border: 4px solid #AD5359;
+  border: 4px solid #5B7288;
   border-radius: 3px;
-  color: #AD5359;
+  color: #5B7288;
   font-family: 'Segoe UI';
 }
 
-input[type="submit"] {
-  width: 50%;
+.container-box input[type="submit"] {
+  width: 40%;
   padding: 0.5em;
   margin-top: 0.2em;
   margin-bottom: 0.8em;
@@ -147,7 +128,7 @@ input[type="submit"] {
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  font-size: 35px;
+  font-size: 30px;
   font-family: 'Segoe UI';
   font-style: bold;
   font-weight: bolder;
@@ -157,15 +138,11 @@ input[type="submit"] {
   background-color: #e8ecf1;
 }
 
-.container-box input[type="red"]:hover {
-  background-color: #f3ebec;
-}
-
 .container-box input[type="password"]:hover {
-  background-color: #f3ebec;
+  background-color: #e8ecf1;
 }
 
-.input[type="submit"]:hover {
+.container-box input[type="submit"]:hover {
   background-color: #269529;
 }
 
@@ -173,4 +150,18 @@ input[type="submit"] {
   width: 150px;
   height: auto;
   align-self: center;
+}
+
+.container-box select[type="selectStyle"] {
+  width: 90%;
+  padding: 0.4em;
+  margin-bottom: 1em;
+  border: 4px solid #5B7288;
+  border-radius: 3px;
+  color: #5B7288;
+  font-family: 'Segoe UI';
+}
+
+.container-box option[type="optStyle"]:hover {
+  background-color: #e8ecf1;
 }
