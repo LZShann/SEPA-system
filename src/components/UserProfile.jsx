@@ -13,8 +13,9 @@ const UserProfile = () => {
 
   const navigate = useNavigate();
 
-  const userID = sessionStorage.getItem('userID');
-  console.log('I\'m User Profile: ', userID);
+  const userName = sessionStorage.getItem('currentUserName');
+  const userRole = sessionStorage.getItem('currentUserRole');
+  const userEmail = sessionStorage.getItem('currentUserEmail');
 
   async function handleLogout(){
     const { error } = await supabase.auth.signOut()
@@ -22,27 +23,53 @@ const UserProfile = () => {
     navigate('/')
   };
 
-  async function handleRetrieve(){
-    const { data, error } = await supabase
-    .from('users_data')
-    .select('*')
-    .eq('id', userID)
+  // async function handleRetrieve(){
+  //   const { data, error } = await supabase.auth.refreshSession()
+  //   const { session, user } = data;
 
-    if (error) {
-      console.error('Error retrieving data:', error);
-    } else {
-      console.log('Retrieved data:', data);
-      setFormData(data);
-    }
-  };
+  //  const { data: user_data, error: user_error } = await supabase
+  //     .from('users_data')
+  //     .select('*')
+  //     .eq('uuid', user.id);
 
-  useEffect(() => {
-    handleRetrieve();
-  }, []);
+  //   if (user_error) {
+  //     console.error('Error retrieving data:', user_error);
+  //   } else {
+  //     console.log('Retrieved data:', user_data);
+  //     setFormData(user_data);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   handleRetrieve();
+  // }, []);
   
+  // useEffect(() => {
+  //   supabase.auth.getSession().then((data, error) => {
+  //     // Check if session is found
+  //     if (data['data']['session'] == null) {
+  //       // User not logged in
+  //       window.location.replace('/');
+  //     }
+  //     else {
+  //       const userAuthData = data['data']['session'];
+
+  //       // Fetch user role
+  //       supabase
+  //         .from('users_data')
+  //         .select('*')
+  //         .eq('uuid', userAuthData['user']['id'])
+  //         .then((data, error) => {
+  //           setUserName(data['data'][0]['name']);
+  //           setUserRole(data['data'][0]['role']);
+  //           setUserEmail(data['data'][0]['email']);
+  //         });
+  //     }
+  //   });
+  // }, []);
 
   return (
-    <div className="nav-item absolute right-1 top-16 bg-white p-8 rounded-lg w-96">
+    <div className="nav-item absolute right-1 top-16 bg-white p-8 border-color border rounded-lg w-96">
       <div className="flex justify-between items-center">
         <p className="font-semibold text-lg">User Profile</p>
         <Button
@@ -60,13 +87,13 @@ const UserProfile = () => {
           alt="user-profile"
         />
         <div>
-          {formData.map((item) => (
-            <div key={item.id}>
-              <p className="font-semibold text-xl">{item.name}</p>
-              <p className="text-gray-500 text-sm">{item.role}</p>
-              <p className="text-gray-500 text-sm font-semibold">{item.email}</p>
+          {/* {formData.map((item) => ( */}
+            <div>
+              <p className="font-semibold text-xl">{userName}</p>
+              <p className="text-gray-500 text-sm">{userRole}</p>
+              <p className="text-gray-500 text-sm font-semibold">{userEmail}</p>
             </div >
-          ))}
+          {/* ))} */}
         </div>
         
       </div>
