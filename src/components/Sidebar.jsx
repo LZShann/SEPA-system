@@ -10,7 +10,7 @@ import { supabase } from "../client";
 
 const Sidebar = () => {
   const { currentColor, activeMenu, setActiveMenu, screenSize } = useStateContext();
-  const [ userRole, setUserRole ] = useState();
+  // const [ userRole, setUserRole ] = useState();
 
   const handleCloseSideBar = () => {
     if (activeMenu !== undefined && screenSize <= 900) {
@@ -18,33 +18,64 @@ const Sidebar = () => {
     }
   };
 
+  async function authCheck() {
+    const { data, error } = await supabase.auth.refreshSession()
+
+    if (error) {
+      // User not logged in
+      window.location.replace('/');
+    }
+  };
+
+  // async function retrieveUserRole() {
+  //   const { data, error } = await supabase.auth.refreshSession()
+  //   const { session, user } = data;
+
+  //   const { data: user_data, error: user_error } = await supabase
+  //     .from('users_data')
+  //     .select('*')
+  //     .eq('uuid', user.id);
+
+  //   if (user_error) {
+  //     console.error('Error retrieving data:', user_error);
+  //   }
+  //   else {
+  //     console.log('Retrieved data:', user_data);
+  //     setUserRole(user_data[0].role);
+  //   }
+  // };
+
   useEffect(() => {
-    supabase.auth.getSession().then((data, error) => {
-      // Check if session is found
-      if (data['data']['session'] == null) {
-        // User not logged in
-        window.location.replace('/');
-      }
-      else {
-        const userAuthData = data['data']['session'];
-        
-        // Fetch user role
-        supabase
-          .from('users_data')
-          .select('*')
-          .eq('uuid', userAuthData['user']['id'])
-          .then((data, error) => {
-            setUserRole(data['data'][0]['role']);
-          })
-      }
-    });
+    authCheck();
+    // retrieveUserRole();
   });
 
-  // const userRole = sessionStorage.getItem('userRole');
-  // console.log('I\'m Sidebar: ', userRole);\
+  // useEffect(() => {
+  //   supabase.auth.getSession().then((data, error) => {
+  //     // Check if session is found
+  //     if (data['data']['session'] == null) {
+  //       // User not logged in
+  //       window.location.replace('/');
+  //     }
+  //     else {
+  //       const userAuthData = data['data']['session'];
+
+  //       // Fetch user role
+  //       supabase
+  //         .from('users_data')
+  //         .select('*')
+  //         .eq('uuid', userAuthData['user']['id'])
+  //         .then((data, error) => {
+  //           setUserRole(data['data'][0]['role']);
+  //         });
+  //     }
+  //   });
+  // });
+
+  const userRole = sessionStorage.getItem('currentUserRole');
 
   const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2';
-  const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 hover:bg-light-gray m-2';
+  const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 hover:bg-green-100 m-2';
 
   if (userRole === 'Manager') {
     return (
@@ -60,7 +91,7 @@ const Sidebar = () => {
                 type="button"
                 onClick={() => setActiveMenu(!activeMenu)}
                 style={{ color: currentColor }}
-                className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden"
+                className="text-xl rounded-full p-3 hover:bg-green-100 mt-4 block md:hidden"
               >
                 <MdOutlineCancel />
               </button>
@@ -85,7 +116,7 @@ const Sidebar = () => {
                             className={({ isActive }) => (isActive ? activeLink : normalLink)}
                           >
                             {link.icon}
-                            <span className="capitalize ">{link.name}</span>
+                            <span className="uppercase">{link.name}</span>
                           </NavLink>
                         ))}
                       </div>
