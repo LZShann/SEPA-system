@@ -18,7 +18,7 @@ const Employees = () => {
   async function fetchEmployees() {
     try {
       const {data, error} = await supabase
-      .from('user_table')
+      .from('users_data')
       .select('*')
 
       if (error) throw error;
@@ -66,13 +66,7 @@ const Employees = () => {
       </div>
     
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-        <Header category="Page" title="Employees" />
-        
-          <div>
-            {employees.map((item) => (
-              <div>{item['email']}</div>
-            ))}
-          </div>
+        <Header category="Admin" title="Employees" />
 
           <hr></hr>
 
