@@ -96,7 +96,7 @@ const Statistic = () => {
     //here can edit background color
     <div className='flex relative'>
       {activeMenu ? (
-            <div className="w-72 fixed sidebar bg-white ">
+            <div className="w-72 fixed sidebar bg-main-bg ">
               <Sidebar />
             </div>
           ) : (
@@ -114,8 +114,8 @@ const Statistic = () => {
       <div className="fixed md:static bg-main-bg navbar w-full ">
               <Navbar />
       </div>
-        <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-        <Header category="App" title="Statistic" />
+        <div className="p-2 md:p-10 bg-white">
+        <Header category="Dashboard" title="Statistic" />
         <div className="flex flex-wrap lg:flex-nowrap justify-center">
           <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
             <IconBlock
@@ -135,22 +135,6 @@ const Statistic = () => {
               iconColor="rgb(255, 244, 229)"
               iconBg="rgb(254, 201, 15)"
               onClick={() => alert('Display line chart pop-up window2')}
-            />
-            <IconBlock
-              icon={<BsFillPieChartFill />}
-              desc=""
-              title="Coming Soon"
-              iconColor="rgb(228, 106, 118)"
-              iconBg="rgb(255, 244, 229)"
-              onClick={() => alert('Coming soon')}
-            />
-            <IconBlock
-              icon={<HiOutlineRefresh />}
-              desc=""
-              title="Coming Soon 1"
-              iconColor="rgb(0, 194, 146)"
-              iconBg="rgb(235, 250, 242)"
-              onClick={() => alert('Coming soon3')}
             />
           </div>
         </div>
