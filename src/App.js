@@ -18,7 +18,7 @@ const App = () => {
               <Route path="/Statistic" element={<Statistic />} />
               <Route path="/Task" element={<Task />} />
               <Route path="/Import_Dataset" element={<Import_Dataset />} />
-              <Route path="/Interview" element={ <div> <Interview /> <History/> </div> } />
+              <Route path="/Interview" element={<Interview />} />
               <Route path="/Account" element={<Account />} />
 
               {/* Interview pop up pdf */}
