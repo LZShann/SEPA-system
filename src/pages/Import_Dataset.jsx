@@ -6,7 +6,8 @@ import { useStateContext } from '../contexts/ContextProvider';
 import './Import_Dataset.css';
 
 const Import_Dataset = () => {
-  const { activeMenu } = useStateContext();
+  const { activeMenu, currentColor } = useStateContext();
+  
 
   const [selectedForm, setSelectedForm] = useState(''); //useState() empty because set default no form selected
   const { CSVReader } = useCSVReader();
@@ -45,7 +46,7 @@ return (
               <Navbar />
       </div>
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-      <Header category="App" title="Import_Dataset" />
+      <Header category="Pages" title="Import_Dataset" />
       <CSVReader onUploadAccepted={handleUploadAccepted}>
         {({ getRootProps, acceptedFile, ProgressBar, getRemoveFileProps }) => (
           <>
