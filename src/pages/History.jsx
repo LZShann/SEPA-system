@@ -29,6 +29,7 @@ const History = () => {
   return (
     <div>
       <h1>History</h1>
+      <hr></hr>
       <table>
         <thead>
           <tr>
