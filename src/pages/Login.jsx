@@ -21,6 +21,13 @@ const Login = () => {
       })
     };
 
+    supabase.auth.refreshSession().then((data, error) => {
+      // Check if session is found
+      if (data['data']['session'] != null) {
+        // User logged in
+        window.location.replace('/Statistic');
+      }
+    })
     
 
     async function handleSubmit(e){
@@ -32,31 +39,71 @@ const Login = () => {
               password: formData.password,
           })
 
-           // Fetch the user role from the database
-          const { data: roles, error: roleError } = await supabase
-            .from('users_data')
-            .select('role')
-            .eq('email', formData.email)
-            .single();
-          const userRole = roles ? roles.role : null;
-          setUserData(userRole);
-
-          // Fetch the user id from the database
-          const { data: id, error: idError } = await supabase
-            .from('users_data')
-            .select('id')
-            .eq('email', formData.email)
-            .single();
-          const userID = id ? id.id : null;
-          setUserData(userID);
-          
           if (error) throw error
-          if (roleError) throw roleError
-          if (idError) throw idError
+
+          const { session, user } = data;
+
+          console.log(user);
+
+          //Check if user already exists in users_data table
+          const { data: userData, error: userDataError } = await supabase
+            .from('users_data')
+            .select('*')
+            .eq('uuid', user.id)
+            .single();
+
+          if (userDataError) {
+            //User does not exist in users_data table
+            //Insert user into users_data table
+            console.log('User does not exist in users_data table');
+            const { data: insertData, error: insertError } = await supabase
+              .from('users_data')
+              .insert({
+                uuid: user.id,
+                name: user.user_metadata.name,
+                phone: user.user_metadata.phone,
+                email: user.email,
+                role: user.user_metadata.role,
+                department: user.user_metadata.department,
+                supervisor: user.user_metadata.supervisor,
+              });
+
+              sessionStorage.setItem('currentUserName', user.user_metadata.name);
+              sessionStorage.setItem('currentUserRole', user.user_metadata.role);
+              sessionStorage.setItem('currentUserEmail', user.email);
+          }
+          else {
+            // User exuist in users_data table
+            sessionStorage.setItem('currentUserName', userData.name);
+            sessionStorage.setItem('currentUserRole', userData.role);
+            sessionStorage.setItem('currentUserEmail', userData.email);
+          }
+
+          //  // Fetch the user role from the database
+          // const { data: roles, error: roleError } = await supabase
+          //   .from('users_data')
+          //   .select('role')
+          //   .eq('email', formData.email)
+          //   .single();
+          // const userRole = roles ? roles.role : null;
+          // setUserData(userRole);
+
+          // // Fetch the user id from the database
+          // const { data: id, error: idError } = await supabase
+          //   .from('users_data')
+          //   .select('id')
+          //   .eq('email', formData.email)
+          //   .single();
+          // const userID = id ? id.id : null;
+          // setUserData(userID);
           
-          console.log(data)
-          console.log(roles)
-          console.log(id)
+          // if (error) throw error
+          // if (roleError) throw roleError
+          // if (idError) throw idError
+          
+          // console.log(data)
+          // console.log(roles)
+          // console.log(id)
           // sessionStorage.setItem('userRole', userRole)
           // sessionStorage.setItem('userID', userID)
           // console.log(sessionStorage)
