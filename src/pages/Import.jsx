@@ -46,11 +46,14 @@ return (
               <Navbar />
       </div>
       <div className="m-2 md:m-10 mt-5 md:mt-10 p-2 md:p-5 bg-gray-100 rounded-3xl">
-        <Header category="Pages" title="Import_Dataset" />
+        <Header category="Pages" title="Import" />
         <div className="bg-white p-5 pt-7 border-gray-300 border-2 rounded-2xl">
           <CSVReader onUploadAccepted={handleUploadAccepted}>
             {({ getRootProps, acceptedFile, ProgressBar, getRemoveFileProps }) => (
               <>
+              <div>
+                <label htmlFor="form-select" className={{ fontWeight: 'bold' }}>Browse data file:</label>
+              </div>
                 <div className="csvReader">
                   <button type='button' {...getRootProps()} className="browseFile">
                     Browse 
