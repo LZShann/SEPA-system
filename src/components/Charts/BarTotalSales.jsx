@@ -3,7 +3,7 @@ import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, Leg
 import { useStateContext } from '../../contexts/ContextProvider';
 
 import { supabase } from "../../client";
-const userName = sessionStorage.getItem('currentUserName');
+
 
 var barCustomSeries = [
   {
@@ -39,6 +39,8 @@ var barPrimaryYAxis = {
 };
 
 var BarTotalSales = ({ width, height }) => {
+
+  const userName = sessionStorage.getItem('currentUserName');
   const { currentMode } = useStateContext();
   const [barData, setBarData] = useState(null);
   const [fetchError, setFetchError] = useState(null);
