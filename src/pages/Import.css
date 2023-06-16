@@ -1,0 +1,66 @@
+.selectStyle {
+    background-color: #34D399;
+    color: white;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    padding: 0 20px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.removeButtonStyle {
+    background-color: red;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+    width: 20%;
+    height: 40px;
+    border-radius: 5px;
+    padding: 0 20px;
+    cursor: pointer;
+}
+
+.removeButtonStyle:hover {
+    background-color: rgb(217, 3, 3);
+}
+
+.csvReader {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.browseFile {
+    background-color: #34D399;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+    width: 20%;
+    height: 40px;
+    border-radius: 5px;
+    padding: 0 20px;
+    cursor: pointer;
+}
+
+.browseFile:hover {
+    background-color: #38ca94;
+}
+
+.acceptedFileBox {
+    border: 3px solid #ccc;
+    margin: 10px 10px 0px;
+    height: 40px;
+    line-height: 2.5;
+    padding-left: 10px;
+    width: 60%;
+}
+
+.spanStyle {
+    display: inline-block;
+    max-width: 800px;
+}
