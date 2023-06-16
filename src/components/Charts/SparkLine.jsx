@@ -1,8 +1,12 @@
 import React from 'react';
 import { SparklineComponent, Inject, SparklineTooltip } from '@syncfusion/ej2-react-charts';
 
+
 class SparkLine extends React.PureComponent {
+  
   render() {
+
+    const userName = sessionStorage.getItem('currentUserName');
     const { id, height, width, color, data, type, currentColor } = this.props;
 
     return (
