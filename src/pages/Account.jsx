@@ -2,7 +2,7 @@ import React, {useState, useEffect}  from 'react';
 import { Navbar, Footer, Sidebar, Header } from '../components';
 import { supabase } from '../client'
 import { useStateContext } from '../contexts/ContextProvider';
-//import './Account.css';
+import './Account.css';
 
 const Employees = () => {
   const { activeMenu } = useStateContext();
