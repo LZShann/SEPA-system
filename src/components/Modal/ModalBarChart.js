@@ -189,7 +189,7 @@ function ModalBarChart({ setOpenModal, onGenerateChart }) {
                             >
                                 Cancel
                             </button>
-                            <button type="submit" className="footerButton generateButton">
+                            <button type="submit" className="footerButton">
                                 Generate
                             </button>
 
