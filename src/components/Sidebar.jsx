@@ -10,7 +10,6 @@ import { supabase } from "../client";
 
 const Sidebar = () => {
   const { currentColor, activeMenu, setActiveMenu, screenSize } = useStateContext();
-  // const [ userRole, setUserRole ] = useState();
 
   const handleCloseSideBar = () => {
     if (activeMenu !== undefined && screenSize <= 900) {
@@ -27,50 +26,9 @@ const Sidebar = () => {
     }
   };
 
-  // async function retrieveUserRole() {
-  //   const { data, error } = await supabase.auth.refreshSession()
-  //   const { session, user } = data;
-
-  //   const { data: user_data, error: user_error } = await supabase
-  //     .from('users_data')
-  //     .select('*')
-  //     .eq('uuid', user.id);
-
-  //   if (user_error) {
-  //     console.error('Error retrieving data:', user_error);
-  //   }
-  //   else {
-  //     console.log('Retrieved data:', user_data);
-  //     setUserRole(user_data[0].role);
-  //   }
-  // };
-
   useEffect(() => {
     authCheck();
-    // retrieveUserRole();
   });
-
-  // useEffect(() => {
-  //   supabase.auth.getSession().then((data, error) => {
-  //     // Check if session is found
-  //     if (data['data']['session'] == null) {
-  //       // User not logged in
-  //       window.location.replace('/');
-  //     }
-  //     else {
-  //       const userAuthData = data['data']['session'];
-
-  //       // Fetch user role
-  //       supabase
-  //         .from('users_data')
-  //         .select('*')
-  //         .eq('uuid', userAuthData['user']['id'])
-  //         .then((data, error) => {
-  //           setUserRole(data['data'][0]['role']);
-  //         });
-  //     }
-  //   });
-  // });
 
   const userRole = sessionStorage.getItem('currentUserRole');
 
@@ -97,7 +55,7 @@ const Sidebar = () => {
               </button>
             </TooltipComponent>
           </div>
-            <div className={userRole === 'Manager'}>
+            <div>
               <div className="StaffTabs">
                 <div className="mt-10 ">
                     {managerLinks.map((item) => (
@@ -148,7 +106,7 @@ const Sidebar = () => {
               </button>
             </TooltipComponent>
           </div>
-            <div className={userRole === 'Staff'}>
+            <div>
               <div className="StaffTabs">
                 <div className="mt-10 ">
                     {staffLinks.map((item) => (
