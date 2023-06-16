@@ -6,7 +6,7 @@ import { useStateContext } from '../../contexts/ContextProvider';
 // Database
 import { supabase } from "../../client";
 
-const userName = sessionStorage.getItem('currentUserName');
+
 // console.log(userName);
 // Stacked Bar Chart Data Source passing and X,Y Axis Name
 var stackedCustomSeries = [
@@ -51,6 +51,8 @@ var stackedPrimaryYAxis = {
 
 
 var StackedTopSalesProduct = ({ width, height }) => {
+
+  const userName = sessionStorage.getItem('currentUserName');
   const { currentMode } = useStateContext();
   // Data Setter
   const [stackedBarData, setStackedBarData] = useState(null);
