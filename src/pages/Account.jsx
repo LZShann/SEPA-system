@@ -65,34 +65,33 @@ const Employees = () => {
               <Navbar />
       </div>
     
-      <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+      <div className="m-2 md:m-10 mt-5 md:mt-10 p-2 md:p-5 bg-gray-100 rounded-3xl">
         <Header category="Admin" title="Employees" />
-
-          <hr></hr>
-
-          <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {employees.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td>{item.email}</td>
-                <td>
-                  <button onClick={() => editEmployees(item.id)}>Edit</button>
-                  <button onClick={() => deleteEmployees(item.id)}>Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          <div className="bg-white p-5 pt-7 border-gray-300 border-2 rounded-2xl">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {employees.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.id}</td>
+                    <td>{item.name}</td>
+                    <td>{item.email}</td>
+                    <td>
+                      <button onClick={() => editEmployees(item.id)}>Edit</button>
+                      <button onClick={() => deleteEmployees(item.id)}>Delete</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+          </table>
+        </div>
       </div>
       <Footer />
       </div>
