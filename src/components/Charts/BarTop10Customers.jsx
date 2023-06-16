@@ -3,6 +3,7 @@ import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, Leg
 import { useStateContext } from '../../contexts/ContextProvider';
 
 import { supabase } from "../../client";
+const userName = sessionStorage.getItem('currentUserName');
 
 var barCustomSeries = [
     {
@@ -48,7 +49,7 @@ var BarTop10Customers = ({ width, height }) => {
             let { data: barData, error } = await supabase
                 .from('sales_data_entry')
                 .select('*, product:products_data_entry(*)')
-                .eq('sales_man_name', 'TYS');
+                .eq('sales_man_name', userName);
 
             if (error) {
                 setFetchError('Could not fetch data from sales_data_entry');
