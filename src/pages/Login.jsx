@@ -73,7 +73,6 @@ const Login = () => {
             // User exist in users_data table
             sessionStorage.setItem('currentUserName', userData.name);
             sessionStorage.setItem('currentUserRole', userData.role);
-            //Retrieve session email
             sessionStorage.setItem('currentUserEmail', userData.email);
           }
 
@@ -98,7 +97,6 @@ const Login = () => {
                     <input type="submit" value="Sign In"/>
                   </form>
                   <p>Don't have an account? Sign Up <Link to='/Signup'><u><b>Here</b></u></Link></p>
-                  <p>Forgot your password? Click <Link to='/Signup'><u><b>Here</b></u></Link></p>
                 </div>
               </div>
             </div>   
