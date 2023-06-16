@@ -17,7 +17,7 @@
 
 // currently using
 export { default as Account } from './Account';
-export { default as Import_Dataset } from './Import_Dataset';
+export { default as Import } from './Import';
 export { default as Interview } from './Interview';
 export { default as Statistic } from './Statistic';
 export { default as Task } from './Task';
