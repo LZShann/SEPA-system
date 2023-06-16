@@ -3,14 +3,11 @@ import '../App.css';
 import logo from '../hcgm.png';
 import { supabase } from "../client";
 import { useNavigate, Link } from "react-router-dom";
-import { Sidebar, UserProfile } from '../components';
-import Statistic from './Statistic';
 
 const Login = () => {
 
     const navigate = useNavigate();
     const [formData, setFormData] = useState({email:'', password:''});
-    const [userData, setUserData] = useState({id:'', role:''});
 
     async function handleChange(event){
       setFormData((prevFormData)=>{
@@ -73,40 +70,13 @@ const Login = () => {
               sessionStorage.setItem('currentUserEmail', user.email);
           }
           else {
-            // User exuist in users_data table
+            // User exist in users_data table
             sessionStorage.setItem('currentUserName', userData.name);
             sessionStorage.setItem('currentUserRole', userData.role);
+            //Retrieve session email
             sessionStorage.setItem('currentUserEmail', userData.email);
           }
 
-          //  // Fetch the user role from the database
-          // const { data: roles, error: roleError } = await supabase
-          //   .from('users_data')
-          //   .select('role')
-          //   .eq('email', formData.email)
-          //   .single();
-          // const userRole = roles ? roles.role : null;
-          // setUserData(userRole);
-
-          // // Fetch the user id from the database
-          // const { data: id, error: idError } = await supabase
-          //   .from('users_data')
-          //   .select('id')
-          //   .eq('email', formData.email)
-          //   .single();
-          // const userID = id ? id.id : null;
-          // setUserData(userID);
-          
-          // if (error) throw error
-          // if (roleError) throw roleError
-          // if (idError) throw idError
-          
-          // console.log(data)
-          // console.log(roles)
-          // console.log(id)
-          // sessionStorage.setItem('userRole', userRole)
-          // sessionStorage.setItem('userID', userID)
-          // console.log(sessionStorage)
           navigate('/Statistic')
 
       } catch (error) {
@@ -128,6 +98,7 @@ const Login = () => {
                     <input type="submit" value="Sign In"/>
                   </form>
                   <p>Don't have an account? Sign Up <Link to='/Signup'><u><b>Here</b></u></Link></p>
+                  <p>Forgot your password? Click <Link to='/Signup'><u><b>Here</b></u></Link></p>
                 </div>
               </div>
             </div>   
