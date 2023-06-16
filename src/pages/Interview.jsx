@@ -106,58 +106,59 @@ const Interview = () => {
       <div className="fixed md:static bg-main-bg navbar w-full ">
               <Navbar />
       </div>
-        <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+        <div className="m-2 md:m-10 mt-5 md:mt-10 p-2 md:p-5 bg-gray-100 rounded-3xl">
           <Header category="Pages" title="Interview" />
-          <h1>Form Review</h1><hr></hr>
-          <table>
-            <thead>
-              <tr>
-                <th>Row</th>
-                <th>Tracking Number</th>
-                <th>Submission Folder</th>
-                <th>Submission Date</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredFormData.map((form, index) => (
-                <tr key={form.id}>
-                  <td>{index + 1}</td>
-                  <td>{form.trackingNumber}</td>
-                  <td>
-                  <button onClick={() => openFormPopup(form.id)} 
-                    style={{ color: 'blue', fontWeight: 'bold', textDecoration: 'underline', }} >
-                    PersonalDetails
-                  </button>
-                  </td>
-                  <td>
-                  <button onClick={() => openFormPositionPopup(form.id)}
-                    style={{ color: 'blue', fontWeight: 'bold',  textDecoration: 'underline', }} >
-                    InterviewForm
-                  </button>
-                  </td>   <td>{form.submissionDate}</td>
-                  <td>
-                    
-                    <button
-                      style={{ backgroundColor: 'green' }}
-                      onClick={() => updateAPPROVEStatus(form.id)}
-                    >
-                      APPROVE
-                    </button>
-                    <button
-                      style={{ backgroundColor: 'red' }}
-                      onClick={() => updateDENYStatus(form.id)}
-                    >
-                      DENY
-                    </button>
-                  </td>
+          <div className="bg-white p-5 pt-7 border-gray-300 border-2 rounded-2xl">
+            <h1>Form Review</h1><hr></hr>
+            <table>
+              <thead>
+                <tr>
+                  <th>Row</th>
+                  <th>Tracking Number</th>
+                  <th>Submission Folder</th>
+                  <th>Submission Date</th>
+                  <th>Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <br>
-          </br>
-          <div><History /></div>
+              </thead>
+              <tbody>
+                {filteredFormData.map((form, index) => (
+                  <tr key={form.id}>
+                    <td>{index + 1}</td>
+                    <td>{form.trackingNumber}</td>
+                    <td>
+                    <button onClick={() => openFormPopup(form.id)} 
+                      style={{ color: 'blue', fontWeight: 'bold', textDecoration: 'underline', }} >
+                      PersonalDetails
+                    </button>
+                    </td>
+                    <td>
+                    <button onClick={() => openFormPositionPopup(form.id)}
+                      style={{ color: 'blue', fontWeight: 'bold',  textDecoration: 'underline', }} >
+                      InterviewForm
+                    </button>
+                    </td>   <td>{form.submissionDate}</td>
+                    <td>
+                      
+                      <button
+                        style={{ backgroundColor: 'green' }}
+                        onClick={() => updateAPPROVEStatus(form.id)}
+                      >
+                        APPROVE
+                      </button>
+                      <button
+                        style={{ backgroundColor: 'red' }}
+                        onClick={() => updateDENYStatus(form.id)}
+                      >
+                        DENY
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <br></br>
+            <div><History /></div>
+          </div>
         </div>
         <Footer />
       </div>
