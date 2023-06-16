@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import { React, useState } from 'react';
 
 import { Navbar, Footer, Sidebar, Header } from '../components';
 import '../App.css';
@@ -7,8 +7,6 @@ import '../App.css';
 import { IoIosMore } from 'react-icons/io';
 import { MdOutlineBarChart, MdAddChart, MdOutlineCancel } from 'react-icons/md';
 import { AiOutlineLineChart } from 'react-icons/ai';
-import { BsFillPieChartFill } from 'react-icons/bs';
-import { HiOutlineRefresh } from 'react-icons/hi';
 
 //components
 import { StackedTopSalesProduct, BarTotalSales, BarTop10Customers, BarSalesByRegion2, Button, LineChart, SparkLine, ModalBarChart } from '../components';
@@ -17,7 +15,6 @@ import { useStateContext } from '../contexts/ContextProvider';
 // import BarChartKPI from '../components/Charts/BarChartKPI';
 
 import './Statistic.css';
-import { supabase } from "../client";
 
 const Statistic = () => {
   const { activeMenu } = useStateContext();
@@ -29,34 +26,25 @@ const Statistic = () => {
   const [chart3Visible, setChart3Visible] = useState(false);
   const [chart4Visible, setChart4Visible] = useState(false);
 
-  // // Redirect to the appropriate page based on the user role
-  // if (userRole === 'admin') {
-  //   // Redirect to the admin page
-  // } else if (userRole === 'user') {
-  //   // Redirect to the user page
-  // }
-  // console.log(userRole)
-
-  // useEffect(() => {
-  //   // getUserData();
-  // }, []);
+  const userName = sessionStorage.getItem('currentUserName');
+  console.log('HERE:', userName);
 
   // Icon Block Component
   function IconBlock({ icon, desc, title, iconColor, iconBg, onClick }) {
     return (
-      <div className="bg-white h-44 md:w-56 p-4 pt-9 rounded-2xl">
+      <div className="bg-white h-44 md:w-44 p-8 pt-7 border-gray-300 border-2 rounded-2xl">
         <button
           type="button"
           style={{ color: iconColor, backgroundColor: iconBg }}
-          className="text-2xl opacity-0.9 rounded-full  p-4 hover:drop-shadow-xl"
+          className="text-3xl opacity-0.9 rounded-full p-4 hover:drop-shadow-xl"
           onClick={onClick}
         >
           {icon}
         </button>
         <p className="mt-3">
-          <span className="text-lg font-semibold">{title}</span>
+          <span className="text-2xl font-semibold">{title}</span>
         </p>
-        <p className="text-sm text-gray-400  mt-1">{desc}</p>
+        <p className="text-sm text-gray-400">{desc}</p>
       </div>
     );
   };
@@ -102,7 +90,7 @@ const Statistic = () => {
     //here can edit background color
     <div className='flex relative'>
       {activeMenu ? (
-        <div className="w-72 fixed sidebar bg-main-bg ">
+        <div className="w-72 fixed sidebar bg-main-bg">
           <Sidebar />
         </div>
       ) : (
@@ -120,33 +108,39 @@ const Statistic = () => {
         <div className="fixed md:static bg-main-bg navbar w-full ">
           <Navbar />
         </div>
-        <div className="p-2 md:p-10 bg-white">
+        <div className="m-2 md:m-10 mt-5 md:mt-10 p-2 md:p-5 bg-gray-100 rounded-3xl">
           <Header category="Dashboard" title="Statistic" />
           <div className="flex flex-wrap lg:flex-nowrap justify-center">
             <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
-              <IconBlock
-                icon={<MdOutlineBarChart />}
-                desc="Chart"
-                title="Bar"
-                iconColor="#03C9D7"
-                iconBg="#E5FAFB"
-                onClick={handleOpenModal}
-              />
-              {modalOpen && <ModalBarChart setOpenModal={setModalOpen} onGenerateChart={handleGenerateChart} />}
-              <IconBlock
-                icon={<AiOutlineLineChart />}
-                desc="Chart"
-                title="Line"
-                iconColor="rgb(255, 244, 229)"
-                iconBg="rgb(254, 201, 15)"
-                onClick={() => alert('Display line chart pop-up window2')}
-              />
-              <div className="grid grid-cols-2 gap-6">
+              <div className="m-2 md:m-4">
+                <IconBlock
+                  icon={<MdOutlineBarChart />}
+                  desc="Chart"
+                  title="Bar"
+                  iconColor="#03C9D7"
+                  iconBg="#E5FAFB"
+                  onClick={handleOpenModal}
+                />
+                {modalOpen && <ModalBarChart setOpenModal={setModalOpen} onGenerateChart={handleGenerateChart} />}
+              </div>
+              <div className="m-2 md:m-4">
+                <IconBlock
+                  icon={<AiOutlineLineChart />}
+                  desc="Chart"
+                  title="Line"
+                  iconColor="rgb(255, 244, 229)"
+                  iconBg="rgb(254, 201, 15)"
+                  onClick={() => alert('Display line chart pop-up window2')}
+                />
+              </div>
+
+              {/* KPI Performance */}
+              <div className="grid grid-cols-2 gap-6 m-5 md:m-10 bg-white h-40 p-5 pt-6 border-gray-300 border-2 rounded-2xl">
                 <div>
                   {/* Content for the first column */}
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 pt-4">
                     <div>
-                      <div className="grid grid-rows-2 gap-2">
+                      <div className="grid grid-rows-2 gap-1">
                         <div className="text-lg font-semibold">KPI Performance</div>
                         <div className="flex">
                           <span className={`text-statistic ${percentage >= 90 ? 'text-excellent' : percentage >= 70 ? 'text-good' : percentage >= 50 ? 'text-average' : 'text-worst'}`}>
@@ -163,6 +157,7 @@ const Statistic = () => {
                     </div>
                   </div>
                 </div>
+                {/* Second Column */}
                 <div>
                   <div className="text-lg font-semibold">Objective: Increase revenue growth</div>
                   <ul>
@@ -187,6 +182,7 @@ const Statistic = () => {
                   </ul>
                 </div>
               </div>
+              {/* END here */}
             </div>
           </div>
 
@@ -348,7 +344,7 @@ const Statistic = () => {
 
           <div className="flex flex-wrap justify-center">
 
-            <div className="md:w-400 bg-white rounded-2xl p-6 m-3">
+            <div className="md:w-400 bg-white p-6 m-3 border-gray-300 border-2 rounded-2xl">
               <div className="flex justify-between">
                 <p className="text-xl font-semibold">Revenue By Month 2021</p>
                 <button type="button" className="text-xl font-semibold text-gray-500">
