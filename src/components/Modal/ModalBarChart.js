@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import "./Modal.css";
 import { MdOutlineCancel } from "react-icons/md";
-import { createClient } from '@supabase/supabase-js';
+import supabase from '../../client';
 
-const supabaseUrl = 'https://aehwgrirrnhmatqmqcsa.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFlaHdncmlycm5obWF0cW1xY3NhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY4MDg2NTg4MywiZXhwIjoxOTk2NDQxODgzfQ.DeXxoWY65kzpbvdxME16mAHj2KGMwDRg_jEGgUIxKc0';
-const supabase = createClient(supabaseUrl, supabaseKey);
-const userName = sessionStorage.getItem('currentUserName');
-console.log(userName);
+
 function ModalBarChart({ setOpenModal, onGenerateChart }) {
+
+    const userName = sessionStorage.getItem('currentUserName');
+    console.log(userName);
 
     const [formData, setFormData] = useState({});
     const handleChange = (e) => {
