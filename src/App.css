@@ -54,7 +54,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: #5B7288;
+  color: #11644f;
   padding: 2em;
 }
 
@@ -92,7 +92,7 @@
 }
 
 .container-box .p-blue {
-  color:#5B7288;
+  color:#11644f;
   text-align: left;
   padding-left: 1.5em;
   padding-bottom: 0.5em;
@@ -105,9 +105,9 @@
   width: 90%;
   padding: 0.4em;
   margin-bottom: 1em;
-  border: 4px solid #5B7288;
+  border: 4px solid #11644f;
   border-radius: 3px;
-  color: #5B7288;
+  color: #11644f;
   font-family: 'Segoe UI';
 }
 
@@ -115,9 +115,9 @@
   width: 90%;
   padding: 0.4em;
   margin-bottom: 1em;
-  border: 4px solid #5B7288;
+  border: 4px solid #11644f;
   border-radius: 3px;
-  color: #5B7288;
+  color: #11644f;
   font-family: 'Segoe UI';
 }
 
@@ -159,7 +159,7 @@
   width: 90%;
   padding: 0.4em;
   margin-bottom: 1em;
-  border: 4px solid #5B7288;
+  border: 4px solid #11644f;
   border-radius: 3px;
   color: #5B7288;
   font-family: 'Segoe UI';
