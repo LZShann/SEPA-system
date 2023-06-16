@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Statistic, Import_Dataset, Interview, Task, Account, Login, SignUp, FormReviewPage, FormReviewPosition, History } from './pages';
+import { Statistic, Import, Interview, Task, Account, Login, SignUp, FormReviewPage, FormReviewPosition } from './pages';
 import './App.css';
 
 const App = () => {
@@ -17,7 +17,7 @@ const App = () => {
               {/* pages */}
               <Route path="/Statistic" element={<Statistic />} />
               <Route path="/Task" element={<Task />} />
-              <Route path="/Import_Dataset" element={<Import_Dataset />} />
+              <Route path="/Import" element={<Import />} />
               <Route path="/Interview" element={<Interview />} />
               <Route path="/Account" element={<Account />} />
 
