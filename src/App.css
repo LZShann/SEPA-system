@@ -6,7 +6,7 @@
   min-height: 100vh;
   align-items: center;
   justify-content: center;
-  background-color: #f2f8ff;
+  background-color: #f7fcfb;
   color: #5B7288;
   padding: 2em;
 }
@@ -59,7 +59,7 @@
 }
 
 .container {
-  background-color: #ECF6FF;
+  background-color: #f7fcfb;
   padding: 1em;
   max-width: 100%;
   text-align: center;
@@ -67,10 +67,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-radius: 20px;
 }
 
 .container-box {
-  background-color: #ECF6FF;
+  background-color: #f7fcfb;
   max-width: 100%;
   width: 700px;
   text-align: center;
@@ -78,10 +79,12 @@
 }
 
 .container-bg {
-  background-color: #5B7288;
+  background-color: #11644f;
   padding: 1em;
   max-width: 100%;
-}
+  border-radius: 20px;
+  box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.69);
+  }
 
 .container h2 {
   margin-top: 0;
