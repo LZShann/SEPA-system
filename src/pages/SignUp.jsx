@@ -27,59 +27,20 @@ const SignUp = () => {
     }
   });
 
-  // async function handleSubmit(e) {
-  //   e.preventDefault();
-  //   try {
-  //     // Sign up the user
-  //     const { user, error } = await supabase.auth.signUp({
-  //       email: formData.email,
-  //       password: formData.password
-  //     });
-  
-  //     if (error) {
-  //       throw error;
-  //     }
-  
-  //     // Insert data into 'auth.users' table
-  //     const { data: authData, error: authInsertError } = await supabase
-  //       .from('auth.users')
-  //       .insert({
-  //         email: formData.email,
-  //         password: formData.password
-  //       });
-  
-  //     if (authInsertError) {
-  //       throw authInsertError;
-  //     }
-  
-  //     // Insert data into 'public.users1' table using the trigger
-  //     const { data: publicData, error: publicInsertError } = await supabase.rpc('on_auth_user_created', {
-  //       new: authData[0]
-  //     });
-  
-  //     if (publicInsertError) {
-  //       throw publicInsertError;
-  //     }
-  
-  //     alert('User signed up and data inserted successfully!');
-  //     navigate('/');
-  //   } catch (error) {
-  //     alert(error.message);
-  //   }
-  // }
-
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      const { userData, error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
-        data: {
-          name: formData.name,
-          phone: formData.phone,
-          role: formData.role,
-          department: formData.department,
-          supervisor: formData.supervisor
+        options: {
+          data: {
+            name: formData.name,
+            phone: formData.phone,
+            role: formData.role,
+            department: formData.department,
+            supervisor: formData.supervisor
+          }
         }
       });
 
@@ -87,9 +48,8 @@ const SignUp = () => {
         console.log('Error inserting data:', error.message);
       }
 
-      alert('Data inserted successfully');
+      alert('Sign Up Success! Please use the credentials to Sign In!');
       console.log('Data inserted successfully');
-
       navigate('/');
       
     } catch (error) {
@@ -138,7 +98,7 @@ const SignUp = () => {
                     </select>
 
                     <p className='p-blue'>Your Password</p>
-                    <input type="password" name='password' value={formData.password}  placeholder="Password" required onChange={handleChange}/>
+                    <input type="password" name='password' value={formData.password}  placeholder="Password (At least 6 characters)" required onChange={handleChange}/>
 
                     <input type="submit" value="Create Account"/>
 
