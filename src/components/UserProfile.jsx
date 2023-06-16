@@ -7,6 +7,7 @@ import { Button } from '.';
 import { useStateContext } from '../contexts/ContextProvider';
 import avatar from '../data/profileicon.jpg';
 
+
 const UserProfile = () => {
   const { currentColor } = useStateContext();
   const [ formData, setFormData ] = useState([]);
