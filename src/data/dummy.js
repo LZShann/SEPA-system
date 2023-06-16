@@ -199,7 +199,7 @@ export const managerLinks = [
         icon: <BsKanban />,
       },
       {
-        name: 'Import_dataset',
+        name: 'Import',
         icon: <AiOutlineBarChart />,
       },
       {
