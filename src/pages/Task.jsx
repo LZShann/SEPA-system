@@ -119,19 +119,21 @@ const Task = () => {
         <div className="fixed md:static bg-main-bg navbar w-full ">
           <Navbar />
         </div>
-        <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-          <Header category="Pages" title="Kanban" />
-          <KanbanComponent
-            id="kanban"
-            keyField="status"
-            dataSource={kanbanData}
-            cardSettings={{ contentField: 'summary', headerField: 'id', selectionType: 'Multiple'}}
-            enableTooltip={true} tooltipTemplate={cardTooltipTemplate}
-          >
-            <ColumnsDirective>
-              {kanbanGrid.map((item, index) => <ColumnDirective key={index} {...item} />)}
-            </ColumnsDirective> 
-          </KanbanComponent>
+        <div className="m-2 md:m-10 mt-5 md:mt-10 p-2 md:p-5 bg-gray-100 rounded-3xl">
+          <Header category="Pages" title="Task" />
+          <div className="bg-white p-5 pt-7 border-gray-300 border-2 rounded-2xl">
+            <KanbanComponent
+              id="kanban"
+              keyField="status"
+              dataSource={kanbanData}
+              cardSettings={{ contentField: 'summary', headerField: 'id', selectionType: 'Multiple'}}
+              enableTooltip={true} tooltipTemplate={cardTooltipTemplate}
+            >
+              <ColumnsDirective>
+                {kanbanGrid.map((item, index) => <ColumnDirective key={index} {...item} />)}
+              </ColumnsDirective> 
+            </KanbanComponent>
+          </div>
         </div>
         <Footer />
       </div>
