@@ -113,8 +113,8 @@ const Navbar = () => {
               alt="user-profile"
             />
             <p>
-              <span className="text-gray-400 text-xl">Welcome,</span>{' '}
-              <span className="text-gray-400 font-semibold ml-1 text-xl">
+              <span className="text-gray-400 text-base">Welcome,</span>{' '}
+              <span className="text-gray-400 font-semibold ml-1 text-base">
                 {userName}
               </span>
             </p>
