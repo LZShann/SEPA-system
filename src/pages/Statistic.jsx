@@ -135,7 +135,7 @@ const Statistic = () => {
               </div>
 
               {/* KPI Performance */}
-              <div className="grid grid-cols-2 gap-6 m-5 md:m-10 bg-white h-40 p-5 pt-6 border-gray-300 border-2 rounded-2xl">
+              <div className="grid grid-cols-2 gap-6 m-5 md:m-10 bg-white p-5 pt-6 border-gray-300 border-2 rounded-2xl">
                 <div>
                   {/* Content for the first column */}
                   <div className="grid grid-cols-2 pt-4">
@@ -191,7 +191,7 @@ const Statistic = () => {
               <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
                 <div className="flex justify-between">
                   <p className="font-semibold text-xl" id="totalSalesTitle">Title</p>
-                  <span className="ml-auto text-2xl cursor-pointer closeChart" onClick={() => toggleChartVisibility('chart1')}>
+                  <span className="closeChart" onClick={() => toggleChartVisibility('chart1')}>
                     <MdOutlineCancel />
                   </span>
                 </div>
@@ -225,7 +225,7 @@ const Statistic = () => {
               <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
                 <div className="flex justify-between">
                   <p className="font-semibold text-xl" id="top10CustomersTitle">Title</p>
-                  <span className="ml-auto text-2xl cursor-pointer closeChart" onClick={() => toggleChartVisibility('chart2')}>
+                  <span className="closeChart" onClick={() => toggleChartVisibility('chart2')}>
                     <MdOutlineCancel />
                   </span>
                 </div>
@@ -264,7 +264,7 @@ const Statistic = () => {
               <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
                 <div className="flex justify-between">
                   <p className="font-semibold text-xl" id="topSalesProductTitle">Title</p>
-                  <span className="ml-auto text-2xl cursor-pointer closeChart" onClick={() => toggleChartVisibility('chart3')}>
+                  <span className="closeChart" onClick={() => toggleChartVisibility('chart3')}>
                     <MdOutlineCancel />
                   </span>
                 </div>
@@ -307,7 +307,7 @@ const Statistic = () => {
               <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
                 <div className="flex justify-between">
                   <p className="font-semibold text-xl" id="SalesByRegion2Title">Title</p>
-                  <span className="ml-auto text-2xl cursor-pointer closeChart" onClick={() => toggleChartVisibility('chart4')}>
+                  <span className="closeChart" onClick={() => toggleChartVisibility('chart4')}>
                     <MdOutlineCancel />
                   </span>
                 </div>
@@ -343,7 +343,6 @@ const Statistic = () => {
 
 
           <div className="flex flex-wrap justify-center">
-
             <div className="md:w-400 bg-white p-6 m-3 border-gray-300 border-2 rounded-2xl">
               <div className="flex justify-between">
                 <p className="text-xl font-semibold">Revenue By Month 2021</p>
