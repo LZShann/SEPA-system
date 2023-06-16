@@ -239,7 +239,7 @@ export const staffLinks = [
         icon: <BsKanban />,
       },
       {
-        name: 'Import_dataset',
+        name: 'Import',
         icon: <AiOutlineBarChart />,
       },
     ],
