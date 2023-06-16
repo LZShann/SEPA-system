@@ -108,17 +108,17 @@ const Navbar = () => {
             onClick={() => handleClick('userProfile')}
           >
             <img
-              className="rounded-full w-8 h-8"
+              className="rounded-full w-8 h-8 text"
               src={avatar}
               alt="user-profile"
             />
             <p>
-              <span className="text-gray-400 text-14">Hi,</span>{' '}
-              <span className="text-gray-400 font-bold ml-1 text-14">
+              <span className="text-gray-400 text-xl">Welcome,</span>{' '}
+              <span className="text-gray-400 font-semibold ml-1 text-xl">
                 {userName}
               </span>
             </p>
-            <MdKeyboardArrowDown className="text-gray-400 text-14" />
+            <MdKeyboardArrowDown className="text-gray-400 text-xl" />
           </div>
         </TooltipComponent>
 
