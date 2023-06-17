@@ -10,7 +10,24 @@ import { supabase } from "../client";
 
 
 const Task = () => {
-
+  async function authCheck() {
+    const { data, error } = await supabase.auth.refreshSession();
+  
+    if (error) {
+      // User not logged in
+      window.location.replace('/');
+      return;
+    }
+  
+    
+  }
+  const userName = sessionStorage.getItem('currentUserName');
+    
+  const userRole = sessionStorage.getItem('currentUserRole');
+  useEffect(() => {
+    authCheck();
+  }, []);
+  
   const [users, setUsers] = useState([]);
   const {activeMenu} = useStateContext();
 
@@ -73,10 +90,25 @@ const Task = () => {
   };
   const fetchTasks = async () => {
     try {
-      const { data, error } = await supabase.from('kanban_task').select('*');
-      if (error) {
-        throw error;
-      }
+      let { data, error } = [];
+
+   
+    console.log(userName); // Access the userName here or perform any additional actions with it
+
+    if (userName === 'TYS' && userRole === 'Manager') {
+      // Fetch all tasks
+      ({ data, error } = await supabase.from('kanban_task').select('*'));
+    } else {
+      // Fetch tasks based on the assignee matching the current user's username
+      ({ data, error } = await supabase
+        .from('kanban_task')
+        .select('*')
+        .eq('assignee', userName));
+    }
+
+    if (error) {
+      throw error;
+    }
       const tasksByColumn = groupTasksByColumn(data);
       const columns = createColumns(tasksByColumn);
       setColumns(columns);
@@ -137,7 +169,8 @@ const Task = () => {
     });
 
     return columns;
-  };const createNewTask = async () => {
+  };
+  const createNewTask = async () => {
     try {
       const fetchLargestId = async () => {
         const { data: tasks, error } = await supabase
@@ -505,23 +538,28 @@ const editTask = async (taskId, updatedTaskData) => {
                   />
                 </div>
                 <div className="mb-4">
-      <label htmlFor="assignee" className="block font-medium text-gray-700 mb-1">
-        Assignee
-      </label>
-      <select
-        name="assignee"
-        id="assignee"
-        className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        value={newTaskData.assignee}
-        onChange={handleInputChange}
-      >
-        <option value="">Select Assignee</option>
-        {users.map((user) => (
-          <option key={user.name} value={user.name}>
-            {user.name}
-          </option>
-        ))}
-      </select>
+                <label htmlFor="assignee" className="block font-medium text-gray-700 mb-1">
+  Assignee
+</label>
+<select
+  name="assignee"
+  id="assignee"
+  className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+  value={newTaskData.assignee}
+  onChange={handleInputChange}
+>
+  <option value="">Select Assignee</option>
+  {users.map((user) => (
+    (userRole === 'Manager' || user.name === userName) && (
+      <option key={user.name} value={user.name}>
+        {user.name}
+      </option>
+    )
+  ))}
+</select>
+
+
+
     </div>
                 <div className="mb-4">
                   <label htmlFor="estimate" className="block font-medium text-gray-700 mb-1">
@@ -646,9 +684,11 @@ const editTask = async (taskId, updatedTaskData) => {
                       onChange={handleEditInputChange }
                     >    <option value="">Select Assignee</option>
                     {users.map((user) => (
-                      <option key={user.name} value={user.name}>
-                        {user.name}
-                      </option>
+                      (userRole === 'Manager' || user.name === userName) && (
+                        <option key={user.name} value={user.name}>
+                          {user.name}
+                        </option>
+                      )
                     ))}
                   </select>
                   </div>
