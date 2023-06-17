@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Statistic, Import, Interview, Task, Account, Login, SignUp, FormReviewPage, FormReviewPosition } from './pages';
+import { Statistic, Import, Interview, Task, Account, Login, SignUp, FormReviewPage, FormReviewPosition} from './pages';
 import './App.css';
+import FormReviewBigFive from './pages/FormReviewBigFive';
+import FormReviewb5Personal from './pages/FormReviewb5Personal';
 
 const App = () => {
 
@@ -24,6 +26,8 @@ const App = () => {
               {/* Interview pop up pdf */}
               <Route path="/form-review-page/:id" element={<FormReviewPage />} />
               <Route path="/form-review-position/:id" element={<FormReviewPosition />} />
+              <Route path="/form-review-bigfivepersonal/:id" element={<FormReviewb5Personal />} />
+              <Route path="/form-review-bigfive/:id" element={<FormReviewBigFive />} />
             </Routes>
           </div>
         </BrowserRouter>

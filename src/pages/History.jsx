@@ -3,24 +3,37 @@ import { supabase } from '../client';
 
 const History = () => {
   const [formData, setFormData] = useState([]);
-
   const fetchFormData = async () => {
     try {
-      const { data, error } = await supabase
+      const { data: confirmationData, error: confirmationError } = await supabase
         .from('confirmation')
-        .select('id, trackingNumber, submissionDate, status')
+        .select('id, trackingNumber, submissionDate, status, remark')
         .in('status', ['APPROVE', 'DENY']);
-
-      if (error) {
-        console.error('Error retrieving data:', error);
+  
+      const { data: bigFiveData, error: bigFiveError } = await supabase
+        .from('bigfive')
+        .select('id, trackingNumber, submissionDate, status, remark')
+        .in('status', ['APPROVE', 'DENY']);
+  
+      if (confirmationError || bigFiveError) {
+        console.error('Error retrieving data:', confirmationError || bigFiveError);
       } else {
-        console.log('Retrieved data:', data);
-        setFormData(data);
+        console.log('Retrieved confirmation data:', confirmationData);
+        console.log('Retrieved bigfive data:', bigFiveData);
+  
+        // Merge the confirmationData and bigFiveData arrays
+        const mergedData = [...confirmationData, ...bigFiveData];
+  
+        // Sort the merged data based on submissionDate
+        mergedData.sort((a, b) => new Date(b.submissionDate) - new Date(a.submissionDate));
+  
+        setFormData(mergedData);
       }
     } catch (error) {
       console.error('Error retrieving data:', error);
     }
   };
+  
 
   useEffect(() => {
     fetchFormData();
@@ -37,6 +50,8 @@ const History = () => {
             <th>Tracking Number</th>
             <th>Submission Date</th>
             <th>Status</th>
+            <td></td>
+            <th>Remark</th>
           </tr>
         </thead>
         <tbody>
@@ -44,8 +59,10 @@ const History = () => {
             <tr key={form.id}>
               <td>{index + 1}</td>
               <td>{form.trackingNumber}</td>
-              <td>{form.submissionDate}</td>
+              <td>{new Date(form.submissionDate).toLocaleDateString()}</td>
               <td>{form.status}</td>
+              <td></td>
+              <td>{form.remark}</td>
             </tr>
           ))}
         </tbody>
