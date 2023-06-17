@@ -114,6 +114,8 @@ const Statistic = () => {
   const [isChurned, setIsChurned] = useState(null);
   const [currentMonthData, setCurrentMonthError] = useState(null);
   const [previousMonthData, setPreviousMonthError] = useState(null);
+  const [churnAccountRate, setChurnAccountRate] = useState(null);
+
   const [increaseRate, setIncreaseRate] = useState(null);
   const [increaseRevenue, setIncreaseRevenue] = useState(null);
   const [fetchError, setFetchError] = useState(null);
@@ -147,7 +149,7 @@ const Statistic = () => {
           }, 0);
           const currentChurnRate = Math.ceil((currentChurnAccount / totalCustomers) * 100);
           const churnRate = lastMonthChurn - currentChurnRate;
-
+          setChurnAccountRate(churnRate);
           // KPI 1 formula
           if (churnRate >= 4) {
             setActualKPI1((100 / 100) * targetedKPI1);
@@ -232,7 +234,7 @@ const Statistic = () => {
           // Second KPI = ((currentRevenue - baseRevenue(lastmonth)) / baseRevenue(lastmonth)) * 100;
           var increaseRevenue = Math.ceil(((currentTotalRevenue - previousTotalRevenue) / previousTotalRevenue) * 100);
           console.log("Increase revenue: " + increaseRevenue);
-
+          setIncreaseRevenue(increaseRevenue);
           if (increaseRevenue >= 4) {
             setActualKPI3((100 / 100) * targetedKPI3);
           } else if (increaseRevenue >= 2 && increaseRevenue <= 3) {
@@ -382,7 +384,7 @@ const Statistic = () => {
                         <span className="tooltip target-text" data-tooltip="Reduce key account churn rate by 5%">
                           Target 1:
                           <span className="percentage-span" data-actual-score={actualKPI1} data-targeted-score={targetedKPI1}>
-                            {KPI1}%
+                            {KPI1}% | {churnAccountRate}%
                           </span>
                         </span>
                       </li>
@@ -398,7 +400,7 @@ const Statistic = () => {
                         <span className="tooltip target-text" data-tooltip="Increase revenue from current base on existing product lines by 5%">
                           Target 3:
                           <span className="percentage-span" data-actual-score={actualKPI3} data-targeted-score={targetedKPI3}>
-                            {KPI3}%
+                            {KPI3}% | {increaseRevenue}%
                           </span>
                         </span>
                       </li>
@@ -410,7 +412,7 @@ const Statistic = () => {
                         <span className="tooltip target-text" data-tooltip="Ensure that all the teams agree on folder structures and put them into effect">
                           Target 1:
                           <span className="percentage-span" data-actual-score={actualKPI1} data-targeted-score={targetedKPI1}>
-                            {KPI1}%
+                            {KPI1}% |
                           </span>
                         </span>
                       </li>
@@ -418,7 +420,7 @@ const Statistic = () => {
                         <span className="tooltip target-text" data-tooltip="Make sure that all the teams complete the transfer and consolidation of all documents into the new structure 100% of the time">
                           Target 2:
                           <span className="percentage-span" data-actual-score={actualKPI2} data-targeted-score={targetedKPI2}>
-                            {KPI2}%
+                            {KPI2}% | 
                           </span>
                         </span>
                       </li>
@@ -426,7 +428,7 @@ const Statistic = () => {
                         <span className="tooltip target-text" data-tooltip="Gather feedback from all users, and make sure >80% (positive)">
                           Target 3:
                           <span className="percentage-span" data-actual-score={actualKPI3} data-targeted-score={targetedKPI3}>
-                            {KPI3}%
+                            {KPI3}% | 
                           </span>
                         </span>
                       </li>
@@ -438,7 +440,7 @@ const Statistic = () => {
                         <span className="tooltip target-text" data-tooltip="Increase monthly number of new trial signups by 20%">
                           Target 1:
                           <span className="percentage-span" data-actual-score={actualKPI1} data-targeted-score={targetedKPI1}>
-                            {KPI1}%
+                            {KPI1}% | 
                           </span>
                         </span>
                       </li>
@@ -446,7 +448,7 @@ const Statistic = () => {
                         <span className="tooltip target-text" data-tooltip="Increase Monthly Active Users from 5000 to 8000">
                           Target 2:
                           <span className="percentage-span" data-actual-score={actualKPI2} data-targeted-score={targetedKPI2}>
-                            {KPI2}%
+                            {KPI2}% | 
                           </span>
                         </span>
                       </li>
@@ -454,7 +456,7 @@ const Statistic = () => {
                         <span className="tooltip target-text" data-tooltip="Increase the trial to paid plan conversion rate by 15%">
                           Target 3:
                           <span className="percentage-span" data-actual-score={actualKPI3} data-targeted-score={targetedKPI3}>
-                            {KPI3}%
+                            {KPI3}% | 
                           </span>
                         </span>
                       </li>
