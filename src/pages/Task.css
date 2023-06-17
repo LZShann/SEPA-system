@@ -1,94 +1,127 @@
 .trello-board {
-    display: flex;
-    justify-content: left;
-    padding: 20px;
-  }
+  display: flex;
+  justify-content: left;
+  padding: 20px;
+}
 
-  .columns-container {
-    display: flex;
-  }
+.columns-container {
+  display: flex;
+}
 
-  .column {
-    flex: 0 0 300px;
-    margin: 0 10px;
-    padding: 10px;
-    background-color: #cff9ea;
-    border-radius: 10px;
-  }
+.column {
+  flex: 0 0 300px;
+  margin: 0 10px;
+  padding: 10px;
+  background-color: #cff9ea;
+  border-radius: 10px;
+}
 
-  .column-title {
-    font-size: 20px;
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
+.column-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
 
-  .task-list {
-    min-height: 200px;
-    padding: 10px;
-    background-color: #a8eed4;
-    border-radius: 10px;
-  }
+.task-list {
+  min-height: 200px;
+  padding: 10px;
+  background-color: #a8eed4;
+  border-radius: 10px;
+}
 
-  .card {
-    flex: 0 0 calc(50% - 20px);
-    background-color: #f2f2f2;
-    border-radius: 4px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    margin-bottom: 20px;
-  }
+.card {
+  flex: 0 0 calc(50% - 20px);
+  background-color: #f2f2f2;
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin-bottom: 20px;
+}
 
-  .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
 
-  .card-header-text {
-    font-weight: bold;
-  }
+.card-header-text {
+  font-weight: bold;
+}
 
-  .card-status {
-    padding: 4px 8px;
-    background-color: #fc0c0c;
-    border-radius: 4px;
-    font-weight: 600;
-    color: white;
-  }
+.card-status {
+  padding: 4px 8px;
+  background-color: #fc0c0c;
+  border-radius: 4px;
+  font-weight: 600;
+  color: white;
+}
 
-  .card-content {
-    margin-bottom: 10px;
-  }
+.card-content {
+  margin-bottom: 10px;
+}
 
-  .card-label {
-    display: flex;
-    margin-bottom: 6px;
-  }
+.card-label {
+  display: flex;
+  margin-bottom: 6px;
+}
 
-  .card-label-text {
-    font-weight: bold;
-    margin-right: 4px;
-  }
+.card-label-text {
+  font-weight: bold;
+  margin-right: 4px;
+}
 
-  .card-label-value {
-    flex-grow: 1;
-  }
+.card-label-value {
+  flex-grow: 1;
+}
 
-  .card-actions {
-    display: flex;
-    justify-content: flex-end;
-  }
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
 
-  .card-actions button {
-    background-color: #34D399;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    padding: 6px 12px;
-    cursor: pointer;
-  }
+.card-actions button {
+  background-color: #34D399;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
 
-  .card-actions button:hover {
-    background-color: #2cb683;
-  }
+.card-actions button:hover {
+  background-color: #2cb683;
+}
+
+.task-overdue {
+  border: 2px solid red;
+  background-color: lightcoral;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.modal-buttons button {
+  margin-left: 10px;
+}
