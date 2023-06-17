@@ -18,13 +18,13 @@ const Login = () => {
       })
     };
 
-    supabase.auth.refreshSession().then((data, error) => {
-      // Check if session is found
-      if (data['data']['session'] != null) {
-        // User logged in
-        window.location.replace('/Statistic');
-      }
-    })
+    // supabase.auth.refreshSession().then((data, error) => {
+    //   // Check if session is found
+    //   if (data['data']['session'] != null) {
+    //     // User logged in
+    //     window.location.replace('/Statistic');
+    //   }
+    // })
     
 
     async function handleSubmit(e){
@@ -68,12 +68,14 @@ const Login = () => {
               sessionStorage.setItem('currentUserName', user.user_metadata.name);
               sessionStorage.setItem('currentUserRole', user.user_metadata.role);
               sessionStorage.setItem('currentUserEmail', user.email);
+              sessionStorage.setItem('currentUserID', user.id);
           }
           else {
             // User exist in users_data table
             sessionStorage.setItem('currentUserName', userData.name);
             sessionStorage.setItem('currentUserRole', userData.role);
             sessionStorage.setItem('currentUserEmail', userData.email);
+            sessionStorage.setItem('currentUserID', userData.id);
           }
 
           navigate('/Statistic')
