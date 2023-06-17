@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 
 import { Navbar, Footer, Sidebar, Header } from '../components';
 import '../App.css';
@@ -12,9 +12,10 @@ import { AiOutlineLineChart } from 'react-icons/ai';
 import { StackedTopSalesProduct, BarTotalSales, BarTop10Customers, BarSalesByRegion2, Button, LineChart, SparkLine, ModalBarChart } from '../components';
 import { weeklyStats, SparklineAreaData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
-// import BarChartKPI from '../components/Charts/BarChartKPI';
+import { supabase } from "../client";
 
 import './Statistic.css';
+import { func } from 'prop-types';
 
 const Statistic = () => {
   const { activeMenu } = useStateContext();
@@ -27,7 +28,9 @@ const Statistic = () => {
   const [chart4Visible, setChart4Visible] = useState(false);
 
   const userName = sessionStorage.getItem('currentUserName');
-  console.log('HERE:', userName);
+  const userDepartment = sessionStorage.getItem('currentUserDepartment');
+  // console.log('User:', userName);
+  // console.log('Department:', userDepartment);
 
   // Icon Block Component
   function IconBlock({ icon, desc, title, iconColor, iconBg, onClick }) {
@@ -79,12 +82,124 @@ const Statistic = () => {
       setChart4Visible(!chart4Visible);
     }
   };
-  const percentage = 90;
-  var actual = 10;
-  var targeted = 20;
-  const KPI1 = actual/targeted*100;
-  const KPI2 = 50;
-  const KPI3 = 70;
+
+  // KPI sections
+  var percentage, actualKPI1, actualKPI2, actualKPI3, targetedKPI1 = 20, targetedKPI2 = 30, targetedKPI3 = 50, KPI1, KPI2, KPI3;
+  function calculateKPI() {
+    KPI1 = Math.ceil((actualKPI1 / targetedKPI1) * 100);
+    KPI2 = Math.ceil((actualKPI2 / targetedKPI2) * 100);
+    KPI3 = Math.ceil((actualKPI3 / targetedKPI3) * 100);
+
+    percentage = actualKPI1 + actualKPI2 + actualKPI3;
+  };
+
+  // Data Setter
+  const [isChurned, setIsChurned] = useState(null);
+  const [fetchError, setFetchError] = useState(null);
+
+  useEffect(() => {
+    // Function to fetch data from database
+    const fetchIsChurnedAccount = async () => {
+      let { data: isChurned, error } = await supabase
+        .from('customer_data_entry') // Table name
+        .select('is_churned_account')
+
+      if (error) { // for error checking only 
+        setFetchError('Could not fetch data from customer_data_entry');
+        setIsChurned(null);
+        console.log('error', error);
+      }
+
+      if (isChurned) {
+        console.log('Retrieved data:', isChurned)
+        setFetchError(null);
+        setIsChurned(isChurned); // if data found when be here. Use isChurned to do the data manipulation
+        const lastMonthChurn = 45; // Assuming last month's churn rate is 45%
+        const currentChurn = isChurned.reduce((count, account) => {
+          if (account.is_churned_account) {
+            return count + 1;
+          }
+          return count;
+        }, 0);
+        const churnRate = (currentChurn / lastMonthChurn) * 100;
+        console.log ("rate:" + churnRate);
+      }
+    };
+
+    fetchIsChurnedAccount();
+  }, []);
+
+  if (userDepartment === 'Sales') {
+    // KPI 1 formula 
+
+
+    actualKPI1 = 10;
+    actualKPI2 = 30;
+    actualKPI3 = 50;
+
+    calculateKPI()
+
+  } else if (userDepartment === 'Administrative') {
+    actualKPI1 = 10;
+    actualKPI2 = 20;
+    actualKPI3 = 30;
+    calculateKPI()
+
+  } else if (userDepartment === 'Marketing') {
+    actualKPI1 = 10;
+    actualKPI2 = 10;
+    actualKPI3 = 20;
+    calculateKPI()
+
+  }
+
+  // Function to render KPI Performance section (reusable)
+  const renderKPIPerformance = () => {
+    return (
+      <div className="grid grid-cols-2 pt-4">
+        <div>
+          <div className="grid grid-rows-2 gap-1">
+            <div className="text-lg font-semibold">KPI Performance</div>
+            <div className="flex">
+              <span
+                className={`text-statistic ${percentage >= 90
+                  ? 'text-excellent'
+                  : percentage >= 70
+                    ? 'text-good'
+                    : percentage >= 50
+                      ? 'text-average'
+                      : 'text-worst'
+                  }`}
+              >
+                {percentage >= 90
+                  ? 'Excellent'
+                  : percentage >= 70
+                    ? 'Good'
+                    : percentage >= 50
+                      ? 'Average'
+                      : 'Worst'}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center justify-center">
+          <div className="border-l-2 border-gray-300 h-16 mx-4"></div>
+          <span
+            className={`percentage ${percentage >= 90
+              ? 'bg-excellent'
+              : percentage >= 70
+                ? 'bg-good'
+                : percentage >= 50
+                  ? 'bg-average'
+                  : 'bg-worst'
+              } text-white ml-3`}
+          >
+            {percentage}%
+          </span>
+        </div>
+      </div>
+    );
+  };
 
   return (
     //here can edit background color
@@ -138,48 +253,96 @@ const Statistic = () => {
               <div className="grid grid-cols-2 gap-6 m-5 md:m-10 bg-white p-5 pt-6 border-gray-300 border-2 rounded-2xl">
                 <div>
                   {/* Content for the first column */}
-                  <div className="grid grid-cols-2 pt-4">
-                    <div>
-                      <div className="grid grid-rows-2 gap-1">
-                        <div className="text-lg font-semibold">KPI Performance</div>
-                        <div className="flex">
-                          <span className={`text-statistic ${percentage >= 90 ? 'text-excellent' : percentage >= 70 ? 'text-good' : percentage >= 50 ? 'text-average' : 'text-worst'}`}>
-                            {percentage >= 90 ? 'Excellent' : percentage >= 70 ? 'Good' : percentage >= 50 ? 'Average' : 'Worst'}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center">
-                      <div className="border-l-2 border-gray-300 h-16 mx-4"></div>
-                      <span className={`percentage ${percentage >= 90 ? 'bg-excellent' : percentage >= 70 ? 'bg-good' : percentage >= 50 ? 'bg-average' : 'bg-worst'} text-white ml-3`}>
-                        {percentage}%
-                      </span>
-                    </div>
-                  </div>
+                  {renderKPIPerformance()}
+
                 </div>
                 {/* Second Column */}
                 <div>
                   <div className="text-lg font-semibold">Objective: Increase revenue growth</div>
-                  <ul>
-                    <li>
-                      <span className="tooltip target-text" data-tooltip="Reduce key account churn rate by 5%">
-                        Target 1 :
-                        <span className="percentage-span" data-actual-score="10" data-targeted-score="20">{KPI1}%</span>
-                      </span>
-                    </li>
-                    <li>
-                      <span className="tooltip target-text" data-tooltip="Increase total average revenue per customer by at least 7%">
-                        Target 2 :
-                        <span className="percentage-span" data-actual-score="30" data-targeted-score="30">{KPI2}%</span>
-                      </span>
-                    </li>
-                    <li>
-                      <span className="tooltip target-text" data-tooltip="Increase revenue from current base on existing product lines by 5%">
-                        Target 3 :
-                        <span className="percentage-span" data-actual-score="50" data-targeted-score="50">{KPI3}%</span>
-                      </span>
-                    </li>
-                  </ul>
+                  {userDepartment === 'Sales' && (
+                    <ul>
+                      <li>
+                        <span className="tooltip target-text" data-tooltip="Reduce key account churn rate by 5%">
+                          Target 1:
+                          <span className="percentage-span" data-actual-score={actualKPI1} data-targeted-score={targetedKPI1}>
+                            {KPI1}%
+                          </span>
+                        </span>
+                      </li>
+                      <li>
+                        <span className="tooltip target-text" data-tooltip="Increase total average revenue per customer by at least 7%">
+                          Target 2:
+                          <span className="percentage-span" data-actual-score={actualKPI2} data-targeted-score={targetedKPI2}>
+                            {KPI2}%
+                          </span>
+                        </span>
+                      </li>
+                      <li>
+                        <span className="tooltip target-text" data-tooltip="Increase revenue from current base on existing product lines by 5%">
+                          Target 3:
+                          <span className="percentage-span" data-actual-score={actualKPI3} data-targeted-score={targetedKPI3}>
+                            {KPI3}%
+                          </span>
+                        </span>
+                      </li>
+                    </ul>
+                  )}
+                  {userDepartment === 'Administrative' && (
+                    <ul>
+                      <li>
+                        <span className="tooltip target-text" data-tooltip="Ensure that all the teams agree on folder structures and put them into effect">
+                          Target 1:
+                          <span className="percentage-span" data-actual-score={actualKPI1} data-targeted-score={targetedKPI1}>
+                            {KPI1}%
+                          </span>
+                        </span>
+                      </li>
+                      <li>
+                        <span className="tooltip target-text" data-tooltip="Make sure that all the teams complete the transfer and consolidation of all documents into the new structure 100% of the time">
+                          Target 2:
+                          <span className="percentage-span" data-actual-score={actualKPI2} data-targeted-score={targetedKPI2}>
+                            {KPI2}%
+                          </span>
+                        </span>
+                      </li>
+                      <li>
+                        <span className="tooltip target-text" data-tooltip="Gather feedback from all users, and make sure >80% (positive)">
+                          Target 3:
+                          <span className="percentage-span" data-actual-score={actualKPI3} data-targeted-score={targetedKPI3}>
+                            {KPI3}%
+                          </span>
+                        </span>
+                      </li>
+                    </ul>
+                  )}
+                  {userDepartment === 'Marketing' && (
+                    <ul>
+                      <li>
+                        <span className="tooltip target-text" data-tooltip="Increase monthly number of new trial signups by 20%">
+                          Target 1:
+                          <span className="percentage-span" data-actual-score={actualKPI1} data-targeted-score={targetedKPI1}>
+                            {KPI1}%
+                          </span>
+                        </span>
+                      </li>
+                      <li>
+                        <span className="tooltip target-text" data-tooltip="Increase Monthly Active Users from 5000 to 8000">
+                          Target 2:
+                          <span className="percentage-span" data-actual-score={actualKPI2} data-targeted-score={targetedKPI2}>
+                            {KPI2}%
+                          </span>
+                        </span>
+                      </li>
+                      <li>
+                        <span className="tooltip target-text" data-tooltip="Increase the trial to paid plan conversion rate by 15%">
+                          Target 3:
+                          <span className="percentage-span" data-actual-score={actualKPI3} data-targeted-score={targetedKPI3}>
+                            {KPI3}%
+                          </span>
+                        </span>
+                      </li>
+                    </ul>
+                  )}
                 </div>
               </div>
               {/* END here */}
