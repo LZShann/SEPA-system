@@ -11,6 +11,7 @@
 |                  | 5. Run 'npm install react-date-picker' (DatePicker) |
 |                  | 6. Run 'npm install react-papaparse --save' (ImportCSV) |
 |                  | 7. Run 'npm install @react-pdf/renderer' (PDF) |
+|                  | 7. Run 'npm install react-beautiful-dnd' (Kanban Board Effect) |
 | Extension Used | 1. EJ7+ React |
 | Library Used | 1. Syncfusion |
 |  | 2. React |
