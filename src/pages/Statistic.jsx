@@ -193,6 +193,7 @@ const Statistic = () => {
             return count;
           }, 0);
           const currentChurnRate = Math.ceil((currentChurnAccount / totalCustomers) * 100);
+          //console.log("Current churn rate: " + currentChurnRate);
           const churnRate = lastMonthChurn - currentChurnRate;
           setChurnAccountRate(churnRate);
           // KPI 1 formula
@@ -238,20 +239,20 @@ const Statistic = () => {
               const revenue = item['quantity'] * item['product']['unit_price']; // Revenue formula
               currentTotalRevenue += revenue;
             });
-            console.log("Current total revenue: " + currentTotalRevenue);
+            // console.log("Current total revenue: " + currentTotalRevenue);
             var previousTotalRevenue = 0; // Used to find total revenue for the previous month
             previousMonthData.forEach((item) => {
               const revenue = item['quantity'] * item['product']['unit_price']; // Revenue formula
               previousTotalRevenue += revenue;
             });
-            console.log("Previous total revenue: " + previousTotalRevenue);
+            // console.log("Previous total revenue: " + previousTotalRevenue);
             var currentAverageRevenue = currentTotalRevenue / totalCustomers; // Average revenue for the current month
             var previousAverageRevenue = previousTotalRevenue / totalCustomers; // Average revenue for the previous month
             var increaseRate = Math.ceil(((currentAverageRevenue / previousAverageRevenue) - 1) * 100);
-            console.log("currentAverageRevenue: " + currentAverageRevenue);
-            console.log("previousAverageRevenue: " + previousAverageRevenue);
+            // console.log("currentAverageRevenue: " + currentAverageRevenue);
+            // console.log("previousAverageRevenue: " + previousAverageRevenue);
             setIncreaseRate(increaseRate);
-            console.log("Increase rate: " + increaseRate);
+            // console.log("Increase rate: " + increaseRate);
             if (increaseRate >= 8) {
               setActualKPI2((100 / 100) * targetedKPI2);
             } else if (increaseRate >= 4 && increaseRate <= 7) {
@@ -300,8 +301,8 @@ const Statistic = () => {
       const fetchManagementKPI = async () => {
 
         // First KPI
-        // Formula: (Current Revenue - Previous Revenue) / Previous Revenue
-        // // Retrieve the current year's data and previous year's data based on the order date
+        // Formula: (CumulativeRevenue / TargetRevenue) * 100;
+        // Retrieve the current year's data and previous year's data based on the order date
         let { data: currentYearData, error: currentYearError } = await supabase
           .from('sales_data_entry')
           .select('*, product:products_data_entry(*)')
@@ -339,6 +340,7 @@ const Statistic = () => {
 
           previousYearTotalRevenue = 150000;// assume 150000 is previous year revenue
           const cumulativeRevenue = previousYearTotalRevenue + currentYearTotalRevenue;
+          console.log(currentYearTotalRevenue);
           // Calculate progress towards 3 million as a percentage
           const targetRevenue = 3000000;
           const progressPercentage = (cumulativeRevenue / targetRevenue) * 100;
