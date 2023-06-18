@@ -534,10 +534,11 @@ const Task = () => {
     }
   };
 
+  //Main
   return (
     <div className='flex relative'>
       {activeMenu ? (
-        <div className="w-72 fixed sidebar bg-white ">
+        <div className="w-72 fixed sidebar bg-main-bg ">
           <Sidebar />
         </div>
       ) : (
@@ -555,7 +556,7 @@ const Task = () => {
         <div className="fixed md:static bg-main-bg navbar w-full ">
           <Navbar />
         </div>
-        <div className="m-2 md:m-10 mt-5 md:mt-10 p-2 md:p-5 bg-gray-100 rounded-3xl">
+        <div className="m-10 md:m-10 mt-20 md:mt-10 p-5 md:p-5 bg-gray-100 rounded-3xl">
           <Header category="Pages" title="Task" />
           <div className="bg-white p-5 pt-7 border-gray-300 border-2 rounded-2xl">
             <DragDropContext onDragEnd={handleDragEnd}>
