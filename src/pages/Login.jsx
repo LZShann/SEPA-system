@@ -69,7 +69,8 @@ const Login = () => {
               sessionStorage.setItem('currentUserRole', user.user_metadata.role);
               sessionStorage.setItem('currentUserDepartment', user.user_metadata.department);
               sessionStorage.setItem('currentUserEmail', user.email);
-              sessionStorage.setItem('currentUserID', user.id);
+              sessionStorage.setItem('currentUserID', insertData.id);
+              console.log(sessionStorage);
           }
           else {
             // User exist in users_data table
@@ -78,6 +79,7 @@ const Login = () => {
             sessionStorage.setItem('currentUserDepartment', userData.department);
             sessionStorage.setItem('currentUserEmail', userData.email);
             sessionStorage.setItem('currentUserID', userData.id);
+            console.log(sessionStorage);
           }
 
           navigate('/Statistic')
