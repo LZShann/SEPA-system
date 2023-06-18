@@ -15,7 +15,6 @@ import { useStateContext } from '../contexts/ContextProvider';
 import { supabase } from "../client";
 
 import './Statistic.css';
-import { func } from 'prop-types';
 
 const Statistic = () => {
   const { activeMenu } = useStateContext();
@@ -27,7 +26,6 @@ const Statistic = () => {
   const [chart3Visible, setChart3Visible] = useState(false);
   const [chart4Visible, setChart4Visible] = useState(false);
 
-  const userName = sessionStorage.getItem('currentUserName');
   const userDepartment = sessionStorage.getItem('currentUserDepartment');
   // console.log('User:', userName);
   // console.log('Department:', userDepartment);
@@ -84,7 +82,7 @@ const Statistic = () => {
   };
 
   // KPI sections
-  const targetedKPI1 = 20, targetedKPI2 = 30, targetedKPI3 = 50;
+  const targetedKPI1 = 40, targetedKPI2 = 30, targetedKPI3 = 30;
   const [actualKPI1, setActualKPI1] = useState(0);
   const [actualKPI2, setActualKPI2] = useState(0);
   const [actualKPI3, setActualKPI3] = useState(0);
@@ -92,6 +90,36 @@ const Statistic = () => {
   const [KPI2, setKPI2] = useState(0);
   const [KPI3, setKPI3] = useState(0);
   const [percentage, setPercentage] = useState(0);
+
+  // for finding date attributes
+  const currentDate = new Date();
+  // Calculate the start and end dates for the current month
+  const currentMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+  const currentMonthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+
+  // Calculate the start and end dates for the previous month
+  const previousMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
+  const previousMonthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+
+  // Format the dates as strings in the format 'MM/DD/YYYY'
+  const currentMonthStartStr = `${currentMonthStart.getMonth() + 1}/${currentMonthStart.getDate()}/${currentMonthStart.getFullYear()}`;
+  const currentMonthEndStr = `${currentMonthEnd.getMonth() + 1}/${currentMonthEnd.getDate()}/${currentMonthEnd.getFullYear()}`;
+  const previousMonthStartStr = `${previousMonthStart.getMonth() + 1}/${previousMonthStart.getDate()}/${previousMonthStart.getFullYear()}`;
+  const previousMonthEndStr = `${previousMonthEnd.getMonth() + 1}/${previousMonthEnd.getDate()}/${previousMonthEnd.getFullYear()}`;
+
+  // Calculate the start and end dates for the current year
+  const currentYearStart = new Date(currentDate.getFullYear(), 0, 1);
+  const currentYearEnd = new Date(currentDate.getFullYear(), 11, 31);
+
+  // Calculate the start and end dates for the previous year
+  const previousYearStart = new Date(currentDate.getFullYear() - 1, 0, 1);
+  const previousYearEnd = new Date(currentDate.getFullYear() - 1, 11, 31);
+
+  // Format the dates as strings in the format 'MM/DD/YYYY'
+  const currentYearStartStr = `${currentYearStart.getMonth() + 1}/${currentYearStart.getDate()}/${currentYearStart.getFullYear()}`;
+  const currentYearEndStr = `${currentYearEnd.getMonth() + 1}/${currentYearEnd.getDate()}/${currentYearEnd.getFullYear()}`;
+  const previousYearStartStr = `${previousYearStart.getMonth() + 1}/${previousYearStart.getDate()}/${previousYearStart.getFullYear()}`;
+  const previousYearEndStr = `${previousYearEnd.getMonth() + 1}/${previousYearEnd.getDate()}/${previousYearEnd.getFullYear()}`;
 
   // calculate percentage for KPI 1, 2, 3
   useEffect(() => {
@@ -112,28 +140,45 @@ const Statistic = () => {
 
   // Data Setter
   const [isChurned, setIsChurned] = useState(null);
-  const [currentMonthData, setCurrentMonthError] = useState(null);
-  const [previousMonthData, setPreviousMonthError] = useState(null);
-  const [churnAccountRate, setChurnAccountRate] = useState(null);
-
-  const [increaseRate, setIncreaseRate] = useState(null);
-  const [increaseRevenue, setIncreaseRevenue] = useState(null);
   const [fetchError, setFetchError] = useState(null);
+
+  const [currentMonthData, setCurrentMonthData] = useState(null);
+  const [CurrentMonthError, setCurrentMonthError] = useState(null);
+
+  const [previousMonthData, setPreviousMonthData] = useState(null);
+  const [previousMonthError, setPreviousMonthError] = useState(null);
+
+  const [currentYearData, setCurrentYearData] = useState(null);
+  const [currentYearError, setCurrentYearError] = useState(null);
+
+  const [previousYearData, setPreviousYearData] = useState(null);
+  const [previousYearError, setPreviousYearError] = useState(null);
+
+  const [productQuantity, setProductQuantity] = useState(null);
+  const [productQuantityError, setProductQuantityError] = useState(null);
+
+  // span text setter
+  const [churnAccountRate, setChurnAccountRate] = useState(0);
+  const [increaseRate, setIncreaseRate] = useState(0);
+  const [increaseRevenue, setIncreaseRevenue] = useState(0);
+
+  const [progressPercentage, setProgressPercentage] = useState(0);
+  const [newProductLaunched, setNewProductLaunched] = useState(0);
+  const [annualChurnRate, setAnnualChurnRate] = useState(0);
 
   useEffect(() => {
     if (userDepartment === 'Sales') {
       const fetchSalesKPI = async () => {
         // First KPI
-        // Formula:
-        // First KPI = (Last Month Churn Rate - Current Churn Rate) * 100
-        let { data: isChurned, error } = await supabase
+        // Formula:(Last Month Churn Rate - Current Churn Rate) * 100
+        let { data: isChurned, error: fetchError } = await supabase
           .from('customer_data_entry') // Table name
           .select('is_churned_account')
 
-        if (error) {
+        if (fetchError) {
           setFetchError('Could not fetch data from customer_data_entry');
           setIsChurned(null);
-          console.log('error', error);
+          console.log('error', fetchError);
         }
 
         if (isChurned) {
@@ -163,39 +208,28 @@ const Statistic = () => {
 
 
           // Second KPI
-          // Formula: 
-          // Second KPI = (Current Average Revenue per Customer / Previous Average Revenue per Customer - 1) * 100
-          // Get the current date
-          const currentDate = new Date();
-
-          // Calculate the start and end dates for the current month
-          const currentMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-          const currentMonthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-
-          // Calculate the start and end dates for the previous month
-          const previousMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
-          const previousMonthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
-
-          // Format the dates as strings in the format 'MM/DD/YYYY'
-          const currentMonthStartStr = `${currentMonthStart.getMonth() + 1}/${currentMonthStart.getDate()}/${currentMonthStart.getFullYear()}`;
-          const currentMonthEndStr = `${currentMonthEnd.getMonth() + 1}/${currentMonthEnd.getDate()}/${currentMonthEnd.getFullYear()}`;
-          const previousMonthStartStr = `${previousMonthStart.getMonth() + 1}/${previousMonthStart.getDate()}/${previousMonthStart.getFullYear()}`;
-          const previousMonthEndStr = `${previousMonthEnd.getMonth() + 1}/${previousMonthEnd.getDate()}/${previousMonthEnd.getFullYear()}`;
-
+          // Formula:(Current Average Revenue per Customer / Previous Average Revenue per Customer - 1) * 100
           // Retrieve the current month's data and previous month's data based on the order date
-          const { data: currentMonthData, error: currentMonthError } = await supabase
+          let { data: currentMonthData, error: currentMonthError } = await supabase
             .from('sales_data_entry')
             .select('*, product:products_data_entry(*)')
             .gte('order_date', currentMonthStartStr)
             .lte('order_date', currentMonthEndStr);
 
-          const { data: previousMonthData, error: previousMonthError } = await supabase
+          let { data: previousMonthData, error: previousMonthError } = await supabase
             .from('sales_data_entry')
             .select('*, product:products_data_entry(*)')
             .gte('order_date', previousMonthStartStr)
             .lte('order_date', previousMonthEndStr);
 
+          if (currentMonthError || previousMonthError) {
+            setFetchError('Could not fetch data from sales_data_entry');
+            console.log('error', fetchError);
+          }
+
           if (currentMonthData && previousMonthData) {
+            setCurrentMonthData(currentMonthData);
+            setPreviousMonthData(previousMonthData);
             setCurrentMonthError(null);
             setPreviousMonthError(null);
 
@@ -230,8 +264,7 @@ const Statistic = () => {
           }
 
           // Third KPI
-          // Formula: 
-          // Second KPI = ((currentRevenue - baseRevenue(lastmonth)) / baseRevenue(lastmonth)) * 100;
+          // Formula:((currentRevenue - baseRevenue(lastmonth)) / baseRevenue(lastmonth)) * 100;
           var increaseRevenue = Math.ceil(((currentTotalRevenue - previousTotalRevenue) / previousTotalRevenue) * 100);
           console.log("Increase revenue: " + increaseRevenue);
           setIncreaseRevenue(increaseRevenue);
@@ -250,15 +283,6 @@ const Statistic = () => {
     }
 
     if (userDepartment === 'Administrative') {
-      // const fetchAccount = async () => {
-      //   let { data, error } = await supabase
-      //     .from('customer_data_entry') // Table name
-      //     .select('increase_average_revenue')
-
-      //   if (error) { // for error checking only 
-      //   }
-      // };
-      // fetchAccount();
       setActualKPI1(10);
       setActualKPI2(10);
       setActualKPI3(20);
@@ -268,9 +292,149 @@ const Statistic = () => {
       setActualKPI2(20);
       setActualKPI3(40);
     }
+
+    if (userDepartment === 'Management') {
+
+      // console.log("I reach Management");
+
+      const fetchManagementKPI = async () => {
+
+        // First KPI
+        // Formula: (Current Revenue - Previous Revenue) / Previous Revenue
+        // // Retrieve the current year's data and previous year's data based on the order date
+        let { data: currentYearData, error: currentYearError } = await supabase
+          .from('sales_data_entry')
+          .select('*, product:products_data_entry(*)')
+          .gte('order_date', currentYearStartStr)
+          .lte('order_date', currentYearEndStr);
+
+        let { data: previousYearData, error: previousYearError } = await supabase
+          .from('sales_data_entry')
+          .select('*, product:products_data_entry(*)')
+          .gte('order_date', previousYearStartStr)
+          .lte('order_date', previousYearEndStr);
+
+        if (currentYearError || previousYearError) {
+          setFetchError('Could not fetch data from sales_data_entry');
+          console.log('error', fetchError);
+        }
+
+        if (currentYearData && previousYearData) {
+          setCurrentYearData(currentYearData);
+          setPreviousYearData(previousYearData);
+          setCurrentYearError(null);
+          setPreviousYearError(null);
+
+          var currentYearTotalRevenue = 0; // Used to find total revenue for the current year
+          currentYearData.forEach((item) => {
+            const revenue = item['quantity'] * item['product']['unit_price']; // Revenue formula
+            currentYearTotalRevenue += revenue;
+          });
+
+          var previousYearTotalRevenue = 0; // Used to find total revenue for the previous year
+          previousYearData.forEach((item) => {
+            const revenue = item['quantity'] * item['product']['unit_price']; // Revenue formula
+            previousYearTotalRevenue += revenue;
+          });
+
+          previousYearTotalRevenue = 150000;// assume 150000 is previous year revenue
+          const cumulativeRevenue = previousYearTotalRevenue + currentYearTotalRevenue;
+          // Calculate progress towards 3 million as a percentage
+          const targetRevenue = 3000000;
+          const progressPercentage = (cumulativeRevenue / targetRevenue) * 100;
+          setProgressPercentage(progressPercentage.toFixed(0))
+
+          if (cumulativeRevenue >= targetRevenue) {
+            setActualKPI1((100 / 100) * targetedKPI1);
+          } else if (cumulativeRevenue >= targetRevenue * 0.8) {
+            setActualKPI1((80 / 100) * targetedKPI1);
+          } else if (cumulativeRevenue >= targetRevenue * 0.6) {
+            setActualKPI1((60 / 100) * targetedKPI1);
+          } else if (cumulativeRevenue >= targetRevenue * 0.4) {
+            setActualKPI1((40 / 100) * targetedKPI1)
+          } else if (cumulativeRevenue >= targetRevenue * 0.2) {
+            setActualKPI1((20 / 100) * targetedKPI1);
+          } else if (cumulativeRevenue >= targetRevenue * 0.1) {
+            setActualKPI1((10 / 100) * targetedKPI1);
+          } else {
+            setActualKPI1((0 / 100) * targetedKPI1);
+          }
+
+          // Second KPI
+          // Formula: current year product quantity > last year product quantity by 1
+          const previousYearProductQuantity = 4;
+          const targetedNewProductQuantity = 1;
+          // Retrieve the product data from the table
+          let { data: productQuantity, error: productQuantityError } = await supabase
+            .from('products_data_entry')
+            .select('*');
+
+          if (productQuantityError) {
+            setProductQuantityError('Could not fetch data from products_data_entry');
+            setProductQuantity(null);
+            console.log('error', productQuantityError);
+          }
+
+          if (productQuantity) {
+            setProductQuantity(productQuantity);
+            setProductQuantityError(null);
+
+            // Calculate the total quantity of all products
+            let totalProductQuantity = 0;
+            totalProductQuantity = productQuantity.length
+            var newProductLaunched = totalProductQuantity - previousYearProductQuantity
+            setNewProductLaunched(newProductLaunched);
+            // Compare the total quantity with the previous year's quantity and the targeted new product quantity
+            if (totalProductQuantity >= previousYearProductQuantity + targetedNewProductQuantity) {
+              setActualKPI2((100 / 100) * targetedKPI2);
+            } else {
+              setActualKPI2(0);
+            }
+          }
+
+          // Third KPI
+          // Formula: (Current Year Churn Rate - Previous Year Churn Rate) * 100
+          let { data: isChurned, error: fetchError } = await supabase
+            .from('customer_data_entry') // Table name
+            .select('is_churned_account');
+
+          if (fetchError) {
+            setFetchError('Could not fetch data from customer_data_entry');
+            setIsChurned(null);
+            console.log('error', fetchError);
+          }
+          if (isChurned) {
+            setFetchError(null);
+            setIsChurned(isChurned);
+            const totalCustomers = isChurned.length;
+            const lastYearChurn = 25; // Assuming last year's churn rate is 25%
+            const currentChurnAccount = isChurned.reduce((count, account) => {
+              if (account.is_churned_account) {
+                return count + 1;
+              }
+              return count;
+            }, 0);
+            const currentChurnRate = Math.ceil((currentChurnAccount / totalCustomers) * 100);
+            console.log("Current churn rate: " + currentChurnRate);
+            const annualChurnRate = lastYearChurn - currentChurnRate;
+            console.log("Churn rate: " + annualChurnRate);
+            setAnnualChurnRate(annualChurnRate);
+
+            if (annualChurnRate >= 5) {
+              setActualKPI3((100 / 100) * targetedKPI3);
+            } else if (annualChurnRate >= 3 && annualChurnRate <= 4) {
+              setActualKPI3((80 / 100) * targetedKPI3);
+            } else if (annualChurnRate >= 0 && annualChurnRate <= 2) {
+              setActualKPI3((60 / 100) * targetedKPI3);
+            } else if (annualChurnRate < 0) {
+              setActualKPI3((40 / 100) * targetedKPI3);
+            }
+          }
+        }
+      };
+      fetchManagementKPI();
+    }
   }, []);
-
-
 
   // Function to render KPI Performance section (reusable)
   const renderKPIPerformance = () => {
@@ -377,90 +541,130 @@ const Statistic = () => {
                 </div>
                 {/* Second Column */}
                 <div>
-                  <div className="text-lg font-semibold">Objective: Increase revenue growth</div>
                   {userDepartment === 'Sales' && (
-                    <ul>
-                      <li>
-                        <span className="tooltip target-text" data-tooltip="Reduce key account churn rate by 5%">
-                          Target 1:
-                          <span className="percentage-span" data-actual-score={actualKPI1} data-targeted-score={targetedKPI1}>
-                            {KPI1}% | {churnAccountRate}/5%
+                    <>
+                      <div className="text-lg font-semibold">Objective: Increase revenue growth</div>
+                      <ul>
+                        <li>
+                          <span className="tooltip target-text" data-tooltip="Reduce key account churn rate by 5%">
+                            Target 1:
+                            <span className="percentage-span" data-actual-score={actualKPI1} data-targeted-score={targetedKPI1}>
+                              {KPI1}% | {churnAccountRate}/5%
+                            </span>
                           </span>
-                        </span>
-                      </li>
-                      <li>
-                        <span className="tooltip target-text" data-tooltip="Increase total average revenue per customer by at least 7%">
-                          Target 2:
-                          <span className="percentage-span" data-actual-score={actualKPI2} data-targeted-score={targetedKPI2}>
-                            {KPI2}% | {increaseRate}/7%
+                        </li>
+                        <li>
+                          <span className="tooltip target-text" data-tooltip="Increase total average revenue per customer by at least 7%">
+                            Target 2:
+                            <span className="percentage-span" data-actual-score={actualKPI2} data-targeted-score={targetedKPI2}>
+                              {KPI2}% | {increaseRate}/7%
+                            </span>
                           </span>
-                        </span>
-                      </li>
-                      <li>
-                        <span className="tooltip target-text" data-tooltip="Increase revenue from current base on existing product lines by 5%">
-                          Target 3:
-                          <span className="percentage-span" data-actual-score={actualKPI3} data-targeted-score={targetedKPI3}>
-                            {KPI3}% | {increaseRevenue}/5%
+                        </li>
+                        <li>
+                          <span className="tooltip target-text" data-tooltip="Increase revenue from current base on existing product lines by 5%">
+                            Target 3:
+                            <span className="percentage-span" data-actual-score={actualKPI3} data-targeted-score={targetedKPI3}>
+                              {KPI3}% | {increaseRevenue}/5%
+                            </span>
                           </span>
-                        </span>
-                      </li>
-                    </ul>
+                        </li>
+                      </ul>
+                    </>
                   )}
+
                   {userDepartment === 'Administrative' && (
-                    <ul>
-                      <li>
-                        <span className="tooltip target-text" data-tooltip="Ensure that all the teams agree on folder structures and put them into effect">
-                          Target 1:
-                          <span className="percentage-span" data-actual-score={actualKPI1} data-targeted-score={targetedKPI1}>
-                            {KPI1}% |
+                    <>
+                      <div className="text-lg font-semibold">Objective: Improve the efficiency of the internal document management system</div>
+                      <ul>
+                        <li>
+                          <span className="tooltip target-text" data-tooltip="Ensure that all the teams agree on folder structures and put them into effect">
+                            Target 1:
+                            <span className="percentage-span" data-actual-score={actualKPI1} data-targeted-score={targetedKPI1}>
+                              {KPI1}% | 0/1
+                            </span>
                           </span>
-                        </span>
-                      </li>
-                      <li>
-                        <span className="tooltip target-text" data-tooltip="Make sure that all the teams complete the transfer and consolidation of all documents into the new structure 100% of the time">
-                          Target 2:
-                          <span className="percentage-span" data-actual-score={actualKPI2} data-targeted-score={targetedKPI2}>
-                            {KPI2}% | 
+                        </li>
+                        <li>
+                          <span className="tooltip target-text" data-tooltip="Make sure that all the teams complete the transfer and consolidation of all documents into the new structure 100% of the time">
+                            Target 2:
+                            <span className="percentage-span" data-actual-score={actualKPI2} data-targeted-score={targetedKPI2}>
+                              {KPI2}% | 0/100%
+                            </span>
                           </span>
-                        </span>
-                      </li>
-                      <li>
-                        <span className="tooltip target-text" data-tooltip="Gather feedback from all users, and make sure >80% (positive)">
-                          Target 3:
-                          <span className="percentage-span" data-actual-score={actualKPI3} data-targeted-score={targetedKPI3}>
-                            {KPI3}% | 
+                        </li>
+                        <li>
+                          <span className="tooltip target-text" data-tooltip="Gather feedback from all users, and make sure >80% (positive)">
+                            Target 3:
+                            <span className="percentage-span" data-actual-score={actualKPI3} data-targeted-score={targetedKPI3}>
+                              {KPI3}% | 0%/80%
+                            </span>
                           </span>
-                        </span>
-                      </li>
-                    </ul>
+                        </li>
+                      </ul>
+                    </>
                   )}
                   {userDepartment === 'Marketing' && (
-                    <ul>
-                      <li>
-                        <span className="tooltip target-text" data-tooltip="Increase monthly number of new trial signups by 20%">
-                          Target 1:
-                          <span className="percentage-span" data-actual-score={actualKPI1} data-targeted-score={targetedKPI1}>
-                            {KPI1}% | 
+                    <>
+                      <div className="text-lg font-semibold">Objective: Improve customer acquisition rates</div>
+                      <ul>
+                        <li>
+                          <span className="tooltip target-text" data-tooltip="Increase monthly number of new trial signups by 20%">
+                            Target 1:
+                            <span className="percentage-span" data-actual-score={actualKPI1} data-targeted-score={targetedKPI1}>
+                              {KPI1}% | 0%/20%
+                            </span>
                           </span>
-                        </span>
-                      </li>
-                      <li>
-                        <span className="tooltip target-text" data-tooltip="Increase Monthly Active Users from 5000 to 8000">
-                          Target 2:
-                          <span className="percentage-span" data-actual-score={actualKPI2} data-targeted-score={targetedKPI2}>
-                            {KPI2}% | 
+                        </li>
+                        <li>
+                          <span className="tooltip target-text" data-tooltip="Increase Monthly Active Users from 5000 to 8000">
+                            Target 2:
+                            <span className="percentage-span" data-actual-score={actualKPI2} data-targeted-score={targetedKPI2}>
+                              {KPI2}% | 0/8000
+                            </span>
                           </span>
-                        </span>
-                      </li>
-                      <li>
-                        <span className="tooltip target-text" data-tooltip="Increase the trial to paid plan conversion rate by 15%">
-                          Target 3:
-                          <span className="percentage-span" data-actual-score={actualKPI3} data-targeted-score={targetedKPI3}>
-                            {KPI3}% | 
+                        </li>
+                        <li>
+                          <span className="tooltip target-text" data-tooltip="Increase the trial to paid plan conversion rate by 15%">
+                            Target 3:
+                            <span className="percentage-span" data-actual-score={actualKPI3} data-targeted-score={targetedKPI3}>
+                              {KPI3}% | 0%/15%
+                            </span>
                           </span>
-                        </span>
-                      </li>
-                    </ul>
+                        </li>
+                      </ul>
+                    </>
+                  )}
+                  {userDepartment === 'Management' && (
+                    <>
+                      <div className="text-lg font-semibold">Objective: Grow business</div>
+                      <ul>
+                        <li>
+                          <span className="tooltip target-text" data-tooltip="Grow revenue to 3 million">
+                            Target 1:
+                            <span className="percentage-span" data-actual-score={actualKPI1} data-targeted-score={targetedKPI1}>
+                              {KPI1}% | {progressPercentage}%/100%
+                            </span>
+                          </span>
+                        </li>
+                        <li>
+                          <span className="tooltip target-text" data-tooltip="Launch the new product">
+                            Target 2:
+                            <span className="percentage-span" data-actual-score={actualKPI2} data-targeted-score={targetedKPI2}>
+                              {KPI2}% | {newProductLaunched}/1
+                            </span>
+                          </span>
+                        </li>
+                        <li>
+                          <span className="tooltip target-text" data-tooltip="Reduce churn to <5% annually">
+                            Target 3:
+                            <span className="percentage-span" data-actual-score={actualKPI3} data-targeted-score={targetedKPI3}>
+                              {KPI3}% | {annualChurnRate}%/5%
+                            </span>
+                          </span>
+                        </li>
+                      </ul>
+                    </>
                   )}
                 </div>
               </div>
