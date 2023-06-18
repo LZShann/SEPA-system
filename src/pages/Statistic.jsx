@@ -468,7 +468,7 @@ const Statistic = () => {
           </div>
         </div>
         <div className="flex items-center justify-center">
-          <div className="border-l-2 border-gray-300 h-16 mx-4"></div>
+          <div className="border-l-2 border-gray-300 h-28 mx-4"></div>
           <span
             className={`percentage ${percentage >= 90
               ? 'bg-excellent'
@@ -494,7 +494,7 @@ const Statistic = () => {
           <Sidebar />
         </div>
       ) : (
-        <div className="w-0">
+        <div className="w-0 z-0">
           <Sidebar />
         </div>
       )}
@@ -505,10 +505,10 @@ const Statistic = () => {
             : 'bg-main-bg w-full min-h-screen flex-2 '
         }
       >
-        <div className="fixed md:static bg-main-bg navbar w-full ">
+        <div className="fixed md:static bg-main-bg navbar w-full">
           <Navbar />
         </div>
-        <div className="m-2 md:m-10 mt-5 md:mt-10 p-2 md:p-5 bg-gray-100 rounded-3xl">
+        <div className="m-10 md:m-10 mt-20 md:mt-10 p-5 md:p-5 bg-gray-100 rounded-3xl">
           <Header category="Dashboard" title="Statistic" />
           <div className="flex flex-wrap lg:flex-nowrap justify-center">
             <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
@@ -535,7 +535,7 @@ const Statistic = () => {
               </div>
 
               {/* KPI Performance */}
-              <div className="grid grid-cols-2 gap-6 m-5 md:m-10 bg-white p-5 pt-6 border-gray-300 border-2 rounded-2xl">
+              <div className="grid grid-cols-2 gap-6 m-5 md:m-10 bg-white p-5 py-8 border-gray-300 border-2 rounded-2xl">
                 <div>
                   {/* Content for the first column */}
                   {renderKPIPerformance()}

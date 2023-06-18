@@ -69,7 +69,6 @@ const Login = () => {
               sessionStorage.setItem('currentUserRole', user.user_metadata.role);
               sessionStorage.setItem('currentUserDepartment', user.user_metadata.department);
               sessionStorage.setItem('currentUserEmail', user.email);
-              sessionStorage.setItem('currentUserID', insertData.id);
               console.log(sessionStorage);
           }
           else {

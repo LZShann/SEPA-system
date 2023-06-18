@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../client';
 
+import './Account-Interview-History.css';
+
 const History = () => {
   const [formData, setFormData] = useState([]);
   const fetchFormData = async () => {
@@ -40,17 +42,16 @@ const History = () => {
   }, []);
 
   return (
-    <div>
-      <h1>History</h1>
+    <div className="table-container">
+      <p className="text-xl font-semibold">Approval History</p>
       <hr></hr>
-      <table>
+      <table className="GeneratedTable">
         <thead>
           <tr>
             <th>Row Number</th>
             <th>Tracking Number</th>
             <th>Submission Date</th>
             <th>Status</th>
-            <td></td>
             <th>Remark</th>
           </tr>
         </thead>
@@ -61,7 +62,6 @@ const History = () => {
               <td>{form.trackingNumber}</td>
               <td>{new Date(form.submissionDate).toLocaleDateString()}</td>
               <td>{form.status}</td>
-              <td></td>
               <td>{form.remark}</td>
             </tr>
           ))}

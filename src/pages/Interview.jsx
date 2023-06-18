@@ -3,6 +3,8 @@ import History from './History';
 import { Navbar, Footer, Sidebar, Header } from '../components';
 import { supabase } from '../client';
 import { useStateContext } from '../contexts/ContextProvider';
+import './Account-Interview-History.css';
+
 const Interview = () => {
   const { activeMenu } = useStateContext();
 
@@ -138,7 +140,7 @@ const Interview = () => {
   return (
     <div className='flex relative'>
       {activeMenu ? (
-        <div className='w-72 fixed sidebar bg-white'>
+        <div className='w-72 fixed sidebar bg-main-bg'>
           <Sidebar />
         </div>
       ) : (
@@ -156,141 +158,142 @@ const Interview = () => {
         <div className='fixed md:static bg-main-bg navbar w-full '>
           <Navbar />
         </div>
-        <div className='m-2 md:m-10 mt-5 md:mt-10 p-2 md:p-5 bg-gray-100 rounded-3xl'>
+        <div className="m-10 md:m-10 mt-20 md:mt-10 p-5 md:p-5 bg-gray-100 rounded-3xl">
           <Header category='Pages' title='Interview' />
-          <div className='bg-white p-5 pt-7 border-gray-300 border-2 rounded-2xl'>
-            <h1>Form Review</h1>
-            <hr></hr>
-            <table>
-              <thead>
-                <tr>
-                  <th>Row</th>
-                  <th>Tracking Number</th>
-                  <th>Submission Folder</th>
-                  <th></th>
-                  <th>Submission Date</th>
-                  <th>Remark</th>
-                  <th>Status</th>
-                 
-                </tr>
-              </thead>
-              <tbody>
-              {confirmationData
-  .filter((form) => form.status === 'PROGRESS')
-  .map((form, index) => (
+            <div className='bg-white p-5 pt-7 border-gray-300 border-2 rounded-2xl'>
+              <div className="table-container">
+                <p className="text-xl font-semibold">Summited Form Review</p>
+                <hr></hr>
+                <table className="GeneratedTable">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Tracking Number</th>
+                      <th colSpan="2">Submission Folder</th>
+                      <th>Submission Date</th>
+                      <th>Remark</th>
+                      <th>Status</th>
+                    
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {confirmationData
+      .filter((form) => form.status === 'PROGRESS')
+      .map((form, index) => (
 
-                  <tr key={form.id}>
-                    <td>{index + 1}</td>
-                    <td>{form.trackingNumber}</td>
-                    <td>
-                      <button
-                        onClick={() => openFormPopup(form.id)}
-                        style={{
-                          color: 'blue',
-                          fontWeight: 'bold',
-                          textDecoration: 'underline',
-                        }}
-                      >
-                        PersonalDetails
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        onClick={() => openFormPositionPopup(form.id)}
-                        style={{
-                          color: 'blue',
-                          fontWeight: 'bold',
-                          textDecoration: 'underline',
-                        }}
-                      >
-                        InterviewForm
-                      </button>
-                    </td>
-               <td>{new Date(form.submissionDate).toLocaleDateString()}</td>
-                    <td>
-                      <input
-                        type='text'
-                        value={remarks[form.id] || ''}
-                        onChange={(e) => handleRemarkChange(form.id, e.target.value)}
-                      />
-                    </td>
-                    <td>
-                      <button
-                        style={{ backgroundColor: 'green' }}
-                        onClick={() => updateAPPROVEStatus(form.id)}
-                      >
-                        APPROVE
-                      </button>
-                      <button
-                        style={{ backgroundColor: 'red' }}
-                        onClick={() => updateDENYStatus(form.id)}
-                      >
-                        DENY
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-    {bigFiveData
-  .filter((form) => form.status === 'PROGRESS')
-  .map((form, index) => (
-                  <tr key={form.id}>
-                    <td>{index + 1}</td>
-                    <td>{form.trackingNumber}</td>
-                    <td>
-                      <button
-                        onClick={() => openBigFivePersonalPopup(form.id)}
-                        style={{
-                          color: 'blue',
-                          fontWeight: 'bold',
-                          textDecoration: 'underline',
-                        }}
-                      >
-                        PersonalDetails
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        onClick={() => openFormBigFivePopup(form.id)}
-                        style={{
-                          color: 'blue',
-                          fontWeight: 'bold',
-                          textDecoration: 'underline',
-                        }}
-                      >
-                        BigFiveForm
-                      </button>
-                    </td>
-                    <td>{new Date(form.submissionDate).toLocaleDateString()}</td>
-                    <td>
-                      <input
-                        type='text'
-                        value={remarks[form.id] || ''}
-                        onChange={(e) => handleRemarkChange(form.id, e.target.value)}
-                      />
-                    </td>
-                    <td>
-                      <button
-                        style={{ backgroundColor: 'green' }}
-                        onClick={() => updateAPPROVEStatus(form.id, true)}
-                      >
-                        APPROVE
-                      </button>
-                      <button
-                        style={{ backgroundColor: 'red' }}
-                        onClick={() => updateDENYStatus(form.id,true)}
-                      >
-                        DENY
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <br></br>
-            <div>
-              <History />
+                      <tr key={form.id}>
+                        <td>{index + 1}</td>
+                        <td>{form.trackingNumber}</td>
+                        <td>
+                          <button
+                            onClick={() => openFormPopup(form.id)}
+                            style={{
+                              color: 'blue',
+                              fontWeight: 'bold',
+                              textDecoration: 'underline',
+                            }}
+                          >
+                            PersonalDetails
+                          </button>
+                        </td>
+                        <td>
+                          <button
+                            onClick={() => openFormPositionPopup(form.id)}
+                            style={{
+                              color: 'blue',
+                              fontWeight: 'bold',
+                              textDecoration: 'underline',
+                            }}
+                          >
+                            InterviewForm
+                          </button>
+                        </td>
+                  <td>{new Date(form.submissionDate).toLocaleDateString()}</td>
+                        <td>
+                          <input
+                            type='text'
+                            value={remarks[form.id] || ''}
+                            onChange={(e) => handleRemarkChange(form.id, e.target.value)}
+                          />
+                        </td>
+                        <td>
+                          <button
+                            style={{ backgroundColor: 'green' }}
+                            onClick={() => updateAPPROVEStatus(form.id)}
+                          >
+                            APPROVE
+                          </button>
+                          <button
+                            style={{ backgroundColor: 'red' }}
+                            onClick={() => updateDENYStatus(form.id)}
+                          >
+                            DENY
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+        {bigFiveData
+      .filter((form) => form.status === 'PROGRESS')
+      .map((form, index) => (
+                      <tr key={form.id}>
+                        <td>{index + 1}</td>
+                        <td>{form.trackingNumber}</td>
+                        <td>
+                          <button
+                            onClick={() => openBigFivePersonalPopup(form.id)}
+                            style={{
+                              color: 'blue',
+                              fontWeight: 'bold',
+                              textDecoration: 'underline',
+                            }}
+                          >
+                            PersonalDetails
+                          </button>
+                        </td>
+                        <td>
+                          <button
+                            onClick={() => openFormBigFivePopup(form.id)}
+                            style={{
+                              color: 'blue',
+                              fontWeight: 'bold',
+                              textDecoration: 'underline',
+                            }}
+                          >
+                            BigFiveForm
+                          </button>
+                        </td>
+                        <td>{new Date(form.submissionDate).toLocaleDateString()}</td>
+                        <td>
+                          <input
+                            type='text'
+                            value={remarks[form.id] || ''}
+                            onChange={(e) => handleRemarkChange(form.id, e.target.value)}
+                          />
+                        </td>
+                        <td>
+                          <button
+                            style={{ backgroundColor: 'green' }}
+                            onClick={() => updateAPPROVEStatus(form.id, true)}
+                          >
+                            APPROVE
+                          </button>
+                          <button
+                            style={{ backgroundColor: 'red' }}
+                            onClick={() => updateDENYStatus(form.id,true)}
+                          >
+                            DENY
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <br></br>
+              <div>
+                <History />
+              </div>
             </div>
-          </div>
         </div>
         <Footer />
       </div>
