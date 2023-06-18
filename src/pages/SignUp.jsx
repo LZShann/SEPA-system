@@ -48,7 +48,7 @@ const SignUp = () => {
         console.log('Error inserting data:', error.message);
       }
 
-      alert('Sign Up Success! Please use the credentials to Sign In!');
+      alert('Sign Up Success. Please verify your email.');
       console.log('Data inserted successfully');
       navigate('/');
       
