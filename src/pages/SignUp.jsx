@@ -19,13 +19,13 @@ const SignUp = () => {
     })
   }
 
-  supabase.auth.getSession().then((data, error) => {
-    // Check if session is found
-    if (data['data']['session'] != null) {
-      // User logged in
-      window.location.replace('/Statistic');
-    }
-  });
+  // supabase.auth.getSession().then((data, error) => {
+  //   // Check if session is found
+  //   if (data['data']['session'] != null) {
+  //     // User logged in
+  //     window.location.replace('/Statistic');
+  //   }
+  // });
 
   async function handleSubmit(e) {
     e.preventDefault();
