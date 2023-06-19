@@ -9,7 +9,7 @@ import { MdOutlineBarChart, MdAddChart, MdOutlineCancel } from 'react-icons/md';
 import { AiOutlineLineChart } from 'react-icons/ai';
 
 //components
-import { StackedTopSalesProduct, BarTotalSales, BarTop10Customers, BarSalesByRegion2, Button, LineChart, SparkLine, ModalBarChart } from '../components';
+import { StackedTopSalesProduct, BarTotalSales, BarTop10Customers, BarSalesByRegion2, Button, SparkLine, ModalBarChart } from '../components';
 import { weeklyStats, SparklineAreaData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 import { supabase } from "../client";
@@ -26,6 +26,7 @@ const Statistic = () => {
   const [chart3Visible, setChart3Visible] = useState(false);
   const [chart4Visible, setChart4Visible] = useState(false);
 
+  const userName = sessionStorage.getItem('currentUserName');
   const userDepartment = sessionStorage.getItem('currentUserDepartment');
   // console.log('User:', userName);
   // console.log('Department:', userDepartment);
@@ -50,6 +51,42 @@ const Statistic = () => {
     );
   };
 
+  useEffect(() => {
+    const fetchChartDetails = async () => {
+      try {
+        // Retrieve chart details from the database where chart_status is true
+        const { data, error } = await supabase
+          .from('chart_generated')
+          .select('chart_id, chart_status')
+          .eq('chart_status', true)
+          .eq('user_name', userName);
+
+        if (error) {
+          console.error('Error retrieving chart details:', error);
+          return;
+        }
+
+        // Set the chart visibility based on the retrieved data
+        data.forEach((chart) => {
+          if (chart.chart_id === 'totalSales') {
+            setChart1Visible(true);
+          } else if (chart.chart_id === 'topCustomer') {
+            setChart2Visible(true);
+          } else if (chart.chart_id === 'topSalesProducts') {
+            setChart3Visible(true);
+          } else if (chart.chart_id === 'topSalesByRegionByMonth') {
+            setChart4Visible(true);
+          }
+        });
+      } catch (error) {
+        console.error('Error retrieving chart details:', error);
+      }
+    };
+
+    // Fetch chart details when the component mounts
+    fetchChartDetails();
+  }, []);
+
   // generate specific chart
   const handleGenerateChart = (chartTitle) => {
     if (chartTitle === 'totalSales') {
@@ -68,16 +105,73 @@ const Statistic = () => {
     setModalOpen(true);
   };
 
+  // Retrieve chart details from the database and update chart status
+  useEffect(() => {
+    const fetchChartDetails = async () => {
+      try {
+        // Fetch chart details based on the user name
+        const { data, error } = await supabase
+          .from('chart_generated')
+          .select()
+          .eq('user_name', userName);
+
+        if (error) {
+          console.error('Error retrieving chart details:', error);
+          return;
+        }
+
+        // Iterate over the fetched data and update chart status
+        data.forEach((chart) => {
+          const { chart_id, chart_status } = chart;
+
+          // Set the chart status to false to make it not visible
+          if (chart_id === 'chart1') {
+            setChart1Visible(chart_status);
+          } else if (chart_id === 'chart2') {
+            setChart2Visible(chart_status);
+          } else if (chart_id === 'chart3') {
+            setChart3Visible(chart_status);
+          } else if (chart_id === 'chart4') {
+            setChart4Visible(chart_status);
+          }
+        });
+      } catch (error) {
+        console.error('Error retrieving chart details:', error);
+      }
+    };
+
+    fetchChartDetails();
+  }, [userName]);
+
   // toggle chart visibility
-  const toggleChartVisibility = (chartId) => {
-    if (chartId === 'chart1') {
+  const toggleChartVisibility = async (chartId) => {
+    let updatedChartStatus = false;
+
+    if (chartId === 'totalSales') {
       setChart1Visible(!chart1Visible);
-    } else if (chartId === 'chart2') {
+      updatedChartStatus = !chart1Visible;
+    } else if (chartId === 'topCustomer') {
       setChart2Visible(!chart2Visible);
-    } else if (chartId === 'chart3') {
+      updatedChartStatus = !chart2Visible;
+    } else if (chartId === 'topSalesProducts') {
       setChart3Visible(!chart3Visible);
-    } else if (chartId === 'chart4') {
+      updatedChartStatus = !chart3Visible;
+    } else if (chartId === 'topSalesByRegionByMonth') {
       setChart4Visible(!chart4Visible);
+      updatedChartStatus = !chart4Visible;
+    }
+
+    try {
+      // Update the chart status in the database
+      await supabase
+        .from('chart_generated')
+        .update({ chart_status: updatedChartStatus })
+        .eq('chart_id', chartId)
+        .eq('user_name', userName);
+
+      console.log('Chart status updated successfully');
+    } catch (error) {
+      console.error('Error updating chart status:', error);
     }
   };
 
@@ -679,7 +773,7 @@ const Statistic = () => {
               <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
                 <div className="flex justify-between">
                   <p className="font-semibold text-xl" id="totalSalesTitle">Title</p>
-                  <span className="closeChart" onClick={() => toggleChartVisibility('chart1')}>
+                  <span className="closeChart" onClick={() => toggleChartVisibility('totalSales')}>
                     <MdOutlineCancel />
                   </span>
                 </div>
@@ -713,7 +807,7 @@ const Statistic = () => {
               <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
                 <div className="flex justify-between">
                   <p className="font-semibold text-xl" id="top10CustomersTitle">Title</p>
-                  <span className="closeChart" onClick={() => toggleChartVisibility('chart2')}>
+                  <span className="closeChart" onClick={() => toggleChartVisibility('topCustomer')}>
                     <MdOutlineCancel />
                   </span>
                 </div>
@@ -752,7 +846,7 @@ const Statistic = () => {
               <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
                 <div className="flex justify-between">
                   <p className="font-semibold text-xl" id="topSalesProductTitle">Title</p>
-                  <span className="closeChart" onClick={() => toggleChartVisibility('chart3')}>
+                  <span className="closeChart" onClick={() => toggleChartVisibility('topSalesProducts')}>
                     <MdOutlineCancel />
                   </span>
                 </div>
@@ -795,7 +889,7 @@ const Statistic = () => {
               <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
                 <div className="flex justify-between">
                   <p className="font-semibold text-xl" id="SalesByRegion2Title">Title</p>
-                  <span className="closeChart" onClick={() => toggleChartVisibility('chart4')}>
+                  <span className="closeChart" onClick={() => toggleChartVisibility('topSalesByRegionByMonth')}>
                     <MdOutlineCancel />
                   </span>
                 </div>

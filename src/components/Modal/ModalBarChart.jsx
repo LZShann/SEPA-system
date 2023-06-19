@@ -17,12 +17,53 @@ function ModalBarChart({ setOpenModal, onGenerateChart }) {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setOpenModal(false);
         // get selected form title and send to Statistic.jsx
         onGenerateChart(formData.selectTitle);
+
+        try {
+            // Check if the record already exists
+            const { data: existingData, error } = await supabase
+                .from('chart_generated')
+                .select()
+                .eq('chart_id', formData.selectTitle)
+                .eq('user_name', userName);
+
+            if (error) {
+                console.error('Error checking existing chart details:', error);
+                return;
+            }
+
+            if (existingData.length > 0) {
+                console.log('Chart details already exist');
+                return;
+            }
+
+            // Store chart ID, chart status, user name in the database
+            const { data, insertError } = await supabase
+                .from('chart_generated')
+                .insert([
+                    {
+                        chart_id: formData.selectTitle,
+                        chart_status: true,
+                        user_name: userName,
+                    },
+                ]);
+
+            if (insertError) {
+                console.error('Error storing chart details:', insertError);
+                return;
+            }
+
+            console.log('Chart details stored successfully');
+        } catch (error) {
+            console.error('Error storing chart details:', error);
+        }
     };
+
+
 
     return (
         <div className="modalBackground">
