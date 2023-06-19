@@ -9,10 +9,9 @@
 |                  | 3. Run 'npm install supabase --save-dev' (Database) |
 |                  | 4. Run 'npm install mdb-react-ui-kit' (Modal) |
 |                  | 5. Run 'npm install react-date-picker' (DatePicker) |
-|                  | 6. Run 'npm install react-papaparse --save' (ImportCSV) |
-|                  | 7. Run 'npm install @react-pdf/renderer' (PDF) |
-|                  | 8. Run 'npm install react-beautiful-dnd' (Kanban Board Effect) |
-|                  | 9. Run 'npm install xlsx' (Access Excel For Import) |
+|                  | 6. Run 'npm install @react-pdf/renderer' (PDF) |
+|                  | 7. Run 'npm install react-beautiful-dnd' (Kanban Board Effect) |
+|                  | 8. Run 'npm install xlsx' (Access Excel For Import) |
 | Extension Used | 1. EJ7+ React |
 | Library Used | 1. Syncfusion |
 |  | 2. React |
