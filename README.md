@@ -16,7 +16,6 @@
 |                  | 10. Run 'npm install react-papaparse --save' (Preview For Import) |
 |                  | 11. Run 'npm i react-crud-table' (CRUD Table) |
 | Extension Used | 1. EJ7+ React |
-
 | Library Used | 1. Syncfusion |
 |  | 2. React |
 |  | 3. Datepicker |
