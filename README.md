@@ -10,9 +10,9 @@
 |                  | 4. Run 'npm install mdb-react-ui-kit' (Modal) |
 |                  | 5. Run 'npm install react-date-picker' (DatePicker) |
 |                  | 6. Run 'npm install @react-pdf/renderer' (PDF) |
-|                  | 8. Run 'npm install @react-pdf/renderer html-to-image' (PDF - Download Chart) |
-|                  | 7. Run 'npm install react-beautiful-dnd' (Kanban Board Effect) |
-|                  | 8. Run 'npm install xlsx' (Access Excel For Import) |
+|                  | 7. Run 'npm install @react-pdf/renderer html-to-image' (PDF - Download Chart) |
+|                  | 8. Run 'npm install react-beautiful-dnd' (Kanban Board Effect) |
+|                  | 9. Run 'npm install xlsx' (Access Excel For Import) |
 | Extension Used | 1. EJ7+ React |
 | Library Used | 1. Syncfusion |
 |  | 2. React |
