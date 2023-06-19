@@ -13,8 +13,10 @@
 |                  | 7. Run 'npm install @react-pdf/renderer html-to-image' (PDF - Download Chart) |
 |                  | 8. Run 'npm install react-beautiful-dnd' (Kanban Board Effect) |
 |                  | 9. Run 'npm install xlsx' (Access Excel For Import) |
-|                  | 10. Run 'npm i react-crud-table' (CRUD Table) |
+|                  | 10. Run 'npm install react-papaparse --save' (Preview For Import) |
+|                  | 11. Run 'npm i react-crud-table' (CRUD Table) |
 | Extension Used | 1. EJ7+ React |
+
 | Library Used | 1. Syncfusion |
 |  | 2. React |
 |  | 3. Datepicker |
