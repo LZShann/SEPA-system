@@ -10,9 +10,9 @@ const Employees = () => {
   const [formData, setFormData] = useState ({name:'', phone:'', email:'', password:'', role:'', department:'', supervisor:''})
   const [showAddUserModal, setShowAddUserModal] = useState(false);
   const [showEditUserModal, setShowEditUserModal] = useState(false);
-  const {activeMenu} = useStateContext();
+  const [employees, setEmployees] = useState([]);
 
-  const [employees, setEmployees] = useState([])
+  const {activeMenu} = useStateContext();
 
   //Handle input stream
   function handleChange(event){
@@ -30,15 +30,20 @@ const Employees = () => {
       .eq('role', 'Staff')
       .neq('email', currentUserEmail);
 
-      if (data != null) {
+      if (data) {
         console.log(data);
         setEmployees(data);
       }
   };
 
+  ///////////////////////////////////////////////////
   //Add Users
   function openAddUserModal() {
     setShowAddUserModal(true);
+  };
+
+  function closeAddUserModal() {
+    setShowAddUserModal(false);
   };
   
   async function addEmployees() {
@@ -63,24 +68,32 @@ const Employees = () => {
 
       alert('Sign Up Success. Please inform them to verify their email.');
       console.log('Data inserted successfully');
+      setFormData({name:'', phone:'', email:'', password:'', role:'', department:'', supervisor:''})
+      fetchEmployees();
       
     } catch (error) {
       alert(error.message);
     }
-    fetchEmployees();
   };
 
-  
+  const handleAddSubmit = (e) => {
+    e.preventDefault();
+    addEmployees();
+  };
+
 
   //Edit Users
-  function openEditUserModal() {
+  const openEditUserModal = () => {
     setShowEditUserModal(true);
   };
 
+  //////////////////////////////////////////////////
+  //Edit Users
   async function editEmployees() {
-
+    
   };
 
+  ////////////////////////////////////////////////////
   //Delete Users
   async function deleteEmployees(selectedUserID) {
       const {data, error} = await supabase
@@ -93,7 +106,7 @@ const Employees = () => {
   //UseEffect
   useEffect(() => {
     fetchEmployees();
-    editEmployees();
+    // editEmployees();
     deleteEmployees();
   }, []);
 
@@ -123,7 +136,7 @@ const Employees = () => {
         <Header category="Admin" title="Employees" />
           <div className="bg-white p-5 pt-7 border-gray-300 border-2 rounded-2xl">
             <div>
-              <button className="AddUserButton" onClick={() => openAddUserModal()}>
+              <button className="AddUserButton" onClick={openAddUserModal}>
                 Add User
               </button>
             </div>
@@ -163,6 +176,7 @@ const Employees = () => {
 
           {/* Add User */}
           {showAddUserModal && (
+              <form>
                 <div className="fixed inset-0 flex items-center justify-center z-50">
                   <div className="bg-white rounded-lg shadow-lg p-6 w-96">
                     <h2 className="text-xl font-semibold mb-4">Add New User</h2>
@@ -273,21 +287,20 @@ const Employees = () => {
 
                     <div className="flex justify-end">
                       <button
-                        onClick={addEmployees()}
                         className="px-4 py-2 text-white bg-indigo-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
                       >
                         Add
                       </button>
                       <button
-                        onClick={() => setShowAddUserModal(false)}
+                        onClick={closeAddUserModal}
                         className="px-4 py-2 ml-2 text-gray-600 bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400"
                       >
                         Cancel
                       </button>
-
                     </div>
                   </div>
                 </div>
+                </form>
 
               )}
 
