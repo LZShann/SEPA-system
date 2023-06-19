@@ -14,6 +14,7 @@ export { default as BarTotalSales } from './Charts/BarTotalSales';
 export { default as StackedTopSalesProduct } from './Charts/StackedTopSalesProduct';
 export { default as BarTop10Customers } from './Charts/BarTop10Customers';
 export { default as BarSalesByRegion2 } from './Charts/BarSalesByRegion2';
+export { default as LineTop10Customers } from './Charts/LineTop10Customers';
 
 
 export { default as Pie } from '../archieve/components/Chart/Pie';

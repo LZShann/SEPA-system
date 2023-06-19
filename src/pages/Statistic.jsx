@@ -9,7 +9,7 @@ import { MdOutlineBarChart, MdAddChart, MdOutlineCancel } from 'react-icons/md';
 import { AiOutlineLineChart } from 'react-icons/ai';
 
 //components
-import { StackedTopSalesProduct, BarTotalSales, BarTop10Customers, BarSalesByRegion2, Button, SparkLine, ModalBarChart } from '../components';
+import { StackedTopSalesProduct, BarTotalSales, BarTop10Customers, LineTop10Customers, BarSalesByRegion2, Button, SparkLine, ModalBarChart } from '../components';
 import { weeklyStats, SparklineAreaData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 import { supabase } from "../client";
@@ -942,41 +942,42 @@ const Statistic = () => {
             </div>
           )}
 
-
-          <div className="flex flex-wrap justify-center">
-            <div className="md:w-400 bg-white p-6 m-3 border-gray-300 border-2 rounded-2xl">
+          <div className="flex gap-10 flex-wrap justify-center">
+            <div className="bg-white m-3 p-4 rounded-2xl md:w-780  ">
               <div className="flex justify-between">
-                <p className="text-xl font-semibold">Revenue By Month 2021</p>
-                <button type="button" className="text-xl font-semibold text-gray-500">
-                  <IoIosMore />
-                </button>
+                <p className="font-semibold text-xl" id="top10CustomersTitle">Title</p>
+                <span className="closeChart" onClick={() => toggleChartVisibility('topCustomer')}>
+                  <MdOutlineCancel />
+                </span>
               </div>
-              <div className="mt-10 ">
-                {weeklyStats.map((item) => (
-                  <div key={item.title} className="flex justify-between mt-4 w-full">
-                    <div className="flex gap-4">
-                      <button
-                        type="button"
-                        style={{ background: item.iconBg }}
-                        className="text-2xl hover:drop-shadow-xl text-white rounded-full p-3"
-                      >
-                        {item.icon}
-                      </button>
-                      <div>
-                        <p className="text-md font-semibold">{item.title}</p>
-                        <p className="text-sm text-gray-400">{item.desc}</p>
-                      </div>
-                    </div>
-
-                    <p className={`text-${item.pcColor}`}>{item.amount}</p>
+              <div className="mt-10 flex gap-10 flex-wrap justify-center">
+                <div className=" border-r-1 border-color m-4 pr-10">
+                  <div>
+                    <p>
+                      <span className="text-3xl font-semibold" id="topCustomerSales">RM 0</span>
+                    </p>
+                    <p className="text-gray-500 mt-1">Highest</p>
                   </div>
-                ))}
-                <div className="mt-4">
-                  <SparkLine currentColor={currentColor} id="area-sparkLine" height="160px" type="Area" data={SparklineAreaData} width="320" color="rgb(242, 252, 253)" />
+                  <div className="mt-8">
+                    <p className="text-3xl font-semibold" id="lowestCustomerSales">RM 0</p>
+
+                    <p className="text-gray-500 mt-1">Lowest</p>
+                  </div>
+                  <div className="mt-10">
+                    <Button
+                      color="white"
+                      bgColor={currentColor}
+                      text="Download Report"
+                      borderRadius="10px"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <LineTop10Customers width="320px" height="360px" />
                 </div>
               </div>
             </div>
-          </div>
+          </div>          
         </div>
         <Footer />
       </div>
