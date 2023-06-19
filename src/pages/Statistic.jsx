@@ -88,7 +88,7 @@ const Statistic = () => {
   }, []);
 
   // generate specific chart
-  const handleGenerateChart = (chartTitle) => {
+  const handleGenerateChart  = async (chartTitle) => {
     if (chartTitle === 'totalSales') {
       setChart1Visible(true);
     } else if (chartTitle === 'topCustomer') {
@@ -97,6 +97,27 @@ const Statistic = () => {
       setChart3Visible(true);
     } else if (chartTitle === 'topSalesByRegionByMonth') {
       setChart4Visible(true);
+    }
+
+    try {
+      const { data: existingData } = await supabase
+        .from('chart_generated')
+        .select()
+        .eq('chart_id', chartTitle)
+        .eq('user_name', userName);
+    
+      if (existingData.length > 0) {
+        //console.log('Chart details already exist');
+        await supabase
+          .from('chart_generated')
+          .update({ chart_status: true })
+          .eq('chart_id', chartTitle)
+          .eq('user_name', userName);
+        console.log('Chart status set to TRUE');
+        return;
+      }
+    } catch (error) {
+      console.error('Error storing/updating chart details:', error);
     }
   };
 
@@ -169,7 +190,7 @@ const Statistic = () => {
         .eq('chart_id', chartId)
         .eq('user_name', userName);
 
-      console.log('Chart status updated successfully');
+      console.log('Chart status set to FALSE');
     } catch (error) {
       console.error('Error updating chart status:', error);
     }
