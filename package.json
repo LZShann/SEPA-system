@@ -27,7 +27,8 @@
     "react-modal": "^3.16.1",
     "react-papaparse": "^4.1.0",
     "react-router-dom": "^6.11.0",
-    "recharts": "^2.5.0"
+    "recharts": "^2.5.0",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",
