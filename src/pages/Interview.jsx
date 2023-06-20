@@ -161,9 +161,9 @@ const Interview = () => {
         <div className="m-10 md:m-10 mt-20 md:mt-10 p-5 md:p-5 bg-gray-100 rounded-3xl">
           <Header category='Pages' title='Interview' />
             <div className='bg-white p-5 pt-7 border-gray-300 border-2 rounded-2xl'>
+            <p className="text-xl font-semibold">Summited Form Review</p>
+            <hr></hr>
               <div className="table-container">
-                <p className="text-xl font-semibold">Summited Form Review</p>
-                <hr></hr>
                 <table className="GeneratedTable">
                   <thead>
                     <tr>
@@ -171,7 +171,7 @@ const Interview = () => {
                       <th>Tracking Number</th>
                       <th colSpan="2">Submission Folder</th>
                       <th>Submission Date</th>
-                      <th>Remark</th>
+                      <th>Click to Add Remarks*</th>
                       <th>Status</th>
                     
                     </tr>
@@ -217,14 +217,12 @@ const Interview = () => {
                           />
                         </td>
                         <td>
-                          <button
-                            style={{ backgroundColor: 'green' }}
+                          <button className="ApproveButton"
                             onClick={() => updateAPPROVEStatus(form.id)}
                           >
                             APPROVE
                           </button>
-                          <button
-                            style={{ backgroundColor: 'red' }}
+                          <button className="DenyButton"
                             onClick={() => updateDENYStatus(form.id)}
                           >
                             DENY
@@ -271,14 +269,12 @@ const Interview = () => {
                           />
                         </td>
                         <td>
-                          <button
-                            style={{ backgroundColor: 'green' }}
+                          <button className="ApproveButton"
                             onClick={() => updateAPPROVEStatus(form.id, true)}
                           >
                             APPROVE
                           </button>
-                          <button
-                            style={{ backgroundColor: 'red' }}
+                          <button className="DenyButton"
                             onClick={() => updateDENYStatus(form.id,true)}
                           >
                             DENY
@@ -289,6 +285,7 @@ const Interview = () => {
                   </tbody>
                 </table>
               </div>
+              <hr></hr>
               <br></br>
               <div>
                 <History />
