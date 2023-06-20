@@ -28,27 +28,8 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
 
 const Navbar = () => {
   const { currentColor, activeMenu, setActiveMenu, handleClick, isClicked, setScreenSize, screenSize } = useStateContext();
-  //
-  const [ formData, setFormData ] = useState([]);
 
   const userName = sessionStorage.getItem('currentUserName');
-
-  // async function retrieveName() {
-  //   const { data, error } = await supabase.auth.refreshSession()
-  //   const { session, user } = data;
-
-  //   const { data: user_data, error: user_error } = await supabase
-  //     .from('users_data')
-  //     .select('*')
-  //     .eq('uuid', user.id);
-
-  //   if (user_error) {
-  //     console.error('Error retrieving data:', user_error);
-  //   } else {
-  //     console.log('Retrieved data:', user_data);
-  //     setFormData(user_data);
-  //   }
-  // };
 
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);
@@ -68,32 +49,6 @@ const Navbar = () => {
       setActiveMenu(true);
     }
   }, [screenSize]);
-
-  // useEffect(() => {
-  //   retrieveName();
-  // }, []);
-
-  // useEffect(() => {
-  //   supabase.auth.getSession().then((data, error) => {
-  //     // Check if session is found
-  //     if (data['data']['session'] == null) {
-  //       // User not logged in
-  //       window.location.replace('/');
-  //     }
-  //     else {
-  //       const userAuthData = data['data']['session'];
-        
-  //       // Fetch user role
-  //       supabase
-  //         .from('users_data')
-  //         .select('*')
-  //         .eq('uuid', userAuthData['user']['id'])
-  //         .then((data, error) => {
-  //           setUserName(data['data'][0]['name']);
-  //         });
-  //     }
-  //   });
-  // });
 
   const handleActiveMenu = () => setActiveMenu(!activeMenu);
 
