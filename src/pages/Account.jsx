@@ -137,6 +137,7 @@ const Employees = () => {
         <Navbar />
       </div>
     
+    <div className="div-container">
       <div className="m-10 md:m-10 mt-20 md:mt-10 p-5 md:p-5 bg-gray-100 rounded-3xl">
         <Header category="Admin" title="Employees" />
           <div className="bg-white p-5 pt-7 border-gray-300 border-2 rounded-2xl">
@@ -427,6 +428,7 @@ const Employees = () => {
       </div>
       <Footer />
       </div>
+    </div>
     </div>
   );
 };
