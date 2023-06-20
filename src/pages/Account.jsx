@@ -61,6 +61,16 @@ const Employees = () => {
           }
         }
       });
+      // const { data, error } = await supabase
+      //         .from('users_data')
+      //         .insert({
+      //           name: formData.name,
+      //           phone: formData.phone,
+      //           email: formData.email,
+      //           role: formData.role,
+      //           department: formData.department,
+      //           supervisor: formData.supervisor
+      //         });
 
       if (error){
         console.log('Error inserting data:', error.message);
@@ -68,7 +78,7 @@ const Employees = () => {
 
       alert('Sign Up Success. Please inform them to verify their email.');
       console.log('Data inserted successfully');
-      setFormData({name:'', phone:'', email:'', password:'', role:'', department:'', supervisor:''})
+      setFormData({name:'', phone:'', email:'', password:'', role:'', department:'', supervisor:''});
       fetchEmployees();
       
     } catch (error) {
@@ -176,7 +186,6 @@ const Employees = () => {
 
           {/* Add User */}
           {showAddUserModal && (
-              <form>
                 <div className="fixed inset-0 flex items-center justify-center z-50">
                   <div className="bg-white rounded-lg shadow-lg p-6 w-96">
                     <h2 className="text-xl font-semibold mb-4">Add New User</h2>
@@ -300,8 +309,6 @@ const Employees = () => {
                     </div>
                   </div>
                 </div>
-                </form>
-
               )}
 
           {/* Edit User */}
