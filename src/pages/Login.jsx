@@ -25,7 +25,6 @@ const Login = () => {
     //     window.location.replace('/Statistic');
     //   }
     // })
-    
 
     async function handleSubmit(e){
       e.preventDefault()
@@ -34,13 +33,14 @@ const Login = () => {
           const { data, error } = await supabase.auth.signInWithPassword({
               email: formData.email,
               password: formData.password,
-          })
+          });
 
           if (error) throw error
 
           const { session, user } = data;
 
           console.log(user);
+          console.log(session);
 
           //Check if user already exists in users_data table
           const { data: userData, error: userDataError } = await supabase
@@ -69,7 +69,9 @@ const Login = () => {
               sessionStorage.setItem('currentUserRole', user.user_metadata.role);
               sessionStorage.setItem('currentUserDepartment', user.user_metadata.department);
               sessionStorage.setItem('currentUserEmail', user.email);
+              sessionStorage.setItem('currentUserSession', session['access_token']);
               console.log(sessionStorage);
+
           }
           else {
             // User exist in users_data table
@@ -78,6 +80,7 @@ const Login = () => {
             sessionStorage.setItem('currentUserDepartment', userData.department);
             sessionStorage.setItem('currentUserEmail', userData.email);
             sessionStorage.setItem('currentUserID', userData.id);
+            sessionStorage.setItem('currentUserSession', session['access_token']);
             console.log(sessionStorage);
           }
 
