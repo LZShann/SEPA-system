@@ -1,6 +1,13 @@
+.div-container {
+  overflow-x: auto;   /* Enable horizontal scrolling */
+  width: 100%;     /*   Set the width of the container */
+}
+
 .table-container {
   overflow-x: auto;   /* Enable horizontal scrolling */
   width: 100%;        /* Set the width of the container */
+  overflow-y: auto;
+  height: 450px;
 }
 
 table.GeneratedTable {
@@ -30,10 +37,9 @@ table.GeneratedTable {
     background-color: rgb(79, 70, 229);
     color: white;
     padding: 10px;
-    margin-left: 4px;
     margin-right: 4px;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 10px;
   }
 
   table.GeneratedTable button.EditButton:hover {
@@ -46,9 +52,8 @@ table.GeneratedTable {
     color: white;
     padding: 10px;
     margin-left: 4px;
-    margin-right: 4px;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 10px;
   }
 
   table.GeneratedTable button.DeleteButton:hover {
@@ -61,7 +66,7 @@ table.GeneratedTable {
     font-weight: bold;
     margin: 10px;
     padding: 10px;
-    border-radius: 5%;
+    border-radius: 10px;
     border: 3px solid #000000;
   }
 
@@ -69,9 +74,32 @@ table.GeneratedTable {
     background-color: #34d399;
     color: white;
     font-weight: bold;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 5%;
     border: 3px solid #c7c7c7;
+  }
+
+  .ApproveButton {
+    background-color: #34d399;
+    color: white;
+    padding: 3px;
+    margin-right: 4px;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  .ApproveButton:hover {
+    background-color: #26a275;
+  }
+
+  .DenyButton {
+    background-color: #cf0d0d;
+    color: white;
+    padding: 3px;
+    margin-right: 4px;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  .DenyButton:hover {
+    background-color: #a21010;
   }
   /* /////////////////////////////////////// */
