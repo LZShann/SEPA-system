@@ -2,12 +2,17 @@ import React, {useState, useEffect}  from 'react';
 import { Navbar, Footer, Sidebar, Header } from '../components';
 import { supabase } from '../client'
 import { useStateContext } from '../contexts/ContextProvider';
+import { useNavigate } from "react-router-dom";
 import './Account-Interview-History.css';
 
 const Employees = () => {
   const currentUserEmail = sessionStorage.getItem('currentUserEmail');
 
-  const [formData, setFormData] = useState ({name:'', phone:'', email:'', password:'', role:'', department:'', supervisor:''})
+  const currentUserSession = sessionStorage.getItem('currentUserSession');
+
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({name:'', phone:'', email:'', password:'', role:'', department:'', supervisor:''});
   const [showAddUserModal, setShowAddUserModal] = useState(false);
   const [showEditUserModal, setShowEditUserModal] = useState(false);
   const [employees, setEmployees] = useState([]);
@@ -16,18 +21,19 @@ const Employees = () => {
 
   //Handle input stream
   function handleChange(event){
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
-  };
+    setFormData((prevFormData)=>{
+      return{
+        ...prevFormData,
+        [event.target.name]:event.target.value
+      }
+    })
+  }
 
   //Fetch Users
   async function fetchEmployees() {
       const {data, error} = await supabase
       .from('users_data')
       .select('*')
-      .eq('role', 'Staff')
       .neq('email', currentUserEmail);
 
       if (data) {
@@ -43,62 +49,51 @@ const Employees = () => {
   };
 
   function closeAddUserModal() {
+    if (currentUserSession)
     setShowAddUserModal(false);
   };
   
-  async function addEmployees() {
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password,
-        options: {
-          data: {
-            name: formData.name,
-            phone: formData.phone,
-            role: formData.role,
-            department: formData.department,
-            supervisor: formData.supervisor
-          }
-        }
-      });
-      // const { data, error } = await supabase
-      //         .from('users_data')
-      //         .insert({
-      //           name: formData.name,
-      //           phone: formData.phone,
-      //           email: formData.email,
-      //           role: formData.role,
-      //           department: formData.department,
-      //           supervisor: formData.supervisor
-      //         });
+  async function handleAddEmployees(e) {
+    // e.preventDefault();
+    // try {
+    //   const { data, error } = await supabase.auth.signUp({
+    //     email: formData.email,
+    //     password: formData.password,
+    //     options: {
+    //       data: {
+    //         name: formData.name,
+    //         phone: formData.phone,
+    //         role: formData.role,
+    //         department: formData.department,
+    //         supervisor: formData.supervisor
+    //       }
+    //     }
+    //   });
 
-      if (error){
-        console.log('Error inserting data:', error.message);
-      }
+    //   if (error){
+    //     console.log('Error inserting data:', error.message);
+    //   }
 
-      alert('Sign Up Success. Please inform them to verify their email.');
-      console.log('Data inserted successfully');
-      setFormData({name:'', phone:'', email:'', password:'', role:'', department:'', supervisor:''});
-      fetchEmployees();
+    //   alert('Sign Up Success. Please verify your email.');
+    //   console.log('Data inserted successfully');
+
+    //   if (supabase.auth.getSession(data['session: access_token']) == currentUserSession)
+    //   navigate('/Account');
+    //   closeAddUserModal();
       
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  const handleAddSubmit = (e) => {
-    e.preventDefault();
-    addEmployees();
-  };
-
-
-  //Edit Users
-  const openEditUserModal = () => {
-    setShowEditUserModal(true);
+    // } catch (error) {
+    //   alert(error.message);
+    // }
   };
 
   //////////////////////////////////////////////////
   //Edit Users
+
+ //Edit Users
+  const openEditUserModal = () => {
+    setShowEditUserModal(true);
+  };
+
   async function editEmployees() {
     
   };
@@ -186,6 +181,7 @@ const Employees = () => {
 
           {/* Add User */}
           {showAddUserModal && (
+            <form onSubmit={handleAddEmployees}>
                 <div className="fixed inset-0 flex items-center justify-center z-50">
                   <div className="bg-white rounded-lg shadow-lg p-6 w-96">
                     <h2 className="text-xl font-semibold mb-4">Add New User</h2>
@@ -200,6 +196,7 @@ const Employees = () => {
                         className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         value={formData.name}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                     <div className="mb-4">
@@ -213,6 +210,7 @@ const Employees = () => {
                         className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         value={formData.phone}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                     <div className="mb-4">
@@ -226,6 +224,7 @@ const Employees = () => {
                         className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         value={formData.email}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                     <div className="mb-4">
@@ -239,6 +238,7 @@ const Employees = () => {
                         className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         value={formData.password}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                     <div className="mb-4">
@@ -251,6 +251,7 @@ const Employees = () => {
                         className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         value={formData.role}
                         onChange={handleChange}
+                        required
                       >
                         <option value="">Select New Role</option>
                         <option value="Staff">Staff</option>
@@ -267,6 +268,7 @@ const Employees = () => {
                         className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         value={formData.department}
                         onChange={handleChange}
+                        required
                       >
                         <option value="">Select New Department</option>
                         <option value="Sales">Sales</option>
@@ -286,6 +288,7 @@ const Employees = () => {
                         className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         value={formData.supervisor}
                         onChange={handleChange}
+                        required
                       >
                         <option value="">Select New Supervisor</option>
                         <option value="Dr Tang">Dr Tang</option>
@@ -309,7 +312,8 @@ const Employees = () => {
                     </div>
                   </div>
                 </div>
-              )}
+              </form>
+            )}
 
           {/* Edit User */}
           {showEditUserModal && (
@@ -327,6 +331,7 @@ const Employees = () => {
                         className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         value={formData.name}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                     <div className="mb-4">
@@ -340,6 +345,7 @@ const Employees = () => {
                         className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         value={formData.phone}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                     <div className="mb-4">
@@ -352,6 +358,7 @@ const Employees = () => {
                         className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         value={formData.role}
                         onChange={handleChange}
+                        required
                       >
                         <option value="">Select New Role</option>
                         <option value="Staff">Staff</option>
@@ -368,6 +375,7 @@ const Employees = () => {
                         className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         value={formData.department}
                         onChange={handleChange}
+                        required
                       >
                         <option value="">Select New Department</option>
                         <option value="Sales">Sales</option>
@@ -387,6 +395,7 @@ const Employees = () => {
                         className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         value={formData.supervisor}
                         onChange={handleChange}
+                        required
                       >
                         <option value="">Select New Supervisor</option>
                         <option value="Dr Tang">Dr Tang</option>
