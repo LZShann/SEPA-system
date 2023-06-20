@@ -42,31 +42,33 @@ const History = () => {
   }, []);
 
   return (
-    <div className="table-container">
+    <div>
       <p className="text-xl font-semibold">Approval History</p>
       <hr></hr>
-      <table className="GeneratedTable">
-        <thead>
-          <tr>
-            <th>Row Number</th>
-            <th>Tracking Number</th>
-            <th>Submission Date</th>
-            <th>Status</th>
-            <th>Remark</th>
-          </tr>
-        </thead>
-        <tbody>
-          {formData.map((form, index) => (
-            <tr key={form.id}>
-              <td>{index + 1}</td>
-              <td>{form.trackingNumber}</td>
-              <td>{new Date(form.submissionDate).toLocaleDateString()}</td>
-              <td>{form.status}</td>
-              <td>{form.remark}</td>
+      <div className="table-container">
+        <table className="GeneratedTable">
+          <thead>
+            <tr>
+              <th>Row Number</th>
+              <th>Tracking Number</th>
+              <th>Submission Date</th>
+              <th>Status</th>
+              <th>Remark</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {formData.map((form, index) => (
+              <tr key={form.id}>
+                <td>{index + 1}</td>
+                <td>{form.trackingNumber}</td>
+                <td>{new Date(form.submissionDate).toLocaleDateString()}</td>
+                <td>{form.status}</td>
+                <td>{form.remark}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
