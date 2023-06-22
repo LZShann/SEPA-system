@@ -89,7 +89,7 @@ const SignUp = () => {
                       <option value='Account' className="optStyle">Account&Finance</option>
                       <option value='Production' className="optStyle">Production</option>
                       <option value="Management" className="optStyle">Management</option>
-                      <option value="Marketing" className="optStyle">Management</option>
+                      <option value="Marketing" className="optStyle">Marketing</option>
                     </select>
 
                     <p className='p-blue'>Your Supervisor</p>
