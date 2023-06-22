@@ -86,8 +86,10 @@ const SignUp = () => {
                       <option value='Staff' className="optStyle">Sales</option>
                       <option value='HR' className="optStyle">HR</option>
                       <option value='Admin' className="optStyle">Admin</option>
-                      <option value='Account' className="optStyle">Account</option>
+                      <option value='Account' className="optStyle">Account&Finance</option>
                       <option value='Production' className="optStyle">Production</option>
+                      <option value="Management" className="optStyle">Management</option>
+                      <option value="Marketing" className="optStyle">Management</option>
                     </select>
 
                     <p className='p-blue'>Your Supervisor</p>
