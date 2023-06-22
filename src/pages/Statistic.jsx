@@ -236,6 +236,12 @@ const Statistic = () => {
   const previousYearStartStr = `${previousYearStart.getMonth() + 1}/${previousYearStart.getDate()}/${previousYearStart.getFullYear()}`;
   const previousYearEndStr = `${previousYearEnd.getMonth() + 1}/${previousYearEnd.getDate()}/${previousYearEnd.getFullYear()}`;
 
+//Production
+
+  const [reducedSetupTime, setReducedSetupTime] = useState(0);
+  const [increasedUtilizationRate, setIncreasedUtilizationRate] = useState(0);
+  const [reducedUnscheduledMaintenance, setReducedUnscheduledMaintenance] = useState(0);
+  
   // calculate percentage for KPI 1, 2, 3
   useEffect(() => {
     function calculateKPI() {
@@ -406,6 +412,139 @@ const Statistic = () => {
       setActualKPI1(10);
       setActualKPI2(20);
       setActualKPI3(20);
+    }
+    
+    
+
+
+
+    if (userDepartment === 'Production') {
+      // Function to fetch data from Supabase and calculate KPIs
+      const fetchProductionKPI = async () => {
+        try {
+          // Fetch data from the Supabase table
+          const { data, error } = await supabase
+            .from('Production')
+            .select('*')
+            .eq('Employee', userName);
+            console.log(userName)
+
+          if (error) {
+            throw new Error(error.message);
+          }
+      // Find the row that matches the current year
+      const currentYearRow = data.find(item => item.Year === currentYear);
+
+      if (currentYearRow) {
+        // Calculate KPIs for the current year's row
+        const rowWithKPIs = calculateKPIs(currentYearRow, data);
+  
+        // Print the row with KPIs
+        console.table(rowWithKPIs);
+  
+        // Assign the calculated KPI values to variables
+        const {
+          kpi1,
+          kpi2,
+          kpi3
+        } = rowWithKPIs;
+  
+        // Set the KPI values to state variables or use them as needed
+        setActualKPI1(kpi1);
+        setActualKPI2(kpi2);
+        setActualKPI3(kpi3);
+        setReducedSetupTime(kpi1); // Assuming reducedSetupTime is the same as kpi1
+        setIncreasedUtilizationRate(kpi2);
+        setReducedUnscheduledMaintenance(kpi3);
+      } else {
+        // Data for the current year not found, set KPI values to 0 or handle as desired
+        setActualKPI1(0);
+        setActualKPI2(0);
+        setActualKPI3(0);
+        setReducedSetupTime(0);
+        setIncreasedUtilizationRate(0);
+        setReducedUnscheduledMaintenance(0);
+      }
+    } catch (error) {
+      console.error('Error fetching and calculating KPIs:', error.message);
+    }
+  };
+
+  // Assuming you have a column for the year in your data, e.g., 'Year'
+const currentYear = new Date().getFullYear();
+const previousYear = currentYear - 1;
+
+// Calculate KPIs for each row of data
+const calculateKPIs = (item, data) => {
+  const {
+    'Output Units': outputUnits,
+    'Set-up Time (%)': setupTime,
+    'Utilisation Rate (%)': utilizationRate,
+    'Reduce downtime for unscheduled maintenance (%)': unscheduledMaintenance,
+    'Year': year
+  } = item;
+
+
+
+  // Check if the data is from the previous year
+  if (year === currentYear) {
+    // Calculate the reduction in setup time by 5% for the current year compared to the previous year
+    const currentYearSetupTimeSum = data
+      .filter((dataItem) => dataItem.Year === currentYear)
+      .reduce((sum, dataItem) => sum + dataItem['Set-up Time (%)'], 0);
+
+    const previousYearSetupTimeSum = data
+      .filter((dataItem) => dataItem.Year === previousYear)
+      .reduce((sum, dataItem) => sum + dataItem['Set-up Time (%)'], 0);
+
+    const kpi1 = currentYearSetupTimeSum - (previousYearSetupTimeSum * 0.05);
+
+    // Calculate the increase in utilization rate by 10% for the current year compared to the previous year
+    const currentYearUtilizationRateSum = data
+      .filter((dataItem) => dataItem.Year === currentYear)
+      .reduce((sum, dataItem) => sum + dataItem['Utilisation Rate (%)'], 0);
+
+    const previousYearUtilizationRateSum = data
+      .filter((dataItem) => dataItem.Year === previousYear)
+      .reduce((sum, dataItem) => sum + dataItem['Utilisation Rate (%)'], 0);
+
+    const kpi2 = currentYearUtilizationRateSum + (previousYearUtilizationRateSum * 0.1);
+
+    // Calculate the reduction in unscheduled maintenance by 25% for the current year compared to the previous year
+    const currentYearUnscheduledMaintenanceSum = data
+      .filter((dataItem) => dataItem.Year === currentYear)
+      .reduce((sum, dataItem) => sum + dataItem['Reduce downtime for unscheduled maintenance (%)'], 0);
+
+    const previousYearUnscheduledMaintenanceSum = data
+      .filter((dataItem) => dataItem.Year === previousYear)
+      .reduce((sum, dataItem) => sum + dataItem['Reduce downtime for unscheduled maintenance (%)'], 0);
+
+    const kpi3 = currentYearUnscheduledMaintenanceSum - (previousYearUnscheduledMaintenanceSum * 0.25);
+
+    return {
+      ...item,
+      kpi1,
+      kpi2,
+      kpi3
+    };
+  } else {
+    // Data is not from the previous year, set KPI values to 0 or handle as desired
+    const kpi1 = 0;
+    const kpi2 = 0;
+    const kpi3 = 0;
+
+    return {
+      ...item,
+      kpi1,
+      kpi2,
+      kpi3
+    };
+  }
+};
+
+    console.log(currentYear)
+    console.log(previousYear)
+      fetchProductionKPI();
     }
     if (userDepartment === 'Management') {
 
@@ -687,7 +826,41 @@ const Statistic = () => {
                       </ul>
                     </>
                   )}
+     {userDepartment === 'Production' && (
+  <>
+    <>
+      <div className="text-lg font-semibold">Objective: Increase production output by 5%</div>
+      
+      <ul>
+        <li>
+          <span className="tooltip target-text" data-tooltip="Reduce machine set-up time by 5%">
+            Target 1:
+            <span className="percentage-span" data-actual-score={actualKPI1} data-targeted-score={targetedKPI1}>
+              {actualKPI1}% | {reducedSetupTime}%/5%
+            </span>
+          </span>
+        </li>
 
+        <li>
+          <span className="tooltip target-text" data-tooltip="Increase utilization rates for essential equipment by 10%">
+            Target 2:
+            <span className="percentage-span" data-actual-score={actualKPI2} data-targeted-score={targetedKPI2}>
+              {actualKPI2}% | {increasedUtilizationRate}%/10%
+            </span>
+          </span>
+        </li>
+        <li>
+          <span className="tooltip target-text" data-tooltip="Reduce downtime for unscheduled maintenance by 25%">
+            Target 3:
+            <span className="percentage-span" data-actual-score={actualKPI3} data-targeted-score={targetedKPI3}>
+              {actualKPI3}% | {reducedUnscheduledMaintenance}%/25%
+            </span>
+          </span>
+        </li>
+      </ul>
+    </>
+  </>
+)}
                   {userDepartment === 'Administrative' && (
                     <>
                       <div className="text-lg font-semibold">Objective: Improve the efficiency of the internal document management system</div>
