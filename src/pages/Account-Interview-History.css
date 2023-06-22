@@ -61,6 +61,33 @@ table.GeneratedTable {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   }
 
+  .DeleteButton {
+    background-color: #fc0c0c;
+    color: white;
+    padding: 10px;
+    margin-right: 5px;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  .DeleteButton:hover {
+    background-color: #cf0d0d;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .CancelButton {
+    background-color: #e4e4e4;
+    padding: 10px;
+    margin-right: 5px;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  .CancelButton:hover {
+    background-color: #dadada;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
   .AddUserButton {
     background-color: #34d399;
     font-weight: bold;
